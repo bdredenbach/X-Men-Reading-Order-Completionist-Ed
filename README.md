@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="assets/readme-banner.png" alt="The Ultimate X-Men Reading Order — Completionist Edition">
+</p>
+
+<br>
 # The Ultimate X-Men Reading Order
 
 **Completionist Edition · Earth-616 · 1963–present**
