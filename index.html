@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="theme-color" content="#0c0e11">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-
 <title>Mutant Files — X-Men Reading Order</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
@@ -2071,9 +2069,9 @@ installBtn.addEventListener('click', async () => {
   if(isIOS()){
     setInstallStatus('On iPhone/iPad: use Share → Add to Home Screen in Safari.');
   }else if(isAndroid()){
-    setInstallStatus('Your browser has not offered the install prompt yet. Open Diagnostics for the reason.');
+    setInstallStatus('Your browser has not exposed the install prompt. Use the browser menu → Install app / Add to Home screen, or open Diagnostics.');
   }else{
-    setInstallStatus('Your browser has not offered an install prompt. Open Diagnostics for details.');
+    setInstallStatus('Your browser has not exposed the install prompt. Use the browser menu to install/add to home screen, or open Diagnostics.');
   }
   refreshDiagnostics();
 });
@@ -2102,11 +2100,70 @@ async function getCacheInfo(){
   }catch(e){ return {supported:true, error:e.message}; }
 }
 
+async function fetchManifestInfo(){
+  const link = document.querySelector('link[rel="manifest"]');
+  const href = link ? link.getAttribute('href') : '';
+  const absoluteUrl = link ? link.href : '';
+  const info = {
+    linked: !!link,
+    href: href || '—',
+    absoluteUrl: absoluteUrl || '—',
+    fetched: false,
+    http: '—',
+    valid: false,
+    name: '—',
+    startUrl: '—',
+    display: '—',
+    icons: 0,
+    error: ''
+  };
+
+  if(!absoluteUrl) return info;
+
+  try{
+    const response = await fetch(absoluteUrl + (absoluteUrl.includes('?') ? '&' : '?') + 'xmen-manifest-check=' + Date.now(), {
+      cache: 'no-store',
+      credentials: 'same-origin'
+    });
+    info.http = String(response.status);
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
+    info.fetched = true;
+
+    const text = await response.text();
+    let data;
+    try{
+      data = JSON.parse(text);
+    }catch(e){
+      throw new Error('Response is not valid JSON');
+    }
+
+    info.valid = !!data && typeof data === 'object';
+    info.name = data && data.name ? String(data.name) : '—';
+    info.startUrl = data && data.start_url ? String(data.start_url) : '—';
+    info.display = data && data.display ? String(data.display) : '—';
+    info.icons = Array.isArray(data && data.icons) ? data.icons.length : 0;
+  }catch(e){
+    info.error = e && e.message ? e.message : String(e);
+  }
+
+  return info;
+}
+
+function esc(value){
+  return String(value)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#39;");
+}
+
 async function refreshDiagnostics(){
   const sw = await getServiceWorkerInfo();
   const cache = await getCacheInfo();
   const standalone = isStandalone();
-  const manifest = !!document.querySelector('link[rel="manifest"]');
+  const manifestInfo = await fetchManifestInfo();
+
   const localStorageOK = (()=>{
     try{
       const key='__xmen_diag__';
@@ -2118,11 +2175,27 @@ async function refreshDiagnostics(){
 
   const installPrompt = !!deferredInstallPrompt;
   const secure = window.isSecureContext;
+  const promptState = installPrompt ? 'AVAILABLE' : (isIOS() ? 'NOT USED ON iOS' : 'NOT EXPOSED');
+  const promptClass = installPrompt ? 'ok' : 'warn';
+
+  const manifestState =
+    manifestInfo.linked && manifestInfo.fetched && manifestInfo.valid ? 'VALID' :
+    manifestInfo.linked && manifestInfo.fetched ? 'INVALID' :
+    manifestInfo.linked ? 'LINKED / FETCH FAILED' :
+    'NOT LINKED';
+
+  const manifestClass = manifestState === 'VALID' ? 'ok' : 'bad';
+
   const rows = [
     ['Installed / standalone', standalone ? 'YES' : 'NO', standalone ? 'ok' : 'warn'],
-    ['Install prompt available', installPrompt ? 'YES' : 'NO', installPrompt ? 'ok' : 'warn'],
+    ['Install prompt', promptState, promptClass],
     ['HTTPS / secure context', secure ? 'YES' : 'NO', secure ? 'ok' : 'bad'],
-    ['Manifest linked', manifest ? 'YES' : 'NO', manifest ? 'ok' : 'bad'],
+    ['Manifest element', manifestInfo.linked ? 'YES' : 'NO', manifestInfo.linked ? 'ok' : 'bad'],
+    ['Manifest URL', manifestInfo.href, manifestInfo.linked ? 'ok' : 'bad'],
+    ['Manifest fetch', manifestInfo.fetched ? 'YES' : 'NO', manifestInfo.fetched ? 'ok' : 'bad'],
+    ['Manifest HTTP', manifestInfo.http, manifestInfo.fetched ? 'ok' : 'bad'],
+    ['Manifest JSON', manifestState, manifestClass],
+    ['Manifest icons', manifestInfo.icons ? String(manifestInfo.icons) : '0', manifestInfo.icons ? 'ok' : 'warn'],
     ['Service worker support', sw.supported ? 'YES' : 'NO', sw.supported ? 'ok' : 'bad'],
     ['Service worker registered', sw.registered ? 'YES' : 'NO', sw.registered ? 'ok' : 'warn'],
     ['Service worker active', sw.active ? 'YES' : 'NO', sw.active ? 'ok' : 'warn'],
@@ -2132,23 +2205,34 @@ async function refreshDiagnostics(){
     ['Local progress storage', localStorageOK ? 'AVAILABLE' : 'BLOCKED', localStorageOK ? 'ok' : 'bad'],
     ['Browser', navigator.userAgent.includes('Chrome') ? 'Chrome-family' : (isIOS() ? 'iOS' : 'Other'), 'ok']
   ];
+
   diagGrid.innerHTML = rows.map(([label,value,state]) =>
-    `<div class="diag-row"><span>${label}</span><strong class="diag-${state}">${value}</strong></div>`
+    `<div class="diag-row"><span>${esc(label)}</span><strong class="diag-${state}">${esc(value)}</strong></div>`
   ).join('');
+
+  const detail = [];
+  if(manifestInfo.name !== '—') detail.push(`Name: ${manifestInfo.name}`);
+  if(manifestInfo.display !== '—') detail.push(`Display: ${manifestInfo.display}`);
+  if(manifestInfo.startUrl !== '—') detail.push(`Start URL: ${manifestInfo.startUrl}`);
+  if(manifestInfo.error) detail.push(`Manifest error: ${manifestInfo.error}`);
+  if(detail.length) detail.push(`Manifest URL resolved to: ${manifestInfo.absoluteUrl}`);
 
   if(standalone){
     diagNote.textContent = 'The app is installed/running standalone. Clear App Cache removes cached app resources and unregisters the service worker; it does not delete your reading progress.';
   }else if(isIOS()){
-    diagNote.textContent = 'iOS Safari does not expose the standard beforeinstallprompt event. Install with Share → Add to Home Screen. The diagnostic still checks the PWA files and service worker.';
+    diagNote.textContent = 'iOS Safari does not expose the standard beforeinstallprompt event. Install with Share → Add to Home Screen. The diagnostic still checks the manifest and service worker.';
   }else if(!secure){
     diagNote.textContent = 'Installation normally requires HTTPS. GitHub Pages provides HTTPS automatically.';
+  }else if(manifestState !== 'VALID'){
+    diagNote.textContent = detail.join(' · ') || 'The manifest could not be validated. Check the manifest link and deployed file.';
+  }else if(!sw.active || !sw.controller){
+    diagNote.textContent = 'The manifest is valid, but the service worker is not fully active/controlling this page yet. Reload once and run Diagnostics again.';
   }else if(!installPrompt){
-    diagNote.textContent = 'The browser has not exposed an install prompt yet. If you recently updated the app, use Clear App Cache, reload, and run Diagnostics again.';
+    diagNote.textContent = 'The PWA manifest, icons, HTTPS, and service worker checks passed. This browser has not exposed the optional install prompt event; use the browser menu to install/add to the home screen.';
   }else{
-    diagNote.textContent = 'Everything needed for the standard install prompt is currently available.';
+    diagNote.textContent = 'PWA manifest, icons, HTTPS, and service worker checks passed. The browser has exposed the standard install prompt.';
   }
 }
-
 diagBtn.addEventListener('click', async () => {
   diagnostics.classList.toggle('open');
   if(diagnostics.classList.contains('open')) await refreshDiagnostics();
@@ -2188,8 +2272,8 @@ if(isStandalone()){
 }else if(isIOS()){
   setInstallStatus('Install with Share → Add to Home Screen in Safari.');
 }else{
-  installBtn.disabled = true;
-  setInstallStatus('Waiting for the browser to offer the install prompt…');
+  installBtn.disabled = false;
+  setInstallStatus('Install prompt not exposed yet. Tap Install App for browser-specific instructions.');
 }
 
 if('serviceWorker' in navigator){
