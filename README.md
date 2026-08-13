@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/readme-banner.png" alt="The Ultimate X-Men Reading Order — Completionist Edition">
+</p>
+
 # The Ultimate X-Men Reading Order
 
 **Completionist Edition · Earth-616 · 1963–2026**
@@ -20,7 +24,7 @@ The project uses **checklist entries** as its progress units. A single entry can
 
 ## Current audit
 
-The current checklist contains **584 entries across 21 volumes**.
+The current checklist contains **583 entries across 21 volumes**.
 
 The Silver Age/early-history portion has been expanded using the current public Ultimate X-Men Reading Order as an external comparison point, including additional guest appearances and Hidden Years-era material.
 
@@ -29,7 +33,7 @@ This is an ongoing fan-maintained chronology. When a source is uncertain or a pl
 ## Features
 
 - 21 chronological volumes
-- 583 checklist entries
+- 584 checklist entries
 - Mainline and optional reading
 - Crossover sequences and interleaved reading orders
 - Tap an entry to mark it read
