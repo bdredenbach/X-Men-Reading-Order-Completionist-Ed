@@ -3,7 +3,7 @@
 </p>
 
 <br>
-# The Ultimate X-Men Reading Order
+## The Ultimate X-Men Reading Order
 
 **Completionist Edition · Earth-616 · 1963–present**
 
