@@ -27,6 +27,14 @@
 
 ---
 
+<p align="center">
+  <a href="https://bdredenbach.github.io/X-Men-Reading-Order-Completionist-Ed/">
+    <img src="https://img.shields.io/badge/🚀%20OPEN%20THE%20READING%20ORDER-Visit%20the%20App-red?style=for-the-badge" alt="Open the X-Men Reading Order App">
+  </a>
+</p>
+
+---
+
 ## 📖 Overview
 
 **The Ultimate X-Men Reading Order** is a browser-based, offline-ready checklist application built for readers who want to experience the X-Men's Earth-616 history as completely as practical.
