@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutant Files — X-Men Reading Order</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
+
+  :root{
+    --ink:#0c0e11;
+    --ink-2:#15181d;
+    --paper:#ece5d3;
+    --paper-dim:#c9bfa4;
+    --crimson:#c31f39;
+    --crimson-dim:#7a1526;
+    --gold:#c9a227;
+    --steel:#3e5c76;
+    --steel-dim:#26374a;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 14px 14px;
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:760px;margin:0 auto;padding:20px 16px 80px;}
+
+  /* Header */
+  header{
+    position:relative;
+    padding:22px 20px 20px;
+    background:linear-gradient(180deg,var(--ink-2),var(--ink));
+    border:1px solid #2a2e35;
+    border-radius:10px;
+    margin-bottom:18px;
+    overflow:hidden;
+  }
+  header::before{
+    content:"";
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(135deg, rgba(195,31,57,0.06) 0 2px, transparent 2px 14px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:28px;
+    letter-spacing:0.01em;
+    margin:0 0 4px;
+    color:var(--paper);
+    text-transform:uppercase;
+  }
+  .subtitle{
+    font-size:13px;
+    color:var(--paper-dim);
+    margin:0;
+  }
+  .scope-note{
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #2a2e35;
+    font-family:'Space Mono',monospace;
+    font-size:9.5px;
+    line-height:1.5;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--paper-dim);
+  }
+
+  /* Progress */
+  .progress-row{
+    display:flex; align-items:center; gap:14px;
+    margin-top:16px;
+  }
+  .progress-track{
+    flex:1; height:10px; border-radius:6px;
+    background:#20242b;
+    border:1px solid #33383f;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--crimson-dim),var(--crimson));
+    width:0%;
+    transition:width .4s ease;
+  }
+  .progress-label{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    white-space:nowrap;
+  }
+
+  /* Volume tabs */
+  .tabs{
+    display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    font-family:'Space Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    padding:8px 13px;
+    background:var(--ink-2);
+    border:1px solid #2a2e35;
+    border-bottom:3px solid #2a2e35;
+    color:var(--paper-dim);
+    border-radius:6px 6px 0 0;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:all .15s ease;
+  }
+  .tab.active{
+    color:var(--paper);
+    border-bottom:3px solid var(--crimson);
+    background:#1b1f26;
+  }
+  .tab .count{color:var(--gold); margin-left:5px;}
+
+  /* Sections */
+  .section{
+    margin-bottom:22px;
+  }
+  .section-title{
+    font-family:'Oswald',sans-serif;
+    font-size:15px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    color:var(--paper);
+    padding:10px 14px;
+    background:var(--steel-dim);
+    border-left:4px solid var(--steel);
+    border-radius:4px;
+    margin-bottom:8px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .section-title .sec-count{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+    font-weight:400;
+  }
+  .section-note{
+    font-size:12px;
+    color:var(--paper-dim);
+    font-style:italic;
+    padding:0 14px 8px;
+    margin-top:-4px;
+  }
+
+  /* Items */
+  .item{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+    padding:10px 12px;
+    margin:0 0 5px;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:7px;
+    cursor:pointer;
+    transition:background .12s ease, border-color .12s ease;
+  }
+  .item:hover{ background:rgba(255,255,255,0.045); border-color:rgba(255,255,255,0.12); }
+  .item.optional{ opacity:0.78; border-style:dashed; }
+  .item.sub{ margin-left:22px; }
+  .item.checked{ background:rgba(195,31,57,0.08); border-color:rgba(195,31,57,0.28); }
+
+  .box{
+    flex:0 0 22px; width:22px; height:22px;
+    border-radius:5px;
+    border:2px solid #565c66;
+    position:relative;
+    margin-top:1px;
+    background:#0c0e11;
+  }
+  .item.checked .box{ border-color:var(--crimson); }
+  .stamp{
+    position:absolute; inset:-6px;
+    display:none;
+    align-items:center; justify-content:center;
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:20px;
+    color:var(--crimson);
+    transform:rotate(-18deg);
+    text-shadow:0 0 1px var(--crimson);
+  }
+  .item.checked .stamp{ display:flex; }
+
+  .item-text{
+    flex:1;
+    font-size:14px;
+    line-height:1.4;
+    color:var(--paper);
+  }
+  .item.checked .item-text{
+    color:var(--paper-dim);
+    text-decoration:line-through;
+    text-decoration-color:var(--crimson-dim);
+  }
+  .item.optional .item-text::after{
+    content:" · optional";
+    font-size:11px;
+    color:var(--gold);
+    text-decoration:none;
+    font-style:italic;
+  }
+  .item.verify .item-text::after{
+    content:" ⚠ verify";
+    font-size:11px;
+    color:var(--gold);
+    text-decoration:none;
+  }
+  .arrow-note{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+    padding:2px 0 8px 34px;
+  }
+
+  footer{
+    text-align:center;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:#565c66;
+    margin-top:30px;
+  }
+
+  .reset-btn{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+    background:none;
+    border:1px solid #33383f;
+    border-radius:5px;
+    padding:5px 10px;
+    cursor:pointer;
+    float:right;
+    margin-top:-4px;
+  }
+  .reset-btn:hover{ color:var(--crimson); border-color:var(--crimson-dim); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Case File · Mutant Chronology Archive</p>
+    <h1>The Ultimate X-Men Reading Order</h1>
+    <p class="subtitle">Completionist Edition · Earth-616 · 1963–2026. Tap any entry to mark it read.</p>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 0 entries</div>
+    </div>
+    <div class="scope-note">COMPLETIONIST SCOPE · Earth-616 X-Men history · core stories, major crossovers, important appearances, and clearly marked optional material.</div>
+  </header>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="content"></div>
+  <footer>MUTANT FILES ARCHIVE — EARTH-616 · DATA PERSISTS ACROSS SESSIONS</footer>
+</div>
+
+<script>
+// ---------- DATA ----------
+// Each volume: { id, title, sections:[{title, note, items:[{id, text, optional, verify, sub, note}]}] }
+const VOLUMES = [
+  {
+    id: "v1",
+    title: "Vol. 1 · Origins & Silver Age",
+    range: "1963–1975",
+    sections: [
+      {
+        title: "Part 0 — Before the X-Men",
+        note: "Entirely optional prequel material. Skip straight to Part 1 if you want to start at X-Men #1.",
+        items: [
+          {id:"v1-p0-01", text:"Rise of Apocalypse #1–4", optional:true},
+          {id:"v1-p0-02", text:"Wolverine: Origin #1–6", optional:true},
+          {id:"v1-p0-03", text:"The Further Adventures of Cyclops & Phoenix #1–4", optional:true},
+          {id:"v1-p0-04", text:"X-Men: The Magneto Testament #1–5", optional:true},
+          {id:"v1-p0-05", text:"Wolverine: Amazing Immortal Man & Other Bloody Tales", optional:true},
+          {id:"v1-p0-06", text:"X-Men: True Friends #1–3", optional:true},
+          {id:"v1-p0-07", text:"Wolverine #1000 (relevant flashback material)", optional:true},
+          {id:"v1-p0-08", text:"Logan #1–3", optional:true},
+          {id:"v1-p0-09", text:"Sub-Mariner: The Depths #1–5 (Namor content)", optional:true},
+          {id:"v1-p0-10", text:"Logan: Path of the Warlord (OGN)", optional:true},
+          {id:"v1-p0-11", text:"Wolverine: Agent of Atlas #1–3", optional:true},
+          {id:"v1-p0-12", text:"First X-Men #1–5", optional:true},
+          {id:"v1-p0-13", text:"Logan: Shadow Society (OGN)", optional:true},
+          {id:"v1-p0-14", text:"Storm #1–6", optional:true},
+          {id:"v1-p0-15", text:"Angel: Revelations #1–5", optional:true},
+          {id:"v1-p0-16", text:"X-Men Origins one-shots (Cyclops, Iceman, Jean Grey, Wolverine, Colossus, Sabretooth, Emma Frost) — Gambit's and Deadpool's fit much later", optional:true}
+        ]
+      },
+      {
+        title: "Part 1 — The Original X-Men (1963–1970)",
+        items: [
+          {id:"v1-p1-01", text:"X-Men (1963) #1–13"},
+          {id:"v1-p1-01e", text:"Avengers (1963) #3 — X-Men-related guest appearance", optional:true, sub:true},
+          {id:"v1-p1-01f", text:"Strange Tales (1951) #120 — Human Torch / Iceman story", optional:true, sub:true},
+          {id:"v1-p1-01g", text:"Amazing Spider-Man Annual (1964) #1 — X-Men-related guest appearance", optional:true, sub:true},
+          {id:"v1-p1-01a", text:"X-Men: Season One (OGN) — modern retelling of #1–10, read instead if preferred", optional:true, sub:true},
+          {id:"v1-p1-01b", text:"Tales of Suspense #49 — after X-Men #2", optional:true, sub:true},
+          {id:"v1-p1-01c", text:"Rampaging Hulk (1977) #2 — after X-Men #3", optional:true, sub:true},
+          {id:"v1-p1-01d", text:"Fantastic Four #28 — after X-Men #5", optional:true, sub:true},
+          {id:"v1-p1-02", text:"X-Men (1963) #14–18"},
+          {id:"v1-p1-02b", text:"Daredevil (1964) #7 — X-Men-related guest appearance", optional:true, sub:true},
+          {id:"v1-p1-02a", text:"Fantastic Four Annual #3 — after X-Men #14", optional:true, sub:true},
+          {id:"v1-p1-03", text:"X-Men (1963) #19–24"},
+          {id:"v1-p1-04", text:"X-Men (1963) #25–38"},
+          {id:"v1-p1-04a", text:"X-Men: First Class (2006) #1–8 — read at end of this block", optional:true, sub:true},
+          {id:"v1-p1-05", text:"X-Men (1963) #39–66 -> Avengers (1963) #53 (fits between #45–46) -> continues to #66"},
+          {id:"v1-p1-05b", text:"Avengers (1963) #47–49 — X-Men/Magneto guest appearances", optional:true, sub:true},
+          {id:"v1-p1-05c", text:"Ka-Zar (1965) #2–3 — X-Men guest appearances", optional:true, sub:true},
+          {id:"v1-p1-05d", text:"Marvel Tales (1966) #30 — Angel guest appearance", optional:true, sub:true},
+          {id:"v1-p1-05a", text:"X-Men: First Class (2007) #1–16 + Special + Giant-Size Special — end of this block", optional:true, sub:true},
+          {id:"v1-p1-06", text:"X-Men (1963) #67–93 & Annual #1–2 — reprints, nothing new"}
+        ]
+      },
+      {
+        title: "Part 2 — The Hidden Years (1970–1972)",
+        items: [
+          {id:"v1-p2-01", text:"Savage Hulk (2014) #1–4"},
+          {id:"v1-p2-02", text:"X-Men: The Hidden Years (1999) #1–22"},
+          {id:"v1-p2-02a", text:"Fantastic Four (1961) #102–104 — Hidden Years-era X-Men/Professor X appearances", optional:true, sub:true},
+          {id:"v1-p2-03", text:"X-Men: First Class: Finals (2009) #1–4"}
+        ]
+      },
+      {
+        title: "Part 3 — Gap Years Guest Appearances (1971–1974)",
+        note: "All collected in X-Men: Marvel Masterworks Vol. 7–8 and X-Men Epic Collection Vol. 4.",
+        items: [
+          {id:"v1-p3-01", text:"Incredible Hulk (1968) #150"},
+          {id:"v1-p3-02", text:"Amazing Spider-Man (1963) #92"},
+          {id:"v1-p3-03", text:"Amazing Adventures (1970) #11–17 (Beast becomes furry)"},
+          {id:"v1-p3-04", text:"Marvel Team-Up (1972) #4"},
+          {id:"v1-p3-05", text:"Incredible Hulk (1968) #161"},
+          {id:"v1-p3-06", text:"Avengers (1963) #102–104 — verified: direct sequel to the X-Men #57–59 Sentinels saga (Larry Trask, Sentinels return from the sun, Scarlet Witch abducted); the X-Men themselves don't appear, but it continues their story"},
+          {id:"v1-p3-06a", text:"Avengers (1963) #105 — continuation of the Sentinels/X-Men-adjacent storyline", optional:true, sub:true},
+          {id:"v1-p3-07", text:"Avengers (1963) #110–111"},
+          {id:"v1-p3-08", text:"Incredible Hulk (1968) #172"},
+          {id:"v1-p3-09", text:"Captain America (1968) #172–175"},
+          {id:"v1-p3-10", text:"Marvel Team-Up (1972) #23"},
+          {id:"v1-p3-11", text:"Defenders (1972) #15–16"},
+          {id:"v1-p3-12", text:"Marvel Team-Up (1972) #38"},
+          {id:"v1-p3-12a", text:"Daredevil (1964) #99 — X-Men-adjacent appearance", optional:true, sub:true},
+          {id:"v1-p3-12b", text:"Captain America (1968) #169–175 — mutant/X-Men-adjacent appearances", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Part 4 — Wolverine Begins",
+        note: "Parallel pre-history, read before Giant-Size X-Men.",
+        items: [
+          {id:"v1-p4-01", text:"Weapon X story in Marvel Comics Presents (1988) #72–84"},
+          {id:"v1-p4-02", text:"Before the Fantastic Four: Ben Grimm & Logan (2000) #1–3"},
+          {id:"v1-p4-03", text:"Wolverine/Cable: Guts and Glory (1999) OGN"},
+          {id:"v1-p4-04", text:"Incredible Hulk #180–181 (Wolverine's first appearance)"}
+        ]
+      },
+      {
+        title: "Read Anytime in Volume 1",
+        items: [
+          {id:"v1-ra-01", text:"Emma Frost (2003) #1–18 — best as interlude right before Giant-Size X-Men"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v2",
+    title: "Vol. 2 · Second Genesis → Dark Phoenix → Days of Future Past",
+    range: "1975–1981",
+    sections: [
+      {
+        title: "From the Ashes — the New Team Assembles",
+        items: [
+          {id:"v2-01", text:"Giant-Size X-Men (1975) #1 — Storm, Colossus, Nightcrawler, and Proudstar debut; Wolverine and Banshee join"},
+          {id:"v2-02", text:"Uncanny Origins #8 (Nightcrawler) -> X-Men Origins: Wolverine -> X-Men Origins: Colossus -> Giant-Size X-Men #3", optional:true, sub:true},
+          {id:"v2-03", text:"Classic X-Men #1, then #44 (Rogue epilogue)", optional:true, sub:true},
+          {id:"v2-04", text:"Classic X-Men #5, #10, #2 — training-montage backups before UXM #94", optional:true, sub:true},
+          {id:"v2-05", text:"Giant-Size Fantastic Four #4 -> Giant-Size X-Men #4", optional:true, sub:true},
+          {id:"v2-06", text:"Uncanny X-Men (1963) #94–103 — first mission, Thunderbird's death, Jean becomes Phoenix"},
+          {id:"v2-07", text:"Guest-appearance/backup bundle (grouped, read in order or skip freely): Thor #233 cameo, Classic X-Men #3, #4, #6, #7, #8, #9, #11, Uncanny Origins #9 (Storm), Marvel Team-Up Annual 1 & #53, Marvel Tales #262, Iron Fist #11, Amazing Spider-Man #161–162, Marvel Team-Up #51, Marvel Holiday Special (1991) — all fit within/after #94–103", optional:true, sub:true},
+          {id:"v2-08", text:"Champions (1975) #1–15 + Ghost Rider Vol.2 #17, Avengers #150–151, Marvel Vault: Gambit & The Champions, Marvel Treasury Edition #13, Ghost Rider #23 — Angel & Iceman's parallel track", optional:true, sub:true},
+          {id:"v2-09", text:"Captain Britain, Vol.1 (1976) #1–14 — parallel UK track", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Where No X-Man Has Gone Before — the Shi'ar Saga",
+        items: [
+          {id:"v2-10", text:"Iron Fist (1975) #14 — Sabretooth's debut", optional:true},
+          {id:"v2-11", text:"Uncanny X-Men (1963) #104–110 — Magneto, the Shi'ar Empire, Wolverine vs. Guardian"},
+          {id:"v2-12", text:"Classic X-Men #14–15 (between #106–107), Ms. Marvel #9–10 (Deathbird debut, after #108)", optional:true, sub:true},
+          {id:"v2-13", text:"Iron Fist (1975) #15 — functions as 'UXM #108.5,' considered essential by most guides"},
+          {id:"v2-14", text:"Classic X-Men #28 (after #109); Uncanny X-Men: First Class (2009) #1–8 + Giant-Size Special", optional:true, sub:true},
+          {id:"v2-15", text:"Classic X-Men #1–19 backups, batched", optional:true, sub:true},
+          {id:"v2-16", text:"Captain Britain #15–26, then #27–39 + Super Spider-Man and Captain Britain #231–247, then Marvel Team-Up #65–66 (Arcade's debut)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Magneto Triumphant",
+        items: [
+          {id:"v2-17", text:"Captain America Annual 4; Marvel Treasury Edition #26 (5th story); Classic X-Men #12, #13, #18, #27, #17; Girl Comics Vol.2 #1 (6th story) — Magneto's guest appearances before UXM #111", optional:true},
+          {id:"v2-18", text:"Marvel Team-Up (1972) #69 — 'UXM #110.5,' sets up the missing X-Men mystery"},
+          {id:"v2-19", text:"Super-Villain Team-Up #14 & Champions #16–17; Mystique's debut in Marvel Fanfare #60 (2nd story) & Ms. Marvel #16–18; Ghost Rider #34 cameo", optional:true, sub:true},
+          {id:"v2-20", text:"Uncanny X-Men (1963) #111–121 — the team is seemingly killed, cast splinters"},
+          {id:"v2-21", text:"Defenders #52–56 (Namor's last X-adjacent appearances), #62–64 cameos; Classic X-Men #19, #21, #22, #23, #25, #26; Power Man & Iron Fist #57; X-Men/Doom Annual '98 flashback", optional:true, sub:true},
+          {id:"v2-22", text:"Spectacular Spider-Man #17–18 -> Incredible Hulk Annual 7 — final Champions-track issues for Angel", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Arcade & Proteus",
+        items: [
+          {id:"v2-23", text:"Uncanny X-Men (1963) #122–124, Annual 3, #125–128 — Arcade, then Proteus, while Mastermind manipulates Jean"},
+          {id:"v2-24", text:"Marvel Team-Up #89 — Nightcrawler & Amanda Sefton, written by Claremont, fills in Nightcrawler's only non-UXM backstory (recommended, not just filler)"},
+          {id:"v2-25", text:"Marvel Team-Up #90; Classic X-Men #19–33 backups batched; Classic X-Men #29–30, #31, #40, #24, #32, #33; Bizarre Adventures #27 (3rd story)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The Dark Phoenix Saga",
+        items: [
+          {id:"v2-26", text:"Uncanny X-Men (1963) #129–138 — the X-Men's most famous story"},
+          {id:"v2-27", text:"Classic X-Men #36, #35, #34, #39, #20 (flashbacks after #129); Classic X-Men #7 if you saved it; Classic X-Men #40 (after #131)", optional:true, sub:true},
+          {id:"v2-28", text:"Iron Age (2011) #3 (both stories) — verified: Iron Man time-travels into the Dark Phoenix Saga's X-Men vs. Hellfire Club battle; fits alongside #132 & #134", optional:true, sub:true},
+          {id:"v2-29", text:"Classic X-Men #34–44 backups batched; Classic X-Men #43 (after #137); Breaking Into Comics the Marvel Way #1 (2nd story); Classic X-Men #41–42 if not read earlier; Marvel Treasury Edition #27 (3rd story)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Days of Future Past",
+        items: [
+          {id:"v2-30", text:"Uncanny X-Men (1963) Annual 4 -> #139–140"},
+          {id:"v2-31", text:"Ms. Marvel #22 (Mystique & Deathbird, between #138–140) -> Avengers (1963) #189 (Deathbird)", optional:true, sub:true},
+          {id:"v2-32", text:"Classic X-Men #37–38 — leads directly into the next era", optional:true, sub:true},
+          {id:"v2-33", text:"Marvel Two-In-One #68 (Angel); #69 (Storm cameo)", optional:true, sub:true},
+          {id:"v2-34", text:"Uncanny X-Men (1963) #141–142 — 'Days of Future Past,' end of John Byrne's run"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v3",
+    title: "Vol. 3 · The New Mutants Era",
+    range: "1981–1985",
+    sections: [
+      {
+        title: "Kitty Pryde & The Return of Magneto",
+        items: [
+          {id:"v3-01", text:"Amazing Spider-Man #203 -> Dazzler (1981) #1–2 -> Fantastic Four #217", optional:true},
+          {id:"v3-02", text:"Uncanny X-Men (1963) #143–144"},
+          {id:"v3-03", text:"Wolverine: First Class (2008) #1–5 (retcon flashbacks around this point)", optional:true, sub:true},
+          {id:"v3-04", text:"Marvel Team-Up #100 (Karma's debut) -> ROM Spaceknight #17–18 -> Spider-Woman #37–38 (Siryn's debut)", optional:true},
+          {id:"v3-05", text:"Weapon X: First Class #1–3 (1st stories); Dazzler #3–5", optional:true, sub:true},
+          {id:"v3-06", text:"Uncanny X-Men (1963) #145–148"},
+          {id:"v3-07", text:"Wolverine: First Class #6–11", optional:true, sub:true},
+          {id:"v3-08", text:"Avengers Annual 10 — Rogue's debut"},
+          {id:"v3-09", text:"Uncanny X-Men (1963) #149–150 & Annual 5"},
+          {id:"v3-10", text:"Wolverine: First Class #12–21 (batched, spans this gap) -> Marvel Fanfare #1–4 -> Dazzler #6–11 & Marvel Team-Up #108–109", optional:true, sub:true},
+          {id:"v3-11", text:"Uncanny X-Men (1963) #151–153 — White Queen & Hellfire Club"}
+        ]
+      },
+      {
+        title: "The Brood Saga",
+        items: [
+          {id:"v3-12", text:"Uncanny X-Men (1963) #154–158 — Starjammers, team relocates after mansion is destroyed"},
+          {id:"v3-13", text:"Uncanny X-Men (1963) #159–160 — Dracula & Illyana's sudden aging"},
+          {id:"v3-14", text:"Magik AKA 'Storm & Illyana' #1–4 — fits inside #160, from your original checklist"},
+          {id:"v3-15", text:"Defenders #103–109 (Beast joins); ROM #31–32; Dazzler #12–24; Marvel Super Hero Contest of Champions #1–3; Captain Britain/Alpha Flight tracks (batched side reading)", optional:true, sub:true},
+          {id:"v3-16", text:"Uncanny X-Men (1963) #161–166 — the actual Brood Saga, team presumed dead"},
+          {id:"v3-17", text:"Marvel Graphic Novel #4 -> New Mutants (1983) #1–3 — the New Mutants team is formed"},
+          {id:"v3-18", text:"Uncanny X-Men (1963) #167 & Annual 6"},
+          {id:"v3-19", text:"New Mutants (1983) #4 -> Marvel Team-Up Annual 6 -> Special Edition: X-Men (1983)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "From the Ashes",
+        items: [
+          {id:"v3-20", text:"Uncanny X-Men (1963) #168"},
+          {id:"v3-21", text:"X-Men: God Loves Man Kills (Marvel Graphic Novel #5) — landmark OGN"},
+          {id:"v3-22", text:"Dazzler #25–30; Defenders #120–124 -> New Defenders #125; Alpha Flight #1–5; X-Men & Alpha Flight (1998) #1–2; X-Men vs. Hulk one-shot (batched side reading)", optional:true, sub:true},
+          {id:"v3-23", text:"Uncanny X-Men (1963) #169–171 — Rogue officially joins the team"},
+          {id:"v3-24", text:"Wolverine (1982) #1–4 — his first solo mini-series (from your original checklist)"},
+          {id:"v3-25", text:"New Mutants (1983) #5–12"},
+          {id:"v3-26", text:"Uncanny X-Men (1963) #172–175 & Annual 7 — Wolverine's wedding in Japan, Cyclops marries Madelyne"},
+          {id:"v3-27", text:"X-Men Unlimited #39 (2nd story) -> X-Men Gold one-shot (1st story) — Storm's punk look, bridges #173–174", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Secret Wars",
+        items: [
+          {id:"v3-28", text:"Uncanny X-Men (1963) #176–180 — Freedom Force, Morlocks setup, government pressure builds"},
+          {id:"v3-29", text:"New Mutants (1983) #13–17; The X-Men and the Micronauts #1–4; Dazzler #31–34; New Defenders #126–131 (batched side reading)", optional:true, sub:true},
+          {id:"v3-30", text:"Marvel Super-Heroes Secret Wars #1–12 — the original toy-line event, Magneto's redemption arc begins"},
+          {id:"v3-31", text:"Uncanny X-Men (1963) #181–184 — team returns from Battleworld, Colossus & Kitty break up"},
+          {id:"v3-32", text:"Alpha Flight #6–12; Iceman #1–4; New Defenders #132–133; Dazzler: The Movie (Marvel Graphic Novel #12); New Mutants #18–21, Annual 1; Beauty and the Beast #1–4 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Life & Death",
+        items: [
+          {id:"v3-33", text:"Uncanny X-Men (1981) #185–188 — Storm loses her powers to Forge, 'Lifedeath'"},
+          {id:"v3-34", text:"Kitty Pryde & Wolverine #1–6"},
+          {id:"v3-35", text:"Marvel Team-Up #149–150 -> New Mutants (1983) #22–25", optional:true, sub:true},
+          {id:"v3-36", text:"Uncanny X-Men (1963) #189–192"},
+          {id:"v3-37", text:"Alpha Flight #13–22; Captain Britain track; Dazzler #35–38; X-Men & Alpha Flight (1985) #1–2; Wolverine/Nick Fury: The Scorpio Connection OGN (batched side reading)", optional:true, sub:true},
+          {id:"v3-38", text:"Uncanny X-Men (1963) #193–194 — Firestar's first appearance"},
+          {id:"v3-39", text:"Firestar (1986) #1–4", optional:true, sub:true},
+          {id:"v3-40", text:"Nightcrawler (1985) #1–4"},
+          {id:"v3-41", text:"Power Pack #12 -> Uncanny X-Men (1963) #195"},
+          {id:"v3-42", text:"New Mutants (1983) #26–28"}
+        ]
+      },
+      {
+        title: "Secret Wars II & The Trial of Magneto",
+        items: [
+          {id:"v3-43", text:"New Mutants (1983) #29 -> Secret Wars II #1 -> New Mutants #30–31"},
+          {id:"v3-44", text:"Uncanny X-Men (1963) #196–197 -> Secret Wars II #2–4 -> Alpha Flight #28–29"},
+          {id:"v3-45", text:"Secret Wars II #5 -> Uncanny X-Men (1981) #198"},
+          {id:"v3-46", text:"New Mutants (1983) #32–34 -> Uncanny X-Men (1963) #199 -> Asgardian Wars (New Mutants Special Edition & UXM Annual 9)"},
+          {id:"v3-47", text:"Uncanny X-Men (1981) #200 — Magneto's trial, Xavier whisked into space"},
+          {id:"v3-48", text:"New Mutants (1983) #35 -> Secret Wars II #6"},
+          {id:"v3-49", text:"New Defenders #134–150; Captain Britain track (Mighty World of Marvel Vol.2 #7-16, Captain Britain Vol.2 #1-14); Longshot #1–6 (batched side reading — wraps up loose threads heading into the next era)", optional:true, sub:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v4",
+    title: "Vol. 4 · Mutant Massacre → Fall of the Mutants → Inferno",
+    range: "1986–1989",
+    sections: [
+      {
+        title: "Freedom Is a Four Letter Word",
+        note: "Picks up right after Magneto's trial, tangled with Secret Wars II.",
+        items: [
+          {id:"v4-01", text:"Uncanny X-Men (1963) #201 -> Marvel Fanfare #33 (effectively '#201.1')"},
+          {id:"v4-02", text:"Heroes for Hope Starring the X-Men; Dazzler #41 -> Secret Wars II #7", optional:true, sub:true},
+          {id:"v4-03", text:"Uncanny X-Men (1963) #202"},
+          {id:"v4-04", text:"New Mutants (1983) #36 -> Avengers #263 -> Fantastic Four #286 (Jean Grey's return) -> New Defenders #151–152 -> Secret Wars II #8"},
+          {id:"v4-05", text:"Uncanny X-Men (1963) #203 -> Power Pack #20 -> New Mutants #37 -> Secret Wars II #9 -> New Mutants #38–40"},
+          {id:"v4-06", text:"Uncanny X-Men (1963) #204 — cheerful epilogue, Nightcrawler-focused"}
+        ]
+      },
+      {
+        title: "The X-Factor",
+        items: [
+          {id:"v4-07", text:"Alpha Flight #30–40 + Avengers #272; Dazzler #42 (batched side reading)", optional:true, sub:true},
+          {id:"v4-08", text:"X-Factor (1986) #1–8 & Annual 1 — the original five X-Men reunite, posing as mutant hunters"},
+          {id:"v4-09", text:"Uncanny X-Men (1963) #205–209 — Wolverine and Storm one-shots, Rachel's final issue on the team"},
+          {id:"v4-10", text:"New Mutants (1983) #41–44 & Annual 2 — Psylocke's American debut"}
+        ]
+      },
+      {
+        title: "Mutant Massacre",
+        note: "The team's first true multi-title crossover event, and one of the most brutal.",
+        items: [
+          {id:"v4-11", text:"Uncanny X-Men (1963) #210 -> X-Factor #9 -> UXM Annual 10 -> New Mutants #45 -> X-Factor #10 -> UXM #211 -> Power Pack #27 -> New Mutants #46 -> Thor #373–374 -> UXM #212 -> Daredevil #238 -> X-Factor #11 -> UXM #213–214 (from your original checklist, now fully interleaved)"}
+        ]
+      },
+      {
+        title: "Old Soldiers and Fallen Angels",
+        items: [
+          {id:"v4-12", text:"Marvel Fanfare #28; Alpha Flight #41–46; New Mutants #47–50 (batched side reading)", optional:true, sub:true},
+          {id:"v4-13", text:"X-Factor (1986) #12–17 -> Mephisto Vs. #1–4 — read X-Factor first to avoid a spoiler embedded in Mephisto's editorial note"},
+          {id:"v4-14", text:"Uncanny X-Men (1963) #215–218 — Shadowcat & Nightcrawler leave the team"},
+          {id:"v4-15", text:"New Mutants #51, Annual 3, #52; Fallen Angels #1–8 + Power Pack #33; New Mutants #53–54 (batched side reading)", optional:true, sub:true},
+          {id:"v4-16", text:"Uncanny X-Men (1981) #219"},
+          {id:"v4-17", text:"Spider-Man vs. Wolverine -> Fantastic Four vs. X-Men #1–4 -> X-Men vs. Avengers #1–4 -> Uncanny X-Men Annual 11", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The Fall of the Mutants",
+        note: "Not a tight crossover like Mutant Massacre — read each title's own run in a big chunk.",
+        items: [
+          {id:"v4-18", text:"X-Factor (1986) #17–18, Annual 2, #19–25 — massive operatic arc"},
+          {id:"v4-19", text:"New Mutants (1983) #55–61"},
+          {id:"v4-20", text:"Uncanny X-Men (1963) #220–227 — the team fakes their deaths in the public eye (New Mutants #61 fits between #225–226 if reading strictly)"},
+          {id:"v4-21", text:"X-Factor (1986) #26 — epilogue to the era"},
+          {id:"v4-22", text:"Alpha Flight #48–54; New Mutants #62–66 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The X-Men Down Under",
+        note: "Most of the world believes the X-Men are dead.",
+        items: [
+          {id:"v4-23", text:"Alpha Flight #54–60; X-Factor #27–29 (batched side reading)", optional:true, sub:true},
+          {id:"v4-24", text:"Uncanny X-Men (1963) #228–231"},
+          {id:"v4-25", text:"Wolverine in Marvel Comics Presents #1–10 -> Wolverine (1988) #1–3 -> Wolverine: Doombringer OGN", optional:true, sub:true},
+          {id:"v4-26", text:"X-Factor (1986) #30–32"},
+          {id:"v4-27", text:"Uncanny X-Men (1963) #232–234 — one-night Brood brawl"},
+          {id:"v4-28", text:"Evolutionary War tie-ins: X-Factor Annual 3, New Mutants Annual 4, Uncanny X-Men Annual 12 (batched)", optional:true, sub:true},
+          {id:"v4-29", text:"Uncanny X-Men (1963) #235–238 — Genosha's debut, sets up X-Tinction Agenda"},
+          {id:"v4-30", text:"Alpha Flight #61–70; New Mutants #67–70 (batched side reading)", optional:true, sub:true},
+          {id:"v4-31", text:"Excalibur (1988) Special Edition & #1–5 — the team's launch, from your original checklist"}
+        ]
+      },
+      {
+        title: "Inferno",
+        note: "Culmination of long-running threads: Illyana's Limbo powers, Madelyne Pryor, Jean's return, the Marauders, and Mr. Sinister.",
+        items: [
+          {id:"v4-32", text:"X-Factor (1986) #33–35 (Inferno prologue pt.1) -> Uncanny X-Men (1963) #239–240 -> X-Factor #36 (prologue pt.2)"},
+          {id:"v4-33", text:"X-Terminators #1–4 (Inferno pt.1) -> New Mutants (1983) #71–73 (Inferno pt.2) -> Excalibur #6–7 (intermission) — from your original checklist"},
+          {id:"v4-34", text:"Uncanny X-Men (1963) #241 -> X-Factor #37 -> Uncanny X-Men #242 -> X-Factor #38 -> Uncanny X-Men #243 -> X-Factor #39 — the main Inferno crossover, from your original checklist"},
+          {id:"v4-35", text:"Mutant Misadventures of Cloak and Dagger #4 + Power Pack #44 — Inferno epilogue", optional:true, sub:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v5",
+    title: "Vol. 5 · X-Tinction",
+    range: "1989–1991",
+    sections: [
+      {
+        title: "Dust to Dust",
+        note: "Inferno-aftermath cleanup across all three team titles, building to Atlantis Attacks.",
+        items: [
+          {id:"v5-01", text:"New Mutants (1983) #74–75 -> Excalibur #8"},
+          {id:"v5-02", text:"X-Factor (1986) #40 — Maddie's funeral"},
+          {id:"v5-03", text:"Uncanny X-Men (1963) #244 — Jubilee's debut"},
+          {id:"v5-04", text:"Wolverine (1988) #4–16 — his ongoing series continues"},
+          {id:"v5-05", text:"Alpha Flight #71–75; Excalibur #9–11 + Excalibur: Mojo Mayhem (batched side reading)", optional:true, sub:true},
+          {id:"v5-06", text:"Uncanny X-Men (1963) #245"},
+          {id:"v5-07", text:"New Mutants (1983) #76 -> X-Factor #41–42"},
+          {id:"v5-08", text:"Atlantis Attacks: Uncanny X-Men Annual 13 -> X-Factor Annual 4 -> New Mutants Annual 5 (line-wide event, non-X tie-ins optional)"}
+        ]
+      },
+      {
+        title: "Meltdown",
+        note: "No mainline Uncanny issues — mostly Wolverine solo material and Marvel Comics Presents serials.",
+        items: [
+          {id:"v5-09", text:"Havok & Wolverine: Meltdown #1–4"},
+          {id:"v5-10", text:"Cyclops's 'Retribution Affair' and Havok's 'Pharoah's Legacy' in Marvel Comics Presents #17–31; Alpha Flight #76–77; Wolverine (as Patch) MCP #38–53; Wolverine: Jungle Adventure OGN; Wolverine (1988) #17–18 (batched Wolverine-solo side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The Light That Failed",
+        note: "The X-Men are believed dead; Uncanny goes 18 months without an assembled team.",
+        items: [
+          {id:"v5-11", text:"Uncanny X-Men (1963) #246–248 — Siege Perilous, team scattered"},
+          {id:"v5-12", text:"Excalibur (1988) #12–17 — the Cross-Time Caper begins"},
+          {id:"v5-13", text:"New Mutants (1983) #77–86"},
+          {id:"v5-14", text:"X-Factor (1986) #43–50"},
+          {id:"v5-15", text:"Uncanny X-Men (1963) #249–250 -> Wolverine (1988) #19–23"},
+          {id:"v5-16", text:"Uncanny X-Men (1963) #251–255 — Wolverine & Jubilee, Moira's new Muir Isle team forms"},
+          {id:"v5-17", text:"Uncanny X-Men (1963) #256–258 — Acts of Vengeance, Betsy Braddock arrives in Kwannon's body"},
+          {id:"v5-18", text:"Alpha Flight #78–90 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Optional: The Origin of Cable",
+        note: "Cable's chronological backstory before his debut in New Mutants #86-87. Can also be saved for after the Muir Island Saga.",
+        items: [
+          {id:"v5-19", text:"Books of Askani -> X-Men: Phoenix #1–3 -> Adventures of Cyclops and Phoenix #1–4 -> Askani'son #1–4 -> Wolverine/Cable: Guts and Glory OGN -> Cable (1993) #-1 -> Cable: Blood & Metal #1–2", optional:true}
+        ]
+      },
+      {
+        title: "Prey for the Living",
+        items: [
+          {id:"v5-20", text:"Uncanny X-Men (1963) #259–260"},
+          {id:"v5-21", text:"X-Factor (1986) #51–55"},
+          {id:"v5-22", text:"Excalibur (1988) #18–25 — resolves the Cross-Time Caper"},
+          {id:"v5-23", text:"Uncanny X-Men (1963) #261–264 -> X-Factor #56–58"},
+          {id:"v5-24", text:"New Mutants (1983) #87–92"},
+          {id:"v5-25", text:"Uncanny X-Men (1963) #265–267 — Gambit's debut"},
+          {id:"v5-26", text:"Days of Future Present: Fantastic Four Annual 23, New Mutants Annual 6, X-Factor Annual 5, Uncanny X-Men Annual 14"},
+          {id:"v5-27", text:"Excalibur (1988) #26–34; X-Men Spotlight on Starjammers #1–2 (batched side reading)", optional:true, sub:true},
+          {id:"v5-28", text:"Uncanny X-Men (1963) #268 — Jim Lee's Wolverine/Cap/Black Widow flashback"},
+          {id:"v5-29", text:"New Mutants (1983) #93–94 -> Uncanny X-Men (1963) #269 — Rogue in the Savage Land"},
+          {id:"v5-30", text:"Wolverine's Marvel Comics Presents serials: 'Rahne of Terra' OGN, 'Life's End,' 'On the Road,' and Wolverine (1988) #24–34 (batched Wolverine-solo side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "X-Tinction Agenda",
+        note: "Nine-issue, all-hands event across all three main team titles — reconciles X-Men and X-Factor, transforms New Mutants toward X-Force.",
+        items: [
+          {id:"v5-31", text:"Uncanny X-Men #270 -> New Mutants #95 -> X-Factor #60 -> Uncanny X-Men #271 -> New Mutants #96 -> X-Factor #61 -> Uncanny X-Men #272 -> New Mutants #97 -> X-Factor #62 — exactly matches your original checklist"}
+        ]
+      },
+      {
+        title: "Crossroads",
+        items: [
+          {id:"v5-32", text:"Alpha Flight #91–94; X-Factor #63–64 (batched side reading)", optional:true, sub:true},
+          {id:"v5-33", text:"Fantastic Four #347–349 — the infamous 'New Fantastic Four' with Wolverine"},
+          {id:"v5-34", text:"Wolverine (1988) #35–37"},
+          {id:"v5-35", text:"Uncanny X-Men (1963) #273–277 — first post-X-Tinction appearances for nearly everyone"},
+          {id:"v5-36", text:"New Mutants (1983) #98–100 — commonly collected as X-Force material; the team effectively becomes X-Force here"},
+          {id:"v5-37", text:"Kings of Pain: New Mutants Annual 7, New Warriors Annual 1, Uncanny X-Men Annual 15, X-Factor Annual 6", optional:true},
+          {id:"v5-38", text:"X-Factor (1986) #65–68 — baby Nathan Christopher Summers relinquished to the Askani"},
+          {id:"v5-39", text:"The Muir Island Saga: Uncanny X-Men #278–279 -> X-Factor #69 -> Uncanny X-Men #280 -> X-Factor #70 — sets up the big Magneto face-off next era"}
+        ]
+      },
+      {
+        title: "Reconstruction",
+        note: "Transitional period between team overhauls — mostly optional side material.",
+        items: [
+          {id:"v5-40", text:"Excalibur: Weird War III; Excalibur (1988) #35–41 (batched)", optional:true, sub:true},
+          {id:"v5-41", text:"Alpha Flight #98–101; Wolverine (1988) #38–47 (batched Wolverine-solo side reading)", optional:true, sub:true},
+          {id:"v5-42", text:"Infinity Gauntlet tie-ins (Wolverine, Cyclops — minor X-Men appearances only); X-Men: True Friends #1–3", optional:true, sub:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v6",
+    title: "Vol. 6 · Fatal Attractions",
+    range: "1991–1993",
+    sections: [
+      {
+        title: "A note on this era",
+        note: "Crushing Krisis's own guide for this specific era is its oldest and least-revised (last major update 2013, and the author has publicly acknowledged the Fatal Attractions sequencing is messy and needs a rebuild). I've simplified accordingly — the mainline series are issue-accurate, but the exact interleaving of minor Wolverine guest-appearances in this stretch is lower-confidence than other volumes.",
+        items: []
+      },
+      {
+        title: "Launch of the '90s Line",
+        items: [
+          {id:"v6-01", text:"Excalibur (1988) #42–50"},
+          {id:"v6-02", text:"X-Factor (1986) #71–75 — Peter David's run begins"},
+          {id:"v6-03", text:"X-Men, Vol. 2 #1–3 — Jim Lee's blockbuster relaunch, full team vs. Magneto"},
+          {id:"v6-04", text:"X-Force (1991) #1–4 — Cable's team, spun out of New Mutants", optional:true},
+          {id:"v6-05", text:"Wolverine's Marvel Comics Presents serials #85–98 — verified: 'Blood Hungry' (#85–92, Peter David & Sam Kieth; Cyber's debut, Madripoor) then 'Wild Frontier' (#93–98, Timothy Truman frontier tale). MCP is an anthology — the concurrent Ghost Rider/Cable serial in #90–97 is separate and skippable", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Omega Red & the Wolverine/X-Men Weave",
+        items: [
+          {id:"v6-06", text:"Wolverine (1988) #48–50 -> X-Men, Vol. 2 #4–7 — Omega Red's debut"},
+          {id:"v6-07", text:"Uncanny X-Men (1963) #281–287 — occurs during X-Men Vol.2 #5–7"},
+          {id:"v6-08", text:"Wolverine (1988) #51–65; X-Factor #76–78; X-Force #5–15 (batched side reading)", optional:true, sub:true},
+          {id:"v6-09", text:"X-Men, Vol. 2 #8–11 & Ghost Rider #26–27"},
+          {id:"v6-10", text:"X-Men: Shattershot — tie-in annuals across Uncanny X-Men, X-Factor, and X-Men Vol.2 (1992 Annuals)"}
+        ]
+      },
+      {
+        title: "Build to X-Cutioner's Song",
+        items: [
+          {id:"v6-11", text:"Alpha Flight #101–120 (incl. Infinity War tie-ins); X-Factor #78–83 (batched side reading)", optional:true, sub:true},
+          {id:"v6-12", text:"Uncanny X-Men (1963) #288–293 & X-Men, Vol. 2 #12–13"},
+          {id:"v6-13", text:"Excalibur (1988) #51–58"},
+          {id:"v6-14", text:"Cable: Blood & Metal #1–2 — recommended right before X-Cutioner's Song, per the recap referencing it directly", optional:true}
+        ]
+      },
+      {
+        title: "X-Cutioner's Song",
+        note: "Major four-title crossover, matches your original checklist's arrow order exactly.",
+        items: [
+          {id:"v6-15", text:"Uncanny X-Men #294 -> X-Factor #84 -> X-Men (Vol. 2) #14 -> X-Force #16 -> Uncanny X-Men #295 -> X-Factor #85 -> X-Men (Vol. 2) #15 -> X-Force #17 -> Uncanny X-Men #296 -> X-Factor #86 -> X-Men (Vol. 2) #16 -> X-Force #18 -> Uncanny X-Men #297 (epilogue)"}
+        ]
+      },
+      {
+        title: "Countdown to Fatal Attractions",
+        note: "Author's note: this stretch is where the line-wide continuity gets genuinely tangled — the sequence below is a reasonable reading, not a certain one.",
+        items: [
+          {id:"v6-16", text:"Excalibur (1988) #59–70; Wolverine: Inner Fury OGN; Infinity Crusade tie-ins (batched side reading)", optional:true, sub:true},
+          {id:"v6-17", text:"X-Men, Vol. 2 #17–24 & Annual 2 — Illyana's parents die, Legacy Virus introduced, Revanche arrives"},
+          {id:"v6-18", text:"Uncanny X-Men (1963) #298–300 & Annual 17 — Acolytes, Magneto confirmed alive"},
+          {id:"v6-19", text:"Cable, Vol. 1 #1–4 -> Deadpool #1–4 — first solo minis for both", optional:true},
+          {id:"v6-20", text:"Uncanny X-Men (1963) #301–303 — leads to Illyana's death"},
+          {id:"v6-21", text:"Sabretooth #1–4 — Mystique & Graydon Creed's origin", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Fatal Attractions",
+        note: "Magneto rips the adamantium from Wolverine's skeleton; the X-Men's status quo is shattered.",
+        items: [
+          {id:"v6-22", text:"X-Factor #87–93"},
+          {id:"v6-23", text:"Uncanny X-Men (1963) #304–306"},
+          {id:"v6-24", text:"X-Force (1991) #19–25; X-Men Unlimited #1–2; Gambit #1–4 (batched side reading)", optional:true, sub:true},
+          {id:"v6-25", text:"X-Men, Vol. 2 #25 -> Wolverine (1988) #75 -> Excalibur #71 — the adamantium ripped from Wolverine's body"},
+          {id:"v6-26", text:"X-Men/Avengers: Blood Ties: Uncanny X-Men #307 -> X-Men, Vol. 2 #26 — closes out the era"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v7",
+    title: "Vol. 7 · Legion Quest → Age of Apocalypse → Onslaught",
+    range: "1994–1996",
+    sections: [
+      {
+        title: "The Wedding of Cyclops & Phoenix",
+        items: [
+          {id:"v7-01", text:"X-Force #26-31; Excalibur #72–74; X-Factor #93–100 (batched build-up)", optional:true, sub:true},
+          {id:"v7-02", text:"Uncanny X-Men #308–310 & Annual 18 -> X-Men, Vol. 2 #27–30 — the wedding"},
+          {id:"v7-03", text:"Cable #5–14; Excalibur #75–78; X-Factor #101–105 & Annual 9; Wolverine #79–84 (batched side reading)", optional:true, sub:true},
+          {id:"v7-04", text:"Uncanny X-Men #311–315 & Annual 18 (B-story) + X-Men Unlimited #4–5"},
+          {id:"v7-05", text:"Adventures of Cyclops and Phoenix — Cable's origin, from your original checklist's Age of Apocalypse research", optional:true, sub:true},
+          {id:"v7-06", text:"X-Men, Vol. 2 #31–35; Excalibur #79–81; X-Force #32–37; Deadpool, Vol. 2 #1–4 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Phalanx Covenant",
+        note: "Three interlocking mini-events: Generation Next, Life Signs, and Final Sanction.",
+        items: [
+          {id:"v7-07", text:"Generation Next: Uncanny X-Men #316–317 -> X-Men, Vol. 2 #36–37"},
+          {id:"v7-08", text:"Life Signs: X-Factor #106 -> X-Force #38 -> Excalibur #82"},
+          {id:"v7-09", text:"Final Sanction: Wolverine #85 -> Cable #16"},
+          {id:"v7-10", text:"Uncanny X-Men #318 + X-Men Unlimited #6–7 + X-Men Annual 3 — bridges to Generation X"},
+          {id:"v7-11", text:"Bishop #1–4 -> Generation X #1–4 — Generation X launches"},
+          {id:"v7-12", text:"X-Factor #107–109; X-Force #38–43; Cable #15–20; Wolverine #86–90; Rogue #1–4; Excalibur #83–86 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Legion Quest & Age of Apocalypse",
+        note: "CK's recommended lead-in order: X-Men Vol.2 #38 -> UXM #319 -> X-Men Vol.2 #39 -> UXM #320 -> X-Factor #108 -> X-Men Vol.2 #40 -> X-Force #43 -> UXM #321 -> X-Men Vol.2 #41 -> Cable #20 -> Excalibur #86 -> Wolverine #90 -> Generation X #4, then straight into the event itself.",
+        items: [
+          {id:"v7-13", text:"Legion Quest lead-in (see note above) -> X-Men Alpha #1"},
+          {id:"v7-14", text:"Astonishing X-Men #1–4"},
+          {id:"v7-15", text:"Amazing X-Men #1–4"},
+          {id:"v7-16", text:"Factor X #1–4"},
+          {id:"v7-17", text:"Gambit and the X-Ternals #1–4"},
+          {id:"v7-18", text:"Generation Next #1–4"},
+          {id:"v7-19", text:"Weapon X #1–4"},
+          {id:"v7-20", text:"X-Calibre #1–4"},
+          {id:"v7-21", text:"X-Man #1–4"},
+          {id:"v7-22", text:"X-Universe #1–2"},
+          {id:"v7-23", text:"X-Men Omega #1 — reality restored"}
+        ]
+      },
+      {
+        title: "After Age of Apocalypse",
+        note: "Several tightly-plotted crossover sequences with exact CK-specified reading orders, given here as arrows.",
+        items: [
+          {id:"v7-24", text:"X-Men: Prime"},
+          {id:"v7-25", text:"Excalibur #87–90 (first issue after Phalanx Covenant/AoA)", optional:true, sub:true},
+          {id:"v7-26", text:"X-Men: Gene Nation: Uncanny X-Men #322 -> Wolverine #91 & Annual '95 -> X-Men Vol.2 #42–44 -> X-Force #44 -> Uncanny X-Men #323–324 -> X-Men Vol.2 Annual '95 -> Uncanny X-Men #325 -> X-Men Vol.2 #45 -> Uncanny X-Men #326 -> X-Men Unlimited #8"},
+          {id:"v7-27", text:"X-Factor #110–115; X-Force #44–48 & Cable #21–28; Wolverine/Gambit: Victims; Generation X #5–11 & Annual '95; Wolverine #93–96 & Annual '95; Excalibur #91–95 + Starjammers #1–4 (batched side reading)", optional:true, sub:true},
+          {id:"v7-28", text:"X-Factor #116–124 (batched)", optional:true, sub:true},
+          {id:"v7-29", text:"X-Men: In the Red: X-Men Vol.2 #46 -> Uncanny X-Men #327 -> X-Men Vol.2 #47 -> X-Men Unlimited #9 -> Uncanny X-Men #328 -> Sabretooth: In the Red Zone -> X-Men Vol.2 #48 -> Uncanny X-Men #329–330 -> Archangel -> X-Men Vol.2 #49 -> X-Men Unlimited #10"},
+          {id:"v7-30", text:"X-Force #49–51 & Annual '95; X-Man #5–14 & Cable #29–31 (batched side reading)", optional:true, sub:true},
+          {id:"v7-31", text:"X-Men: Wrath: X-Men/Brood #1–2 -> X-Men Vol.2 #50 -> Uncanny X-Men #331 -> X-Men Vol.2 #51–52 -> Wolverine #97–100 -> Uncanny X-Men #332 -> Wolverine #101–103 -> X-Men Unlimited #11–12"},
+          {id:"v7-32", text:"Further Adventures of Cyclops and Phoenix #1–4; Storm #1–4; X-Force #52–58; Generation X #12–19 (batched side reading — the latter two include early Onslaught effects)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Onslaught",
+        note: "One of the most confusing crossovers Marvel ever produced — 30+ issues across two months, split into 'Phase' (main action) and 'Impact' (fallout) issues. Impact issues outside core X-titles are safely skippable.",
+        items: [
+          {id:"v7-33", text:"Prologue: Uncanny X-Men #333 -> Excalibur #99 -> X-Man #15–17 -> Cable #32–33 -> X-Men Vol.2 #53 -> Uncanny X-Men #334 -> X-Men Vol.2 #54 -> Onslaught: X-Men"},
+          {id:"v7-34", text:"Phase 1 & Impact 1: Uncanny X-Men #335 -> X-Man #18 -> Cable #34 -> Avengers #401 -> Fantastic Four #415 -> X-Men Vol.2 #55 (core path — Impact issues in X-Force #57, Excalibur #100, X-Factor #125, Generation X #18, Wolverine #104 are optional)", optional:false},
+          {id:"v7-35", text:"Phase 2 & Impact 2: Uncanny X-Men #336 -> Cable #35 -> X-Man #19 -> Fantastic Four #416 -> X-Men Vol.2 #56 (core path — many more optional Impact issues across the Marvel Universe)"},
+          {id:"v7-36", text:"Epilogue: Onslaught: Marvel Universe -> Uncanny X-Men #337 -> X-Men Vol.2 #57 -> Onslaught: Epilogue"}
+        ]
+      },
+      {
+        title: "After Onslaught",
+        items: [
+          {id:"v7-37", text:"Excalibur #96–104 & Pryde & Wisdom #1–3", optional:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v8",
+    title: "Vol. 8 · Reassembled",
+    range: "1996–1999",
+    sections: [
+      {
+        title: "A note on this era",
+        note: "Like Fatal Attractions, this stretch of Crushing Krisis's guide is unrevised since 2013, and the comments section has years of unresolved reader-submitted corrections to the ordering (especially around Operation: Zero Tolerance). I've used the most broadly agreed-upon fixes where they exist, but treat the minor side-title interleaving here as a reasonable reading, not a certain one.",
+        items: []
+      },
+      {
+        title: "Post-Onslaught Regroup",
+        items: [
+          {id:"v8-01", text:"Magneto #1–4 -> XSE #1–4", optional:true},
+          {id:"v8-02", text:"Wolverine #106 & Annual '96 -> Uncanny X-Men Annual 20/'96 -> Uncanny X-Men #338 -> X-Men Vol.2 #58 -> Uncanny X-Men #339 -> X-Men Vol.2 #59 -> Uncanny X-Men #340 -> X-Men Vol.2 Annual '96"},
+          {id:"v8-03", text:"Generation X #19–25 & Daydreamers #1–3; X-Factor #127–135; Beast #1–3; Wolverine #106–110; Cable #37–44 (batched side reading)", optional:true, sub:true},
+          {id:"v8-04", text:"X-Man #20–29 & Annual '96 -> Amazing Spider-Man #420 -> X-Men #24", optional:true, sub:true},
+          {id:"v8-05", text:"X-Men #60–61 + X-Men Unlimited #13 + X-Men Vol.2 Annual '97 + Uncanny X-Men Annual '97"},
+          {id:"v8-06", text:"X-Force #59–66 & Annuals '96/'97; New Mutants: Truth or Death #1–3; Wolverine #111–114; Domino #1–4 (batched side reading)", optional:true, sub:true},
+          {id:"v8-07", text:"X-Men Unlimited #14 -> Uncanny X-Men #341–342 -> X-Men #62–64 -> Uncanny X-Men #343–345 -> X-Men Unlimited #15–16"},
+          {id:"v8-08", text:"Deadpool #1–8; Imperial Guard #1–3 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Operation: Zero Tolerance",
+        note: "Reader-refined order (per the guide's own comment thread, widely agreed to read better than the original collected order): Generation X #27 -> X-Force #67 -> Generation X #28 -> X-Men #65 -> X-Force #68 -> Generation X #29 -> X-Men #66 -> Wolverine #115 -> Cable #45 -> X-Men Unlimited #16 -> Cable #46 -> X-Man #30 -> Cable #47 -> Uncanny X-Men #346 -> Generation X #30–31 -> Wolverine #116 -> X-Force #69–70 -> X-Men #67 -> Uncanny X-Men #347 -> Wolverine #117 -> X-Men #68–69 -> Wolverine #118 -> Uncanny X-Men #348–350 -> X-Men #70",
+        items: [
+          {id:"v8-09", text:"Operation: Zero Tolerance — full interleaved event per the note above"},
+          {id:"v8-10", text:"Psylocke & Archangel: Crimson Dawn #1–4 (fits between Uncanny X-Men #347–348)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "After Zero Tolerance",
+        items: [
+          {id:"v8-11", text:"Wolverine #119–122 (collected as 'Not Dead Yet')"},
+          {id:"v8-12", text:"Excalibur #104–113, #-1, #114 + Colossus #1 + Kitty Pryde: Agent of SHIELD #1–3 (batched side reading)", optional:true, sub:true},
+          {id:"v8-13", text:"Uncanny X-Men #351 -> X-Men #71 -> Uncanny X-Men #352 -> X-Men Unlimited #17 -> X-Men #72 -> Uncanny X-Men #353–355 -> X-Men #73–75"},
+          {id:"v8-14", text:"Alpha Flight, Vol. 2 #-1 & #1–9; Excalibur #115–125; X-Factor #136–144; Wolverine #123–130; X-Force #71–86; Cable #48–53 & Annuals; X-Man #31–45; Generation X #32–45; X-Men Unlimited #18–20 (batched side reading — dense, mostly optional solo-title material)", optional:true, sub:true},
+          {id:"v8-15", text:"Uncanny X-Men #356–357 -> X-Men Vol.2 #77–78 -> Uncanny X-Men #358–359 -> Uncanny X-Men/Fantastic Four Annual '98 -> X-Men Vol.2 #79 -> X-Men Unlimited #21"},
+          {id:"v8-16", text:"X-Factor #145–149; Cable #54–62; X-Man #46–47; Gambit (1997) #1–4 (batched side reading)", optional:true, sub:true},
+          {id:"v8-17", text:"Uncanny X-Men #360 -> X-Men Vol.2 #80 & #1/2 -> Uncanny X-Men #361 -> X-Men Vol.2 #81 -> X-Men Liberators #1–4 -> X-Men Unlimited #22 -> Wolverine #131–132"}
+        ]
+      },
+      {
+        title: "Hunt for Xavier",
+        items: [
+          {id:"v8-18", text:"Alpha Flight, Vol. 2 #10–20 (batched side reading)", optional:true},
+          {id:"v8-19", text:"Hunt for Xavier: Uncanny X-Men #362 -> X-Men Vol.2 #82 -> Uncanny X-Men #363 -> X-Men Vol.2 #83 -> Uncanny X-Men #364 -> X-Men Vol.2 #84 -> Uncanny X-Men #365 (epilogue)"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v9",
+    title: "Vol. 9 · Revolution",
+    range: "1998–2001",
+    sections: [
+      {
+        title: "A note on this era",
+        note: "This is the least-detailed page in Crushing Krisis's whole guide — the original has literal '?' placeholders where the author never finished checking a few issue ranges. I've smoothed over the gaps with the most logical placement and flagged them below.",
+        items: []
+      },
+      {
+        title: "Magneto War & Rogue Nation",
+        items: [
+          {id:"v9-01", text:"Wolverine #133–139 (batched side reading)", optional:true, sub:true},
+          {id:"v9-02", text:"X-Men Vol.2 #85 -> Magneto War #1 -> Uncanny X-Men #366 -> X-Men Vol.2 #86 -> Uncanny X-Men #367 -> X-Men Vol.2 #87 -> Magneto Rex #1–3"},
+          {id:"v9-03", text:"Gambit #1–5 (batched side reading)", optional:true, sub:true},
+          {id:"v9-04", text:"X-Men Unlimited #23 -> Uncanny X-Men #368 -> X-Men Vol.2 #88 -> Uncanny X-Men #369 -> X-Men Vol.2 #89 -> Uncanny X-Men #370 -> X-Men Vol.2 #90 -> Uncanny X-Men #371 -> X-Men Vol.2 #91 & Annual '99"},
+          {id:"v9-05", text:"Cable #64–74; Warlock #1–9; Generation X #46–58; X-Force #90–98; Gambit #6–10 & Annual '99; Wolverine #140–145 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The Shattering",
+        items: [
+          {id:"v9-06", text:"Uncanny X-Men #372–375 & X-Men Vol.2 #92–95 — collected as 'The Shattering,' also launches Astonishing X-Men Vol.2 #1–3"}
+        ]
+      },
+      {
+        title: "The Twelve & Ages of Apocalypse",
+        note: "Reader-refined order (per the guide's comments — characters jump locations too fast for CK's original grouped-by-title order): UXM #376 -> Cable #75 -> X-Men #96 -> Wolverine #146 -> UXM #377 -> Cable #76 -> X-Men #97 -> Wolverine #147, continuing into Ages of Apocalypse.",
+        items: [
+          {id:"v9-07", text:"Bishop: The Last X-Man #1–14 (recommended before The Twelve, since Bishop reappears in it)", optional:true},
+          {id:"v9-08", text:"The Twelve: Uncanny X-Men #376 -> Cable #75 -> X-Men #96 -> Wolverine #146 -> Uncanny X-Men #377 -> Cable #76 -> X-Men #97 -> Wolverine #147"},
+          {id:"v9-09", text:"Ages of Apocalypse: Uncanny X-Men #378 & Annual '99 -> Wolverine #148 -> X-Men #98 -> Cable #77 -> X-Men Unlimited #26"}
+        ]
+      },
+      {
+        title: "After Apocalypse — Powerless",
+        items: [
+          {id:"v9-10", text:"X-Force #87–100 & Annual '99; Generation X #59–62; Wolverine Annual '99 (batched side reading)", optional:true, sub:true},
+          {id:"v9-11", text:"X-Men: Powerless — Uncanny X-Men #379–380 -> Cable #78 -> X-Force #101 -> Wolverine #149 -> X-Men #99"},
+          {id:"v9-12", text:"Gambit #11–19 & Annual '00; X-Men: Black Sun #1–4; X-Men: Magik #1–5; Wolverine: Blood Debt #150–153; Iron Fist/Wolverine #1–4 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "X-Men: Revolution (the Six-Month Gap)",
+        items: [
+          {id:"v9-13", text:"X-Men Unlimited #27 -> X-Men Vol.2 #100–102 -> Uncanny X-Men #381–383 -> X-Men Unlimited #28"},
+          {id:"v9-14", text:"X-Men Vol.2 #103 -> Uncanny X-Men #384 -> X-Men Vol.2 #104 -> Uncanny X-Men #385 -> X-Men Annual '00 -> X-Men Vol.2 #105 -> Uncanny X-Men #386 -> X-Men Vol.2 #106"},
+          {id:"v9-15", text:"X-Men Forever #1–6; Wolverine #154–158; X-Force #102–109; Cable #79–84; Generation X #63–70 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Maximum Security",
+        items: [
+          {id:"v9-16", text:"Uncanny X-Men #387 (part of the Maximum Security crossover, with Bishop: the Last X-Man #15 and non-X tie-ins)"},
+          {id:"v9-17", text:"X-Men: The Search for Cyclops #1–4 — directly follows UXM #387 per its own final-page note", optional:true, sub:true},
+          {id:"v9-18", text:"Wolverine Annual '00; Cable #85–86; Gambit #20–25; Wolverine: The Best There Is #159–161 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Dream's End",
+        items: [
+          {id:"v9-19", text:"X-Men: Dream's End — Uncanny X-Men #388 -> X-Men Vol.2 #108 -> Uncanny X-Men #389 -> X-Men Vol.2 #109 -> Uncanny X-Men #390 -> X-Men Vol.2 #110 -> Cable #87 -> Bishop #16"},
+          {id:"v9-20", text:"Cable #88–92, Uncanny X-Men Annual '00, X-Men Unlimited #30–31; Gambit & Bishop: Sons of the Atom #1–6; Excalibur: Sword of Power #1–4; Wolverine #162–169 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Eve of Destruction",
+        items: [
+          {id:"v9-21", text:"Uncanny X-Men #391–393 -> X-Men Vol.2 #111–113 — collected as 'X-Men: Eve of Destruction,' closes the era"},
+          {id:"v9-22", text:"Cable #93–96; Mutant X #6–32 (read-anytime side material)", optional:true, sub:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v10",
+    title: "Vol. 10 · New X-Men (Morrison Era)",
+    range: "2001–2004",
+    sections: [
+      {
+        title: "A note on this era",
+        note: "No X-title crossovers or events this time — just two parallel spines (the Morrison-written New X-Men, and the separate Uncanny X-Men) plus a wide field of solo/spin-off titles. I've kept both spines as their own required track and batched the spin-offs (X-Treme X-Men, X-Force/X-Statix, Weapon X, Wolverine solo, Exiles, Mystique, New Mutants Vol.2) as optional side reading, since they rarely intersect with the two main books. One correction applied per reader consensus in the comments: 'Holy War' is placed after 'Riot at Xavier's,' not before, since Holy War references the Riot's aftermath.",
+        items: []
+      },
+      {
+        title: "Lead-in",
+        items: [
+          {id:"v10-01", text:"Deadpool #54–64; Wolverine Annual 2001; X-Treme X-Men #1-9; Cyclops #1–4; Iceman #1–4; Wolverine #170–176 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "E Is for Extinction",
+        items: [
+          {id:"v10-02", text:"Uncanny X-Men #394–399 — 'Poptopia'"},
+          {id:"v10-03", text:"New X-Men #114–117 & Annual #1 — Morrison's run begins, the Genosha massacre"},
+          {id:"v10-04", text:"X-Treme X-Men: Savage Land #1–4; X-Force #116–120 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Imperial & New Worlds",
+        items: [
+          {id:"v10-05", text:"New X-Men #118–126"},
+          {id:"v10-06", text:"The Order #5–6 (batched side reading)", optional:true, sub:true},
+          {id:"v10-07", text:"Uncanny X-Men #400–409 & Annual 2001 + X-Men Unlimited #35"},
+          {id:"v10-08", text:"Deadpool #65–69; Wolverine #177–186; Nightcrawler #1–4; X-Force #121–129; Brotherhood #1–9; Weapon X: The Draft; X-Treme X-Men #10–18 (batched side reading)", optional:true, sub:true},
+          {id:"v10-09", text:"New X-Men #127–133"}
+        ]
+      },
+      {
+        title: "Hope & Riot at Xavier's",
+        items: [
+          {id:"v10-10", text:"Uncanny X-Men #410–415 — 'Hope'"},
+          {id:"v10-11", text:"Chamber #1–4; Weapon X #1–5; X-Men Unlimited #44–46 & 48 (batched side reading)", optional:true, sub:true},
+          {id:"v10-12", text:"Uncanny X-Men #416–420 — 'Dominant Species'"},
+          {id:"v10-13", text:"X-Treme X-Men: Mekanix #1–6; Wolverine #187–189 & #1–6; X-Treme X-Men: Schism (#19–23 + X-Pose #1–2); X-Statix #1–18 (batched side reading)", optional:true, sub:true},
+          {id:"v10-14", text:"New X-Men #134–138 — 'Riot at Xavier's' (read before Holy War, per Alpha Flight's explicit reference to the Riot in UXM #421–422)"},
+          {id:"v10-15", text:"Uncanny X-Men #421–427 — 'Holy War'"},
+          {id:"v10-16", text:"Exiles #28–30; Wolverine: Xisle; Wolverine: Snikt (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The Draco & Assault on Weapon Plus",
+        items: [
+          {id:"v10-17", text:"Uncanny X-Men #428–434 — 'The Draco'"},
+          {id:"v10-18", text:"Weapon X #6–13; X-Treme X-Men: God Loves, Man Kills (#25–30); X-Treme X-Men: Intifada (#31–35); X-Treme X-Men: Storm – The Arena (#36–39) (batched side reading)", optional:true, sub:true},
+          {id:"v10-19", text:"Uncanny X-Men #437–441 — 'She Lies with Angels'"}
+        ]
+      },
+      {
+        title: "Planet X & Here Comes Tomorrow",
+        items: [
+          {id:"v10-20", text:"New Mutants, Vol. 2 #1–13 & X-Men Unlimited #49; Mystique #1–6 (batched side reading)", optional:true, sub:true},
+          {id:"v10-21", text:"New X-Men #139–145 — build to Planet X"},
+          {id:"v10-22", text:"New X-Men #146–150 — 'Planet X,' Cyclops possessed by Xorn/Magneto"},
+          {id:"v10-23", text:"X-Treme X-Men #40–46 & Annual 1 (batched side reading)", optional:true, sub:true},
+          {id:"v10-24", text:"New X-Men #151–154"},
+          {id:"v10-25", text:"New X-Men #155–156 & Uncanny X-Men #442–443 — 'Bright New Mourning,' Morrison's run ends"},
+          {id:"v10-26", text:"Weapon X #14–18; Wolverine #7–11; X-Statix #19–26 (batched side reading)", optional:true, sub:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v11",
+    title: "Vol. 11 · The New Age → House of M",
+    range: "2004–2005",
+    sections: [
+      {
+        title: "X-Men: Reloaded",
+        note: "This era launched a wave of new titles (Astonishing X-Men, Excalibur Vol.2, District X, Rogue, Gambit, Nightcrawler solo series, New X-Men: Academy X) alongside the mainline books. Most run in parallel with little crossover — batched below.",
+        items: [
+          {id:"v11-01", text:"Wolverine #7–19; Wolverine/Punisher #1–4; Weapon X #19–28 (batched side reading)", optional:true, sub:true},
+          {id:"v11-02", text:"X-Men, Vol. 2 #157–160 -> New X-Men: Academy X #1–6"},
+          {id:"v11-03", text:"Uncanny X-Men #444–449 — Astonishing X-Men #1 pairs with #444 to establish the roster"},
+          {id:"v11-04", text:"Excalibur, Vol. 2 #1–4; X-Men Unlimited #1–14; District X #1–6; Rogue #1–6 (batched side reading)", optional:true, sub:true},
+          {id:"v11-05", text:"X-Men, Vol. 2 #161–165"},
+          {id:"v11-06", text:"Uncanny X-Men #450–454"},
+          {id:"v11-07", text:"Alpha Flight, Vol. 2 #1–6; Mystique #13–24; Nightcrawler #1–6; District X #7–12; Madrox #1–6; Marvel Team-Up #1–6; Jubilee #1–7; Cable & Deadpool #1–12; Excalibur #5–10 (batched side reading — Excalibur #5-10 intersects Avengers: Disassembled)", optional:true, sub:true},
+          {id:"v11-08", text:"X-Men/Fantastic Four #1–5 -> New X-Men: Academy X #7–11"}
+        ]
+      },
+      {
+        title: "Wolverine's Hand/Hydra Programming",
+        items: [
+          {id:"v11-09", text:"Uncanny X-Men #455–461"},
+          {id:"v11-10", text:"Astonishing X-Men #1–6 — Colossus's return"},
+          {id:"v11-11", text:"Wolverine #20–32 — brainwashed by the Hand and Hydra, later deprogrammed"},
+          {id:"v11-12", text:"Cable & Deadpool #13–18; X-Force, Vol. 2 #4–6; Secret War #1–5; X-Men: Phoenix – Endsong; X-Men Vol.2 #166–170; Wolverine: Soultaker; Astonishing X-Men #7–12 (batched side reading)", optional:true, sub:true},
+          {id:"v11-13", text:"Rogue #7–12 -> Gambit #1–12"},
+          {id:"v11-14", text:"X-Men, Vol. 2 #171–174"},
+          {id:"v11-15", text:"New X-Men: Academy X #12–15"}
+        ]
+      },
+      {
+        title: "Build to House of M",
+        items: [
+          {id:"v11-16", text:"Kitty Pryde: Shadow & Flame; Nightcrawler #7–12; District X #13–14; New X-Men: Hellions #1–4; X-Men Vol.2 #175–176 & Black Panther #8–9; Colossus: Bloodline; Alpha Flight #7–12; Exiles #49–68 (batched side reading)", optional:true, sub:true},
+          {id:"v11-17", text:"Excalibur, Vol. 2 #11–14 — the Scarlet Witch material leading directly into House of M"}
+        ]
+      },
+      {
+        title: "House of M",
+        items: [
+          {id:"v11-18", text:"House of M #1–8 -> Uncanny X-Men #462–465 (runs in parallel)"},
+          {id:"v11-19", text:"Exiles #69–71; New X-Men: Academy X #16–19; Wolverine #33–35; Cable & Deadpool #17–18 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Read Anytime",
+        items: [
+          {id:"v11-20", text:"Weapon X: Days of Future Now #1–5 — epilogue to the Weapon X series, works well just before House of M", optional:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v12",
+    title: "Vol. 12 · Endangered Species (Decimation → Civil War → World War Hulk)",
+    range: "2005–2007",
+    sections: [
+      {
+        title: "Decimation — The Day After M-Day",
+        items: [
+          {id:"v12-01", text:"Sentinel Squad ONE #1–5 (prelude, optional)", optional:true},
+          {id:"v12-02", text:"X-Men, Vol. 2 #177–181 & House of M: Decimation — The Day After"},
+          {id:"v12-03", text:"X-Men: The 198 #1–5 -> Son of M #1–6 -> Generation M #1–5 (batched, order per reader note: Son of M before The 198)", optional:true, sub:true},
+          {id:"v12-04", text:"X-Factor #1–6 — relaunch begins"},
+          {id:"v12-05", text:"New Excalibur #1–7"},
+          {id:"v12-06", text:"Uncanny X-Men #466–471"},
+          {id:"v12-07", text:"New X-Men #20–23"},
+          {id:"v12-08", text:"Wolverine #36–40; Wolverine Origins #1–15; Cable & Deadpool #19–24 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "The Rise & Fall of the Shi'ar Empire — Build to Civil War",
+        items: [
+          {id:"v12-09", text:"Uncanny X-Men #472–474 & Annual 1"},
+          {id:"v12-10", text:"Black Panther #14–18 — Storm's courtship and wedding to T'Challa", optional:true, sub:true},
+          {id:"v12-11", text:"X-Men: Apocalypse vs. Dracula #1–4; Cable & Deadpool #25–29 (batched side reading)", optional:true, sub:true},
+          {id:"v12-12", text:"X-Men, Vol. 2 #182–187"},
+          {id:"v12-13", text:"X-Men: Deadly Genesis #1–6"},
+          {id:"v12-14", text:"Nextwave #1–6; Exiles #75–89 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Civil War",
+        note: "Very few X-titles actually intersect this Marvel-wide event — only the issues below tie in directly.",
+        items: [
+          {id:"v12-15", text:"Wolverine #42–48"},
+          {id:"v12-16", text:"X-Factor #7–12"},
+          {id:"v12-17", text:"New X-Men #24–32"},
+          {id:"v12-18", text:"Civil War: X-Men #1–4"},
+          {id:"v12-19", text:"Black Panther #19–25; Cable & Deadpool #30–35; Wolverine #41, Giant-Size Wolverine, & #49 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "After Civil War",
+        items: [
+          {id:"v12-20", text:"New Excalibur #8–15; X-Men Vol.2 #188–193; Nextwave #7–12 (batched side reading)", optional:true, sub:true},
+          {id:"v12-21", text:"New X-Men #33–36 -> X-Men: Phoenix – Warsong #1–5"},
+          {id:"v12-22", text:"X-Factor #13–17; Cable & Deadpool #36–42; X-Men Vol.2 #194–199 (batched side reading)", optional:true, sub:true},
+          {id:"v12-23", text:"New X-Men #37–43"},
+          {id:"v12-24", text:"Uncanny X-Men #475–486 — 'The Rise & Fall of the Shi'ar Empire'"},
+          {id:"v12-25", text:"Uncanny X-Men #487–491 — 'The Extremists'"},
+          {id:"v12-26", text:"X-Factor #18–23; X-Men Vol.2 #200–204 (batched side reading)", optional:true, sub:true},
+          {id:"v12-27", text:"X-Men: Endangered Species (one-shot + backups across UXM, X-Men Vol.2, New X-Men, and X-Factor)", optional:true},
+          {id:"v12-28", text:"Cable & Deadpool #43–50 — series finale", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Die by the Sword",
+        note: "Not a formal 'event,' but a linked sequence of Excalibur and Exiles stories.",
+        items: [
+          {id:"v12-29", text:"Exiles #90–94 -> Wisdom #1–6 -> New Excalibur #16–24 -> Exiles #95–100 -> X-Men: Die by the Sword #1–5", optional:true}
+        ]
+      },
+      {
+        title: "World War Hulk",
+        items: [
+          {id:"v12-30", text:"Wolverine #50–61; Wolverine Origins #16–20 & Annual 1 (batched side reading)", optional:true, sub:true},
+          {id:"v12-31", text:"X-Men: World War Hulk #1–3 — the X-Men's only direct involvement in the event"},
+          {id:"v12-32", text:"X-Men/Spider-Man #1–4 (batched side reading)", optional:true, sub:true},
+          {id:"v12-33", text:"Astonishing X-Men #13–18"},
+          {id:"v12-34", text:"Astonishing X-Men #19–24 & Giant-Size — the last thing before Messiah Complex"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v13",
+    title: "Vol. 13 · Nation X (Messiah Complex → Second Coming)",
+    range: "2007–2010",
+    sections: [
+      {
+        title: "Messiah Complex",
+        items: [
+          {id:"v13-01", text:"X-Men: Messiah Complex #1 -> Uncanny X-Men #492 -> X-Factor #25 -> New X-Men #44 -> X-Men (Vol. 2) #205 -> Uncanny X-Men #493 -> X-Factor #26 -> New X-Men #45 -> X-Men (Vol. 2) #206 -> Uncanny X-Men #494 -> X-Factor #27 -> New X-Men #46 -> X-Men (Vol. 2) #207 — matches your original checklist exactly"}
+        ]
+      },
+      {
+        title: "Divided We Stand & Manifest Destiny",
+        items: [
+          {id:"v13-02", text:"Wolverine #62–65: 'Get Mystique'; X-Men Legacy #208–212: 'Divided He Stands'; Young X-Men #1–5 (batched side reading)", optional:true, sub:true},
+          {id:"v13-03", text:"Uncanny X-Men #495–499 — 'Divided We Stand'"},
+          {id:"v13-04", text:"Astonishing X-Men #25–30: 'Ghost Box'; X-Men Legacy #213–216 (batched side reading)", optional:true, sub:true},
+          {id:"v13-05", text:"Uncanny X-Men #500–503 — 'Manifest Destiny'"},
+          {id:"v13-06", text:"Cable #1–10: 'Messiah War' prelude and 'Waiting for the End of the World' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Secret Invasion",
+        items: [
+          {id:"v13-07", text:"Secret Invasion tie-ins: Secret Invasion: X-Men, Captain Britain & MI:13, X-Factor (batched — X-Men involvement is minimal)", optional:true, sub:true},
+          {id:"v13-08", text:"X-Force #7–12; X-Men: Worlds Apart (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Lovelorn & Dark Reign",
+        items: [
+          {id:"v13-09", text:"Uncanny X-Men #504–507 & Annual 2 — 'Lovelorn'"},
+          {id:"v13-10", text:"Wolverine Origins #31–40; Young X-Men #6–12; X-Infernus #1–4; Dark Avengers #1–6 (batched side reading)", optional:true, sub:true},
+          {id:"v13-11", text:"Uncanny X-Men #508–512 — 'Sisterhood,' Psylocke returns"},
+          {id:"v13-12", text:"Wolverine Weapon X #1–6; New Mutants #1–5: 'Return of Legion'; Astonishing X-Men #31–35: 'Exogenetic'; X-Force/Cable: Messiah War (X-Force #14–16 & Cable #13–15); X-Force #12–13 & #17–20 (batched side reading)", optional:true, sub:true},
+          {id:"v13-13", text:"X-Men Legacy #219–225: 'Salvage' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Utopia",
+        items: [
+          {id:"v13-14", text:"Avengers/X-Men: Utopia — Uncanny X-Men #513–514 -> X-Men Legacy #226–227 -> Dark Avengers #7–8"}
+        ]
+      },
+      {
+        title: "Nation X",
+        items: [
+          {id:"v13-15", text:"Wolverine Origins #41–45; Dark X-Men #1–5; Dark Wolverine #78–81; X-Factor #39–50 & #200–203; Wolverine: The Best There Is #1–12; Psylocke #1–4; Deadpool #15–18 (batched side reading)", optional:true, sub:true},
+          {id:"v13-16", text:"Uncanny X-Men #515–522 — 'Nation X,' Magneto, Namor, and Kitty join the cast"},
+          {id:"v13-17", text:"X-Men Legacy #228–230: 'Emplate'; Wolverine Weapon X #6–10; X-Men: Pixie Strikes Back (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Necrosha",
+        items: [
+          {id:"v13-18", text:"X-Force #21–25 (main story) -> New Mutants #6–11 -> X-Men Legacy #231–234 — Necrosha"}
+        ]
+      },
+      {
+        title: "Siege & Build to Second Coming",
+        items: [
+          {id:"v13-19", text:"Cable #16–20: 'Stranded'; Dark Wolverine #85–89 & Wolverine Origins #46–50; Doomwar; Wolverine Weapon X #11–15 (batched — Siege itself is mostly outside the X-books)", optional:true, sub:true},
+          {id:"v13-20", text:"X-Factor #204–206; Cable: Homecoming (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Second Coming",
+        items: [
+          {id:"v13-21", text:"X-Men: Second Coming #1 -> Uncanny X-Men #523 -> New Mutants #12 -> X-Men Legacy #235 -> X-Force #26 -> Uncanny X-Men #524 -> New Mutants #13 -> X-Men Legacy #236 -> X-Force #27 -> Uncanny X-Men #525 -> New Mutants #14 -> X-Men Legacy #237 -> X-Force #28 -> X-Men: Second Coming #2 — matches your original checklist exactly"}
+        ]
+      },
+      {
+        title: "Read Anytime",
+        items: [
+          {id:"v13-22", text:"X-Men: Emperor Vulcan -> War of Kings: Road to War of Kings -> War of Kings -> War of Kings: Warriors — the Starjammers team's separate branch, shelved apart from the main X-Men read; can go anywhere in this volume", optional:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v14",
+    title: "Vol. 14 · Breaking Points (Fear Itself → Schism → Avengers vs. X-Men)",
+    range: "2010–2012",
+    sections: [
+      {
+        title: "A note on this era",
+        note: "This is the final era Crushing Krisis ever completed — the source page itself is littered with 'TBA' and 'unverified' placements the author never finished nailing down, and the site stopped here permanently after Avengers vs. X-Men. Given that, I've kept only the clearest structural landmarks (Age of X, Fear Itself, Schism, the Dark Angel Saga, and the three Acts of AvX) as required, and batched the rest — this volume has more honest uncertainty than any other in the whole checklist.",
+        items: []
+      },
+      {
+        title: "Post–Second Coming",
+        items: [
+          {id:"v14-01", text:"Uncanny X-Men #526–529: 'The Birth of Generation Hope'; New Mutants #15–21; Uncanny X-Men #530–534; Generation Hope #1–4; Uncanny X-Force #1–4: 'The Apocalypse Solution' (batched — this run establishes the modern Uncanny X-Force team)", optional:true, sub:true},
+          {id:"v14-02", text:"X-Men, Vol. 3 #1–6: 'Curse of the Mutants'; Namor #1–4; X-Men: Curse of the Mutants tie-ins; X-Men: To Serve and Protect #1–4; X-Men Legacy #238–241: 'Collision'; Wolverine & Jubilee #1–6; X-Factor #207–219 (batched side reading)", optional:true, sub:true},
+          {id:"v14-03", text:"Wolverine possessed arc: X-23 #1–6, Dark Wolverine #90 & Daken #1–4, Wolverine #1–4 & #5.1/6–9, Namor #5–11, X-Men #7–11; Chaos War; Uncanny X-Force #5.1 & 5–7 (batched side reading)", optional:true, sub:true},
+          {id:"v14-04", text:"Avengers: The Children's Crusade #1–9 — includes the X-Men's A-list cast", optional:true},
+          {id:"v14-05", text:"X-Factor #220–224; X-Men #12–19; Daken #5–9 & X-23 #7–9 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Age of X",
+        items: [
+          {id:"v14-06", text:"X-Men Legacy #242–249 & New Mutants #22–24 — an alternate-reality event spanning both titles at once"},
+          {id:"v14-07", text:"New Mutants #25–28; Astonishing X-Men #38–42; Daken #9.1–19; X-23 #10–16; X-Men Legacy #250–260 (batched side reading)", optional:true, sub:true},
+          {id:"v14-08", text:"Uncanny X-Men #534.1 & 535–539: 'Breaking Point' — Kitty regains tangibility"}
+        ]
+      },
+      {
+        title: "Fear Itself",
+        items: [
+          {id:"v14-09", text:"X-Men: Prelude to Schism; Alpha Flight #.1–4 (batched prelude reading)", optional:true, sub:true},
+          {id:"v14-10", text:"Fear Itself #1–7 (main series) with New Mutants #29–32, Wolverine: Fear Itself #1–3, and the Uncanny X-Force/Deep tie-ins"},
+          {id:"v14-11", text:"Uncanny X-Men #540–544; Wolverine #10–16: 'Wolverine's Revenge' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Schism & Regenesis",
+        items: [
+          {id:"v14-12", text:"X-Men: Schism #1–5 & Regenesis — the team splits into two schools"},
+          {id:"v14-13", text:"Generation Hope #6–12; Wolverine #17–20; Astonishing X-Men #44–47; X-Club #1–5 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Wolverine and the X-Men / Uncanny X-Men (Gillen)",
+        note: "The team splits: Wolverine and the X-Men launches at the Jean Grey School, while Uncanny X-Men (Vol.1, then Vol.2) follows Cyclops's Extinction Team on Utopia.",
+        items: [
+          {id:"v14-14", text:"Uncanny X-Men #1–4 (Gillen Vol.1); New Mutants #33–37; X-Men #20–23; Magneto: Not a Hero #1–4; Generation Hope #13–17; X-Factor #224–228 (batched side reading)", optional:true, sub:true},
+          {id:"v14-15", text:"Wolverine and the X-Men #1–4 (Vol.1); X-23 #17–21; X-Men, Vol. 3 #24–29 (batched side reading)", optional:true, sub:true},
+          {id:"v14-16", text:"Uncanny X-Force #8–19: 'The Dark Angel Saga' -> Uncanny X-Force #20–24: 'Otherworld'"},
+          {id:"v14-17", text:"Wolverine #300–313 (batched); Wolverine: Alpha and Omega #1–5; Daken #20–22; New Mutants #38–41; Uncanny X-Men #5–10 (Gillen Vol.2); Venom: Circle of Four; X-Men Legacy #261–265; Wolverine and the X-Men #5–9; Astonishing X-Men #48–56; Avengers: X-Sanction #1–4; X-Men, Vol. 3 #30–41; X-Factor #233–240; X-Treme X-Men, Vol. 2 #1–5; New Mutants #44–50 (batched — dense pre-AvX build-up across nearly every title)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Avengers vs. X-Men",
+        note: "A sprawling event split into three official Acts, with the Phoenix Force possessing five X-Men mid-story.",
+        items: [
+          {id:"v14-18", text:"AvX Act I: Avengers vs. X-Men #0–5 & AvX Versus #1–3"},
+          {id:"v14-19", text:"Uncanny X-Men #11–14 (Gillen Vol.3); Avengers #24–30; Wolverine and the X-Men #9–13; Avengers Academy #29–33; New Avengers #24–29 (batched side reading — gives each side's perspective on Act I)", optional:true, sub:true},
+          {id:"v14-20", text:"AvX Act II: Avengers vs. X-Men #6–9 & AvX Versus #4–5"},
+          {id:"v14-21", text:"X-Men Legacy #266–270 (batched side reading)", optional:true, sub:true},
+          {id:"v14-22", text:"AvX Act III: Avengers vs. X-Men #10–12 & AvX Versus #6"},
+          {id:"v14-23", text:"Wolverine and the X-Men #14–18; Uncanny X-Men #15–20 (Gillen Vol.4); X-Men Legacy #271–275; X-Factor #241–249; Deadpool #50–62; Uncanny X-Force #25–35: 'Final Execution' (batched — reads as the epilogue wave after the event)", optional:true, sub:true},
+          {id:"v14-24", text:"Avengers vs. X-Men: Consequences #1–5 — bridges directly into the Marvel NOW! relaunch, and the end of Crushing Krisis's guide"}
+        ]
+      },
+      {
+        title: "Read Anytime",
+        items: [
+          {id:"v14-25", text:"Age of Apocalypse #1–5: 'The X-Terminated' — can be read anywhere in this volume", optional:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v15",
+    title: "Vol. 15 · Marvel NOW! → Secret Wars",
+    range: "2012–2015",
+    sections: [
+      {
+        title: "A note on sourcing from here forward",
+        note: "Crushing Krisis's guide ends at Avengers vs. X-Men — there is no single fully-verified issue-by-issue completionist order past this point. From here on this checklist is built from Comic Book Treasury's collected-edition reading order, which organizes by trade paperback rather than exact issue interleaving. It's the best comprehensive source available, but treat exact ordering within each block as reasonable rather than certain.",
+        items: []
+      },
+      {
+        title: "Aftermath of AvX — New Status Quo",
+        items: [
+          {id:"v15-01", text:"Wolverine and the X-Men, Vol. 5 (#19–24); X-Men: Legacy Vol. 1: 'Prodigal' (Legion's series); Uncanny Avengers: The Red Shadow (launch); Avengers vs. X-Men: Consequences #1–5; Cable and X-Force Vol. 1: 'Wanted' (launch)", optional:true, sub:true},
+          {id:"v15-02", text:"All-New X-Men, Vol. 1: 'Yesterday's X-Men' — the original five X-Men are brought to the present"},
+          {id:"v15-03", text:"Gambit: King of Thieves; Savage Wolverine Vol. 1–2; X-Men: Legacy Vol. 2: 'Invasive Exotics'; A+X Vol. 1; X-Factor: 'Hell on Earth War' & 'The End of X-Factor' (series finale) (batched side reading)", optional:true, sub:true},
+          {id:"v15-04", text:"Uncanny X-Men, Vol. 3: 'Revolution' — relaunch, Cyclops leads a faction of mutant revolutionaries"},
+          {id:"v15-05", text:"All-New X-Men Vol. 2: 'Here to Stay'; Uncanny X-Men Vol. 2: 'Broken'; Wolverine and the X-Men Vol. 6; Uncanny X-Force Vol. 2: 'Let It Bleed' (new team: Psylocke, Storm, Spiral, Fantomex, Bishop, Puck); Cable and X-Force: 'Dead or Alive' & 'This Won't End Well' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Age of Ultron (optional event) & Build",
+        items: [
+          {id:"v15-06", text:"Age of Ultron #1–10 — optional Marvel-wide event, skippable", optional:true},
+          {id:"v15-07", text:"Uncanny X-Force Vol. 2: 'Torn and Frayed'; Uncanny Avengers: 'The Apocalypse Twins,' 'Ragnarok Now,' 'Avenge the Earth'; Uncanny X-Force: 'The Great Corruption' (batched side reading)", optional:true, sub:true},
+          {id:"v15-08", text:"Astonishing X-Men: 'Unmasked'; Wolverine and the X-Men Vol. 7; Wolverine: 'Japan's Most Wanted' & 'Killable'; All-New X-Men Vol. 3: 'Out of Their Depth' (batched side reading)", optional:true, sub:true},
+          {id:"v15-09", text:"X-Men, Vol. 4 #1–4: 'Primer' — new all-female-led X-Men ongoing"},
+          {id:"v15-10", text:"X-Men: Legacy Vol. 3: 'Revenants' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Battle of the Atom",
+        items: [
+          {id:"v15-11", text:"X-Men: Battle of the Atom — collects X-Men: Battle of the Atom #1–2, All-New X-Men #16–17, X-Men Vol.4 #5–6, Uncanny X-Men Vol.3 #12–13, Wolverine and the X-Men #36–37"},
+          {id:"v15-12", text:"All-New X-Men, Vol. 4: 'All-Different'", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Infinity & Inhumanity (optional events) & Launches",
+        items: [
+          {id:"v15-13", text:"Infinity #1–6 & Inhumanity one-shot — optional Marvel-wide events, skippable", optional:true},
+          {id:"v15-14", text:"Wolverine and the X-Men Vol. 8; X-Men: Legacy Vol. 4: 'For We Are Many'; All-New X-Factor: 'Not Brand X' & 'Change of Decay' (new team relaunch, optional) (batched side reading)", optional:true, sub:true},
+          {id:"v15-15", text:"X-Force, Vol. 4 #1–6: 'Dirty/Tricks' — new team: Cable, Psylocke, Fantomex, Dr. Nemesis, Marrow"},
+          {id:"v15-16", text:"Amazing X-Men Vol. 2 #1–6: 'The Quest for Nightcrawler' — new series launch, Jason Aaron"},
+          {id:"v15-17", text:"Uncanny X-Men Vol. 3: 'The Good, the Bad, the Inhuman'; X-Men Vol. 4: 'Muertas'; All-New Doop; Savage Wolverine Vol. 3 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Build to Death of Wolverine",
+        items: [
+          {id:"v15-18", text:"Wolverine and the X-Men, Vol. 2 (2014 relaunch) #1–6: 'Tomorrow Never Learns'; Guardians of the Galaxy/All-New X-Men: 'The Trial of Jean Grey'; Magneto Vol. 1: 'Infamous' (new solo launch); X-Men Vol.4: 'Bloodline'; Amazing X-Men: 'World War Wendigo' (batched side reading)", optional:true, sub:true},
+          {id:"v15-19", text:"Wolverine and the X-Men, Vol. 2 #7–9 — read only up to #9; the rest of the volume follows Death of Wolverine itself"}
+        ]
+      },
+      {
+        title: "Original Sin (optional event) & More Launches",
+        items: [
+          {id:"v15-20", text:"Original Sin #0–8 — optional Marvel-wide event, skippable", optional:true},
+          {id:"v15-21", text:"Uncanny X-Men Vol. 4: 'X-Men vs. S.H.I.E.L.D.'; All-New X-Men Vol. 5: 'One Down'; Uncanny X-Men Vol. 5: 'The Omega Mutant'; All-New X-Men Vol. 6: 'The Ultimate Adventure' (batched side reading)", optional:true, sub:true},
+          {id:"v15-22", text:"X-Men Vol.4: 'Exogenous'; Nightcrawler Vol. 1: 'Homecoming' (new solo); Magneto Vol. 2: 'Reversals'; Storm Vol. 1: 'Make It Rain' (new solo); X-Force Vol. 3: 'Ends/Means'; Uncanny Avengers: 'AXIS Prelude' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Death of Wolverine",
+        items: [
+          {id:"v15-23", text:"Death of Wolverine — collected as the Death of Wolverine Omnibus, spanning Wolverine (2013) #1–13, Wolverine (2014) #1–12, and the Death of Wolverine tie-ins across Nightcrawler, Wolverine & The X-Men, and Storm"}
+        ]
+      },
+      {
+        title: "AXIS",
+        items: [
+          {id:"v15-24", text:"Avengers & X-Men: AXIS — the Red Onslaught inverts heroes and villains along their moral axis"},
+          {id:"v15-25", text:"All-New X-Factor: 'Axis' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Build to Secret Wars",
+        items: [
+          {id:"v15-26", text:"Cyclops Vol. 1–2 (new solo); Nightcrawler Vol. 2: 'Reborn'; Amazing X-Men: 'Once and Future Juggernaut'; Uncanny Avengers Vol. 2: 'Counter-Evolutionary'; X-Men Vol.4: 'The Burning World'; Storm Vol. 2; Uncanny X-Men Vol. 6: 'Storyville'; Wolverines Vol. 1–2 (new team book after Wolverine's death); Spider-Man and the X-Men (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Black Vortex",
+        items: [
+          {id:"v15-27", text:"Guardians of the Galaxy & X-Men: The Black Vortex — collects the full crossover across both franchises"},
+          {id:"v15-28", text:"All-New X-Men Vol. 7: 'The Utopians'; Magneto Vol. 4: 'Last Days'; Wolverines Vol. 3–4 (batched side reading — this is the end of Marvel NOW!)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Secret Wars",
+        items: [
+          {id:"v15-29", text:"Secret Wars (2015) #0–9 — Marvel's Multiverse-ending event, closes out Marvel NOW! and leads to All-New, All-Different Marvel"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v16",
+    title: "Vol. 16 · All-New, All-Different Marvel",
+    range: "2015–2017",
+    sections: [
+      {
+        title: "X-Haven & the Terrigen Mist Crisis",
+        note: "Post-Secret Wars, the Inhumans' Terrigen Mist becomes toxic to mutants (M-Pox), pushing mutantkind toward extinction again. Storm relocates the X-Men to X-Haven in Limbo; Magneto takes a harder line.",
+        items: [
+          {id:"v16-01", text:"All-New X-Men: Inevitable Vol. 1: 'Ghosts of the Cyclops'; Old Man Logan Vol. 1: 'Berzerker' (new solo); Uncanny Avengers Vol. 3: 'Lost Future' (batched side reading)", optional:true, sub:true},
+          {id:"v16-02", text:"Extraordinary X-Men Vol. 1: 'X-Haven' — new flagship title, the team relocates to Limbo"},
+          {id:"v16-03", text:"All-New Wolverine Vol. 1: 'The Four Sisters' — Laura Kinney's first series as Wolverine, introduces her clone-sister Gabby"},
+          {id:"v16-04", text:"Deadpool: World's Greatest Vol. 1; Deadpool v Gambit; Deadpool & Cable: Split Second (batched side reading)", optional:true, sub:true},
+          {id:"v16-05", text:"Uncanny X-Men, Vol. 4 #1–5: 'Survival of the Fittest' — relaunch"},
+          {id:"v16-06", text:"Old Man Logan Vol. 2: 'Bordertown'; X-Men: Worst X-Man Ever (optional alt-universe one-off); Deadpool: World's Greatest Vol. 2–3 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Apocalypse Wars",
+        items: [
+          {id:"v16-07", text:"Apocalypse Wars — collected as All-New X-Men: Inevitable Vol.2, Uncanny Avengers: 'The Man Who Fell to Earth,' Extraordinary X-Men Vol.2, and Uncanny X-Men Vol.4 #6–10 (also collected together as 'X-Men: Apocalypse Wars')"},
+          {id:"v16-08", text:"Deadpool: World's Greatest Vol. 4; Deadpool & The Mercs for Money; Old Man Logan Vol. 3: 'The Last Ronin' (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Civil War II (optional event — minor X-Men involvement)",
+        items: [
+          {id:"v16-09", text:"Civil War II #0–8 — optional Marvel-wide event; X-Men involvement is minor", optional:true},
+          {id:"v16-10", text:"All-New Wolverine Vol. 2: 'Civil War II'; Uncanny Avengers: 'Civil War II'; Deadpool: World's Greatest Vol. 5: 'Civil War II' (batched side reading)", optional:true, sub:true},
+          {id:"v16-11", text:"Uncanny X-Men Vol. 4: 'Waking from the Dream'; All-New X-Men: Inevitable Vol. 3: 'Hell Hath So Much Fury'; Extraordinary X-Men Vol. 3: 'Kingdoms Fall' (batched side reading)", optional:true, sub:true},
+          {id:"v16-12", text:"Deadpool: 'Back in Black'; Spider-Man/Deadpool (various); All-New Wolverine Vol. 3; Old Man Logan Vol. 4 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Inhumans vs. X-Men",
+        note: "The Terrigen crisis reaches its breaking point — the X-Men declare war on the Inhumans to save mutantkind's future.",
+        items: [
+          {id:"v16-13", text:"Death of X #1–6 (prelude) -> Inhumans vs. X-Men #0–6"},
+          {id:"v16-14", text:"Extraordinary X-Men Vol. 4: IvX; All-New X-Men: Inevitable Vol. 4: IvX; Uncanny X-Men Vol. 4: IvX (tie-ins across all three main titles)", optional:true, sub:true}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v17",
+    title: "Vol. 17 · ResurrXion",
+    range: "2017–2019",
+    sections: [
+      {
+        title: "ResurrXion — Rebuilding",
+        note: "The Terrigen crisis ends. With Cyclops and Wolverine both gone, Kitty Pryde becomes the new leader, relocating the school to Central Park. Magneto mentors the time-displaced original X-Men.",
+        items: [
+          {id:"v17-01", text:"Deadpool Vol. 7–9 (batched side reading)", optional:true, sub:true},
+          {id:"v17-02", text:"X-Men Gold: 'Back to the Basics' (incl. X-Men Prime one-shot) — new launch"},
+          {id:"v17-03", text:"X-Men Blue: 'Strangest' — new launch, Jean Grey/original five-adjacent team"},
+          {id:"v17-04", text:"Jean Grey Vol. 1: 'Nightmare Fuel' (new solo); Generation X Vol. 1: 'Natural Selection' (new team relaunch); All-New Wolverine: 'Immune'; Old Man Logan: 'Past Lives' (batched side reading)", optional:true, sub:true},
+          {id:"v17-05", text:"Astonishing X-Men, Vol. 4: 'Life of X' — new volume: Psylocke, Bishop, Angel, Gambit, Fantomex, Old Man Logan, Rogue, and Mystique reunite in London against the Shadow King"},
+          {id:"v17-06", text:"Cable Vol. 1: 'Conquest' (new solo); Iceman Vol. 1: 'Thawing Out' (new solo) (batched side reading)", optional:true, sub:true},
+          {id:"v17-07", text:"Weapon X, Vol. 3: 'Weapons of Mutant Destruction Prelude' -> 'Weapons of Mutant Destruction' (small crossover event)"}
+        ]
+      },
+      {
+        title: "Secret Empire (optional event) & Marvel Legacy",
+        items: [
+          {id:"v17-08", text:"Secret Empire #0–10 — optional Marvel-wide event; minor X-Men involvement", optional:true},
+          {id:"v17-09", text:"X-Men Gold: 'Evil Empires'; X-Men Blue: 'Toil and Trouble'; Deadpool Vol. 10: 'Secret Empire' (batched tie-ins)", optional:true, sub:true},
+          {id:"v17-10", text:"Weapon X Vol. 2: 'Search for Weapon H'; Generation X Vol. 2 (batched side reading)", optional:true, sub:true},
+          {id:"v17-11", text:"Iceman Vol. 2; X-Men Gold: 'Mojo Worldwide'; X-Men Blue: 'Cross-Time Capers'; All-New Wolverine: 'Orphans of X'; Cable Vol. 2; Jean Grey Vol. 2; Weapon X Vol. 3: 'Modern Warfare'; Astonishing X-Men: 'A Man Called X' (batched — the 'Marvel Legacy' soft relaunch, X-books mostly unaffected)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Phoenix Resurrection & X-Men Red",
+        items: [
+          {id:"v17-12", text:"Phoenix Resurrection: The Return of Jean Grey #1–5"},
+          {id:"v17-13", text:"Rogue & Gambit: 'Ring of Fire' (batched side reading)", optional:true, sub:true},
+          {id:"v17-14", text:"X-Men Red #1–5 & Annual: 'The Hate Machine' — new team led by the returned Jean Grey"},
+          {id:"v17-15", text:"X-Men Gold: 'The Negative Zone War' & 'Cruel and Unusual'; Venom & X-Men: 'Poison X'; X-Men Blue: 'Cry Havok'; Cable Vol. 3; Domino Vol. 1 (new solo); Weapon X Vol. 4; Legion: 'Trauma' (new solo) (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Mr. and Mrs. X",
+        items: [
+          {id:"v17-16", text:"X-Men Blue: 'Surviving the Experience'; X-Men Gold: ''Til Death Do Us Part' & 'Godwar'; X-Men Black (one-shots: Magneto, Mojo, Mystique, Juggernaut, Emma Frost); X-Men Red: 'Waging Peace'; Weapon H Vol. 1 (new solo) (batched side reading)", optional:true, sub:true},
+          {id:"v17-17", text:"Mr. and Mrs. X, Vol. 1: 'Love and Marriage' — Rogue and Gambit's married life"}
+        ]
+      },
+      {
+        title: "Hunt for Wolverine & Return of Wolverine",
+        items: [
+          {id:"v17-18", text:"Hunt for Wolverine — collects the full multi-mini event: Weapon Lost, Adamantium Agenda, Claws of a Killer, Mystery in Madripoor, and Dead Ends"},
+          {id:"v17-19", text:"Astonishing X-Men: 'Until Our Hearts Stop'; Exiles (2018) Vol. 1–2 (new relaunch); Multiple Man; New Mutants: 'Dead Souls' (batched side reading)", optional:true, sub:true},
+          {id:"v17-20", text:"Return of Wolverine #1–5 — Logan comes back from the dead"},
+          {id:"v17-21", text:"X-23 (2018) Vol. 1: 'Family Album' (new solo); Iceman (2018) Vol. 3; Domino Vol. 2; Major X (optional); Dead Man Logan (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Extermination",
+        items: [
+          {id:"v17-22", text:"Extermination #1–5 — the time-displaced original five are targeted for death"},
+          {id:"v17-23", text:"X-Men: Summers and Winter (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Uncanny X-Men Relaunch (Vol. 5)",
+        items: [
+          {id:"v17-24", text:"Uncanny X-Men, Vol. 5: 'Disassembled' (#1–10) — the X-Men Gold/Blue/Red ongoings end, folding into this relaunch"},
+          {id:"v17-25", text:"X-23 Vol. 2: 'X-Assassin'; X-Force, Vol. 5: 'Sins of the Past' (new relaunch); Wolverine: Infinity Watch; Hulkverines (batched side reading)", optional:true, sub:true},
+          {id:"v17-26", text:"Uncanny X-Men, Vol. 5: 'Cyclops and Wolverine' Vol. 1"},
+          {id:"v17-27", text:"War of the Realms: Uncanny X-Men (optional Marvel-wide event tie-in — minimal X-Men-specific stakes)", optional:true, sub:true},
+          {id:"v17-28", text:"Uncanny X-Men, Vol. 5: 'Cyclops and Wolverine' Vol. 2"}
+        ]
+      },
+      {
+        title: "Age of X-Man",
+        note: "An alternate reality where the X-Men have built a utopia where hatred no longer exists — and no one dares question it.",
+        items: [
+          {id:"v17-29", text:"Age of X-Man: Alpha & Omega -> The Marvelous X-Men -> NextGen -> The Amazing Nightcrawler -> The X-Tremists -> Prisoner X -> Apocalypse & the X-Tracts"}
+        ]
+      },
+      {
+        title: "The End of an Era",
+        items: [
+          {id:"v17-30", text:"After Age of X-Man, every ongoing X-Men title was cancelled — the line goes dark until Jonathan Hickman's House of X / Powers of X relaunches everything under the Krakoa era"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v18",
+    title: "Vol. 18 · House of X → Dawn of X → X of Swords",
+    range: "2019–2020",
+    sections: [
+      {
+        title: "A note on sourcing",
+        note: "This is the start of the Krakoa era, built from Comic Book Treasury's detailed issue-by-issue Hickman-era guide — the most granular source available for this stretch, alternating between the many parallel Dawn of X series exactly as originally published.",
+        items: []
+      },
+      {
+        title: "House of X / Powers of X",
+        items: [
+          {id:"v18-01", text:"House of X #1 -> Powers of X #1 -> House of X #2 -> Powers of X #2 -> Powers of X #3 -> House of X #3 -> House of X #4 -> Powers of X #4 -> House of X #5 -> Powers of X #5 -> House of X #6 -> Powers of X #6 — Krakoa is unveiled, and mutantkind's past, present, and future collide"}
+        ]
+      },
+      {
+        title: "Dawn of X",
+        note: "The Dawn of X titles run in tight weekly rotation — presented below in the exact published interleaving, chunked for readability.",
+        items: [
+          {id:"v18-02", text:"X-Men #1 -> X-Men #6 -> Excalibur #1–6 -> New Mutants #1–4 -> New Mutants #6 -> Marauders #1 -> Incoming #1 ('Bar Sinister') -> X-Men/Fantastic Four #1–4"},
+          {id:"v18-03", text:"X-Force #1 -> Fallen Angels #1–4 -> Marauders #2–3 -> New Mutants #8 -> X-Men #2 -> Marvel Comics #1000 ('The First Horsemen') -> X-Men #3"},
+          {id:"v18-04", text:"New Mutants #5 -> New Mutants #7 -> New Mutants #9–11 -> X-Force #2–3 -> X-Men #4 -> X-Force #4–5 -> Fallen Angels #5–6"},
+          {id:"v18-05", text:"Hellions #1–4 -> X-Force #6 -> Marauders #4–6 -> Cable #1 -> X-Men #8–9 -> X-Men #5"},
+          {id:"v18-06", text:"Giant-Size X-Men: Jean Grey & Emma Frost #1 -> Marauders #7 -> Giant-Size X-Men: Magneto #1 -> Marauders #8 -> X-Force #7–8 -> Excalibur #7–8 -> X-Force #9–10"},
+          {id:"v18-07", text:"X-Factor #1 -> Wolverine #1–3 -> Cable #2–4 -> Marauders #9–12 -> Giant-Size X-Men: Nightcrawler #1 -> New Mutants #12 -> Marvel's Voices #1 ('The Race') -> Giant-Size X-Men: Fantomex #1 -> Giant-Size X-Men: Storm #1"},
+          {id:"v18-08", text:"X-Men #7 -> X-Men #10 -> X-Men #11 -> Wolverine #4–5 -> X-Factor #2–3 -> X-Force #11–12 -> X-Force #15–16 -> Excalibur #9–12 -> X-Men #12 — leads directly into X of Swords"},
+          {id:"v18-09", text:"Empyre: X-Men #1–4 — optional Marvel-wide event tie-in, fits between X-Men #10 and #11", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "X of Swords",
+        note: "The Krakoan era's first major crossover — Arakko's sword-wielding champions threaten Krakoa, and ten mutants must each claim a legendary blade.",
+        items: [
+          {id:"v18-10", text:"X of Swords: Creation #1 -> X-Factor #4 -> Wolverine #6 -> X-Force #13 -> Marauders #13 -> Hellions #5 -> New Mutants #13 -> Cable #5 -> Excalibur #13 -> X-Men #13 -> X of Swords: Stasis #1 -> X-Men #14 -> Marauders #14–15 -> Excalibur #14 -> Wolverine #7 -> X-Force #14 -> Hellions #6 -> Cable #6 -> X-Men #15 -> Excalibur #15 -> X of Swords: Destruction #1"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v19",
+    title: "Vol. 19 · Reign of X → Hellfire Gala → Inferno",
+    range: "2021–2022",
+    sections: [
+      {
+        title: "Reign of X",
+        note: "Krakoa's influence expands to Earth, Otherworld, and beyond — same rotating multi-title format as Dawn of X.",
+        items: [
+          {id:"v19-01", text:"S.W.O.R.D. #1 -> Excalibur #16 -> Hellions #7–8 -> X-Factor #5 -> X-Men #16 -> Cable #7–8 -> New Mutants #14 -> Marauders #16 -> Wolverine #8–10"},
+          {id:"v19-02", text:"X-Factor #6–9 -> New Mutants #15–17 -> Marauders #17 -> S.W.O.R.D. #2–4 (King in Black tie-ins) -> King in Black: Marauders #1"},
+          {id:"v19-03", text:"Excalibur #17–20 -> Hellions #9–11 -> X-Men #17 -> Marauders #18–19 -> Children of the Atom #1–3 -> Cable #9 -> X-Force #17"},
+          {id:"v19-04", text:"Juggernaut #1–5 -> X-Force #18–19 -> Wolverine #11–12 -> X-Men #18–19 -> Cable #10–12"},
+          {id:"v19-05", text:"New Mutants #18 -> X-Men #20 -> X-Corp #1 -> S.W.O.R.D. #5 -> Children of the Atom #4–5 (takes place during the Hellfire Gala, not an official tie-in) -> Way of X #1–2 -> Marauders #20"}
+        ]
+      },
+      {
+        title: "X-Men: Hellfire Gala 2021",
+        note: "A one-night event across every Krakoa title — mutant diplomacy, fashion, and a vote that reshapes the team.",
+        items: [
+          {id:"v19-06", text:"Marauders #21 -> X-Force #20 -> Hellions #12 -> Excalibur #21 -> X-Men #21 -> Planet-Size X-Men #1 -> New Mutants #19 -> X-Corp #2 -> Wolverine #13 -> S.W.O.R.D. #6 -> Way of X #3 -> X-Factor #10 -> Children of the Atom #6"}
+        ]
+      },
+      {
+        title: "Trial of Magneto & Build to Inferno",
+        items: [
+          {id:"v19-07", text:"S.W.O.R.D. #7 -> Cable: Reloaded #1 (both part of 'The Last Annihilation' crossover, optional) -> New Mutants #20–23 -> Marauders #22 -> X-Men: Trial of Magneto #1 -> Marauders #23 -> X-Men, Vol. 2 (2021) #1"},
+          {id:"v19-08", text:"Wolverine #14–16 -> X-Men: Trial of Magneto #2–4"}
+        ]
+      },
+      {
+        title: "Inferno",
+        note: "Jonathan Hickman's final Krakoa story — Mystique's plan to resurrect Destiny unravels the Quiet Council.",
+        items: [
+          {id:"v19-09", text:"Inferno #1 -> Hellions #13–16 -> S.W.O.R.D. #8 -> Hellions #17–18 -> X-Men: Trial of Magneto #5 -> New Mutants #24 -> X-Men, Vol. 2 #2"},
+          {id:"v19-10", text:"X-Force #21–22 -> Excalibur #22 -> Way of X #4–5 -> X-Men: The Onslaught Revelation #1 -> X-Corp #3–5"},
+          {id:"v19-11", text:"Excalibur #23 -> X-Force #23–24 -> Marauders #24–25 -> X-Men, Vol. 2 #3 -> Excalibur #24–25 -> X-Men, Vol. 2 #4"},
+          {id:"v19-12", text:"S.W.O.R.D. #9–11 -> X-Men, Vol. 2 #5 -> Wolverine #17–18 -> X-Men, Vol. 2 #6–8"},
+          {id:"v19-13", text:"Devil's Reign: X-Men #1–3 — optional tie-in to the separate Devil's Reign event", optional:true, sub:true},
+          {id:"v19-14", text:"Inferno #2 -> X-Force #25–26 -> Marauders #26 -> Excalibur #26 -> Wolverine #19 -> Inferno #3–4 -> Marauders #27 & Annual 1 -> X-Men, Vol. 2 #9 & X-Force Annual 1 — closes out the Hickman era entirely"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v20",
+    title: "Vol. 20 · Destiny of X → Fall of X → Fall of the House of X",
+    range: "2022–2024",
+    sections: [
+      {
+        title: "A note on this volume",
+        note: "Hickman stepped back after Inferno; a new creative team continues the Krakoa story without him. This era is organized more by trade collection than exact issue interleaving (the source itself points to a fan-run wiki for full issue order), so it's batched more heavily than the previous two Krakoa volumes — right up until the finale, which returns to precise issue-by-issue order.",
+        items: []
+      },
+      {
+        title: "The X Lives & X Deaths of Wolverine",
+        items: [
+          {id:"v20-01", text:"The X Lives & X Deaths of Wolverine #1–5 (alternating) — transitional bridge between Inferno and the new era"},
+          {id:"v20-02", text:"X-Force Vol. 5: #27–33; Wolverine Vol. 4: #20–25; Sabretooth: 'The Adversary' #1–5; Sabretooth & the Exiles #1–5 (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Destiny of X Launches",
+        items: [
+          {id:"v20-03", text:"Immortal X-Men Vol. 1 #1–5; Legion of X #1–5; X-Men: Red, Vol. 2 #1–5; Knights of X #1–5; Marauders (2022) Annual 1 & #1–6; X-Men (2021) #7–12 (batched — the wave of new Destiny of X ongoings)", optional:true, sub:true},
+          {id:"v20-04", text:"X-Men: Hellfire Gala – Immortal (collects X-Men: Hellfire Gala #1, Secret X-Men #1, and tie-ins)"}
+        ]
+      },
+      {
+        title: "A.X.E.: Judgment Day",
+        items: [
+          {id:"v20-05", text:"A.X.E.: Judgment Day #1–6 & tie-ins across Avengers, X-Men, and Eternals — the era's major crossover, mutantkind's resurrection secret is exposed"},
+          {id:"v20-06", text:"Midnight Suns #1–5; New Mutants Vol.4 #29–33; Legion of X #6–10; Marauders #6–12; X-Terminators #1–5; Unforgiven (batched side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Dark Web & Sins of Sinister",
+        items: [
+          {id:"v20-07", text:"Dark Web #1 & tie-ins (X-Men involvement minor — Ben Reilly and Madelyne Pryor reignite Inferno's chaos)", optional:true},
+          {id:"v20-08", text:"X-Men (2021) #19–24 (#19–21 are 'Revenge of the Brood'); Immortal X-Men #7–10 (batched side reading)", optional:true, sub:true},
+          {id:"v20-09", text:"Sins of Sinister #1 -> Immoral X-Men #1–3 -> Storm & the Brotherhood of Mutants #1–3 -> Nightcrawlers #1–3 -> Sins of Sinister: Dominion #1 — Mister Sinister seizes control of a possible future"}
+        ]
+      },
+      {
+        title: "Before the Fall — Build to Fall of X",
+        items: [
+          {id:"v20-10", text:"X-Men: Red Vol.3 #11–13; Wolverine #26–35; X-Force #34–42; Deadpool (2022) #1–10; Bishop: War College; Betsy Braddock: Captain Britain; Immortal X-Men #11–13; Rogue & Gambit: 'Power Play' (batched — the 'Before the Fall' one-shots and ongoing wrap-ups)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Fall of X",
+        note: "After the 2023 Hellfire Gala's shocking events, mutantkind is scattered and hunted — Krakoa's utopia is no longer safe.",
+        items: [
+          {id:"v20-11", text:"X-Men: Hellfire Gala – Fall of X #1 & tie-ins — the turning point"},
+          {id:"v20-12", text:"X-Men: Red Vol.4 #14–18; Children of the Vault #1–4; Realm of X #1–4; Ms. Marvel: The New Mutant #1–4; Jean Grey: Flames of Fear #1–4; Immortal X-Men #14–18; Alpha Flight: 'Divided We Stand' #1–5; X-Force #43–50; Wolverine #37–45; X-Men (2021) #25–29; Astonishing Iceman #1–5; Dark X-Men: 'The Mercy Crown' #1–5; Uncanny Spider-Man: 'Fall of X' #1–5; Uncanny Avengers: 'The Resistance' #1–5; Ms. Marvel: Mutant Menace #1–4 (batched — the full scattered-mutants wave)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Fall of the House of X / Rise of the Powers of X",
+        note: "Echoing the two-book structure that launched the era, this is the Krakoan age's grand finale — full issue-by-issue order below.",
+        items: [
+          {id:"v20-13", text:"X-Men #30–31 -> Fall of the House of X #1 -> Invincible Iron Man #15 -> Avengers #12–13 -> Invincible Iron Man #16 -> Fall of the House of X #2 -> X-Men #32 -> Fall of the House of X #3 -> X-Men #33"},
+          {id:"v20-14", text:"Rise of the Powers of X #1 -> Resurrection of Magneto #1–4 -> Invincible Iron Man #17–18 -> Cable #1–4 -> X-Men: Forever #1 -> Rise of the Powers of X #2"},
+          {id:"v20-15", text:"Dead X-Men #1–4 -> Rise of the Powers of X #3–4 -> X-Men: Forever #2 -> Fall of the House of X #4 -> X-Men #34 -> X-Men: Forever #3–4 -> Fall of the House of X #5 -> Rise of the Powers of X #5 -> X-Men #35 — the Krakoan age ends"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "v21",
+    title: "Vol. 21 · From the Ashes → Age of Revelation → 2026",
+    range: "2024–2026",
+    sections: [
+      {
+        title: "A note on this final volume",
+        note: "Verified checkpoint built from Marvel's official issue and reading-list data. From the Ashes continues after the Age of Revelation; this volume is a living checklist rather than a permanent 'caught up' endpoint.",
+        items: []
+      },
+      {
+        title: "Blood Hunt (bridge)",
+        items: [
+          {id:"v21-01", text:"X-Men: Blood Hunt — collects the X-Men-related Blood Hunt material (Jubilee, Magik, Psylocke, Laura Kinney: Wolverine, and Wolverine: Blood Hunt) as a bridge into the From the Ashes era"}
+        ]
+      },
+      {
+        title: "Launch — Three Flagship Titles",
+        note: "X-Men, Uncanny X-Men, and Exceptional X-Men anchor the From the Ashes relaunch.",
+        items: [
+          {id:"v21-02", text:"X-Men (2024) #1–7 — 'Homecoming'"},
+          {id:"v21-03", text:"Uncanny X-Men (2024) #1–6 — 'Red Wave'"},
+          {id:"v21-04", text:"Exceptional X-Men (2024) #1–5 — 'Duty Calls'"},
+          {id:"v21-05", text:"Wolverine (2024) #1–10; NYX (2024) #1–5; Phoenix (2024) #1–5; X-Force (2024) #1–5; X-Factor (2024) #1–5; Dazzler (2024) #1–4; Deadpool/Wolverine: Weapon X-Traction #1; Storm (2024) #1–5; Sentinels (2024) #1–5; Mystique (2024) #1–5; Psylocke (2024) #1–5 (batched optional side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Raid on Graymalkin",
+        note: "Marvel's official reading list gives the crossover as X-Men #7–10 alternating with Uncanny X-Men #6–8.",
+        items: [
+          {id:"v21-06", text:"X-Men (2024) #7 -> Uncanny X-Men (2024) #6 -> X-Men #8 -> Uncanny X-Men #7 -> X-Men #9 -> Uncanny X-Men #8 -> X-Men #10"},
+          {id:"v21-07", text:"After the crossover: Uncanny X-Men (2024) #9–10; Phoenix #6–10; Laura Kinney: Wolverine #1–5; Hellverine #1–5; Timeslide #1; Deadpool/Wolverine: A Time of Stryfe #1–10; Cable: Love and Chrome #1–5; Magik (2025) #1–5; X-Men #11–12 & #14–18; NYX #6–10; X-Force #6–8 & #10; X-Factor #6–7 & #9–10 (batched optional side reading)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "X-Manhunt",
+        note: "Official Marvel order includes seven tie-in issues plus X-Manhunt Omega.",
+        items: [
+          {id:"v21-08", text:"X-Manhunt: Uncanny X-Men (2024) #11 -> NYX (2024) #9 -> Storm (2024) #6 -> X-Men (2024) #13 -> X-Factor (2024) #8 -> Exceptional X-Men #7 -> X-Force (2024) #9 -> X-Manhunt Omega #1"}
+        ]
+      },
+      {
+        title: "Post-X-Manhunt — verified From the Ashes shelf",
+        items: [
+          {id:"v21-09", text:"Weapon X-Men #1–5; Storm (2024) #7–12; Exceptional X-Men #8–13; Psylocke #6–10; Laura Kinney: Wolverine #6–10; Hellverine #6–10; Phoenix #11–15; Magik (2025) #6–10; X-Men (2024) #19–22; Uncanny X-Men (2024) #17–21 (batched optional side reading)", optional:true, sub:true},
+          {id:"v21-10", text:"Giant-Size X-Men: Second Genesis — FREE COMIC BOOK DAY 2025: Fantastic Four/Giant-Size X-Men #1; Giant-Size X-Men (2025) #1–2; Giant-Size Dark Phoenix Saga #1; Giant-Size Age of Apocalypse #1; Giant-Size House of M #1", optional:true, sub:true},
+          {id:"v21-10b", text:"X-Men: Hellfire Vigil #1 — bridge into the next X-era", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Age of Revelation — Prelude",
+        note: "This is a 2025 event that jumps ten years into a future ruled by Doug Ramsey, the Heir of Apocalypse. It is not a 2026-only event.",
+        items: [
+          {id:"v21-11", text:"X-Men: Age of Revelation #0 -> X-Men: Age of Revelation Overture #1"}
+        ]
+      },
+      {
+        title: "Age of Revelation — Book of Revelation",
+        note: "The 2025 future-era books. Issue counts below are corrected to the three issues listed by Marvel for the limited series.",
+        items: [
+          {id:"v21-12", text:"Amazing X-Men (2025) #1–3; Iron & Frost #1–3; Laura Kinney: Sabretooth #1–3; Binary #1–3; Cloak or Dagger #1–3"},
+          {id:"v21-13", text:"X-Men: Book of Revelation #1–3; Longshots #1–3; Radioactive Spider-Man #1–3; Rogue Storm #1–3; Expatriate X-Men #1–3; The Last Wolverine #1–3"}
+        ]
+      },
+      {
+        title: "Age of Revelation — World of Revelation & Finale",
+        items: [
+          {id:"v21-14", text:"World of Revelation #1; Unbreakable X-Men #1–3; Undeadpool #1–3; X-Vengers #1–3; Sinister's Six #1–3; Omega Kids #1–3; X-Men: Age of Revelation Finale #1"},
+          {id:"v21-15", text:"X-Men: Age of Revelation Infinity Comic #1–9 (Marvel Unlimited digital side story)", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Post-Revelation — 2026",
+        note: "These are verified 2026 X-line publications found after the Revelation event. More issues may be added as they are published.",
+        items: [
+          {id:"v21-16", text:"X-Men (2024) #23–34; Uncanny X-Men (2024) #22–34; Wolverine (2024) #11–19; plus the 2026 Uncanny X-Men Annual #1", optional:true, sub:true},
+          {id:"v21-17", text:"X-Men United (2026) #1; Generation X-23 (2026) #1–6; Inglorious X-Force (2026) #1–7", optional:true, sub:true},
+          {id:"v21-18", text:"X-Men Infinity Comic (2026) #1–16 — Marvel Unlimited digital side reading", optional:true, sub:true},
+          {id:"v21-19", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true}
+        ]
+      },
+      {
+        title: "Checkpoint",
+        items: [
+          {id:"v21-20", text:"This checklist is now a verified checkpoint rather than a claim that the X-Men line has stopped. New issues should be appended as they are published."}
+        ]
+      }
+    ]
+  }
+];
+
+// ---------- STATE ----------
+let checkedIds = new Set();
+let activeVol = VOLUMES[0].id;
+
+// window.storage only exists inside Claude.ai's artifact runtime — it is NOT
+// a standard web API and will not exist in a plain Android WebView/APK.
+// Use it when available (keeps working if reopened inside Claude), but fall
+// back to localStorage (works offline, in any WebView) otherwise.
+const hasClaudeStorage = (typeof window.storage !== 'undefined');
+
+async function loadState(){
+  try{
+    if(hasClaudeStorage){
+      const res = await window.storage.get('xmen-checked-ids', false);
+      if(res && res.value) checkedIds = new Set(JSON.parse(res.value));
+    } else {
+      const raw = localStorage.getItem('xmen-checked-ids');
+      if(raw) checkedIds = new Set(JSON.parse(raw));
+    }
+  }catch(e){ /* no saved state yet, or storage unavailable */ }
+  render();
+}
+
+async function saveState(){
+  try{
+    if(hasClaudeStorage){
+      await window.storage.set('xmen-checked-ids', JSON.stringify(Array.from(checkedIds)), false);
+    } else {
+      localStorage.setItem('xmen-checked-ids', JSON.stringify(Array.from(checkedIds)));
+    }
+  }catch(e){ console.error('save failed', e); }
+}
+
+function toggleItem(id){
+  if(checkedIds.has(id)) checkedIds.delete(id);
+  else checkedIds.add(id);
+  saveState();
+  render();
+}
+
+function allItems(){
+  return VOLUMES.flatMap(v => v.sections.flatMap(s => s.items));
+}
+
+function renderTabs(){
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = '';
+  VOLUMES.forEach(v=>{
+    const items = v.sections.flatMap(s=>s.items);
+    const done = items.filter(it=>checkedIds.has(it.id)).length;
+    const el = document.createElement('div');
+    el.className = 'tab' + (v.id===activeVol ? ' active' : '');
+    const label = v.title.includes('·') ? v.title.split('·')[1].trim() : v.title;
+    el.innerHTML = `${label} <span class="count">${done}/${items.length}</span>`;
+    el.onclick = ()=>{ activeVol = v.id; render(); };
+    tabs.appendChild(el);
+  });
+}
+
+function renderContent(){
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const vol = VOLUMES.find(v=>v.id===activeVol);
+  if(!vol){ content.innerHTML = '<p style="color:#888;text-align:center;padding:40px 0;font-family:Space Mono,monospace;">This volume hasn\'t been built yet.</p>'; return; }
+
+  const volHeader = document.createElement('div');
+  volHeader.style.marginBottom = '14px';
+  volHeader.innerHTML = `<span style="font-family:'Space Mono',monospace;font-size:12px;color:var(--gold);">${vol.range}</span>`;
+  content.appendChild(volHeader);
+
+  vol.sections.forEach(section=>{
+    const secDiv = document.createElement('div');
+    secDiv.className = 'section';
+
+    const doneCount = section.items.filter(it=>checkedIds.has(it.id)).length;
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'section-title';
+    titleDiv.innerHTML = `<span>${section.title}</span><span class="sec-count">${doneCount}/${section.items.length}</span>`;
+    secDiv.appendChild(titleDiv);
+
+    if(section.note){
+      const noteDiv = document.createElement('div');
+      noteDiv.className = 'section-note';
+      noteDiv.textContent = section.note;
+      secDiv.appendChild(noteDiv);
+    }
+
+    section.items.forEach(it=>{
+      const row = document.createElement('div');
+      row.className = 'item' + (it.optional?' optional':'') + (it.sub?' sub':'') + (it.verify?' verify':'') + (checkedIds.has(it.id)?' checked':'');
+      row.onclick = ()=>toggleItem(it.id);
+      row.innerHTML = `
+        <div class="box"><div class="stamp">X</div></div>
+        <div class="item-text">${it.text}</div>
+      `;
+      secDiv.appendChild(row);
+    });
+
+    content.appendChild(secDiv);
+  });
+}
+
+function renderProgress(){
+  const items = allItems();
+  const done = items.filter(it=>checkedIds.has(it.id)).length;
+  const total = items.length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${done} / ${total} entries · ${pct}%`;
+}
+
+function render(){
+  renderTabs();
+  renderContent();
+  renderProgress();
+}
+
+loadState();
+</script>
+</body>
+</html>
