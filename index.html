@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0c0e11">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
 <title>Mutant Files — X-Men Reading Order</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap');
@@ -269,10 +272,10 @@
   <header>
     <p class="eyebrow">Case File · Mutant Chronology Archive</p>
     <h1>The Ultimate X-Men Reading Order</h1>
-    <p class="subtitle">Completionist Edition · Earth-616 · 1963–2026. Tap any entry to mark it read.</p>
+    <p class="subtitle">Completionist Edition · Earth-616 · 1963–present. Tap any entry to mark it read.</p>
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-label" id="progressLabel">0 / 0 entries</div>
+      <div class="progress-label" id="progressLabel">0 / 0 checklist entries</div>
     </div>
     <div class="scope-note">COMPLETIONIST SCOPE · Earth-616 X-Men history · core stories, major crossovers, important appearances, and clearly marked optional material.</div>
   </header>
@@ -1785,19 +1788,23 @@ const VOLUMES = [
         ]
       },
       {
-        title: "Post-Revelation — 2026",
-        note: "These are verified 2026 X-line publications found after the Revelation event. More issues may be added as they are published.",
+        title: "Post-Revelation — 2026 Published Through August 13",
+        note: "Current Earth-616 material verified against Marvel's official issue/series listings. This checkpoint includes issues published on or before August 13, 2026; future-dated issues are intentionally excluded.",
         items: [
-          {id:"v21-16", text:"X-Men (2024) #23–34; Uncanny X-Men (2024) #22–34; Wolverine (2024) #11–19; plus the 2026 Uncanny X-Men Annual #1", optional:true, sub:true},
-          {id:"v21-17", text:"X-Men United (2026) #1; Generation X-23 (2026) #1–6; Inglorious X-Force (2026) #1–7", optional:true, sub:true},
-          {id:"v21-18", text:"X-Men Infinity Comic (2026) #1–16 — Marvel Unlimited digital side reading", optional:true, sub:true},
-          {id:"v21-19", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true}
+          {id:"v21-16", text:"X-Men (2024) #23–35; Uncanny X-Men (2024) #22–33; Wolverine (2024) #11–22; Uncanny X-Men Annual #1", optional:false, sub:true},
+          {id:"v21-17", text:"X-Men United (2026) #1–6; Generation X-23 (2026) #1–6; Inglorious X-Force (2026) #1–7", optional:false, sub:true},
+          {id:"v21-18", text:"Cyclops (2026) #1–5; Storm: Earth's Mightiest Mutant (2026) #1–5", optional:false, sub:true},
+          {id:"v21-19", text:"X-Men: The Hellfire Murder #1", optional:false, sub:true},
+          {id:"v21-20", text:"X-Men: Outback (2026) #1–2 — retroactive story set during the classic Australian Outback era", optional:true, sub:true},
+          {id:"v21-21", text:"X-Men Infinity Comic (2026) #1–16 — Marvel Unlimited digital side reading", optional:true, sub:true},
+          {id:"v21-22", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true}
         ]
       },
       {
         title: "Checkpoint",
+        note: "This is a dated publication checkpoint, not a claim that the X-Men line has stopped. Future issues should be appended as they are published.",
         items: [
-          {id:"v21-20", text:"This checklist is now a verified checkpoint rather than a claim that the X-Men line has stopped. New issues should be appended as they are published."}
+          {id:"v21-23", text:"Current checkpoint: August 13, 2026. The next known future-dated issue in this audit is not included until its publication date."}
         ]
       }
     ]
@@ -1912,7 +1919,7 @@ function renderProgress(){
   const total = items.length;
   const pct = total ? Math.round((done/total)*100) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `${done} / ${total} entries · ${pct}%`;
+  document.getElementById('progressLabel').textContent = `${done} / ${total} · ${pct}%`;
 }
 
 function render(){
@@ -1922,6 +1929,15 @@ function render(){
 }
 
 loadState();
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./sw.js").catch(err => {
+        console.warn("Service worker registration failed:", err);
+      });
+    });
+  }
 </script>
 </body>
 </html>

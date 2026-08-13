@@ -1,10 +1,6 @@
-<p align="center">
-  <img src="assets/readme-banner.png" alt="The Ultimate X-Men Reading Order — Completionist Edition">
-</p>
-
 # The Ultimate X-Men Reading Order
 
-**Completionist Edition · Earth-616 · 1963–2026**
+**Completionist Edition · Earth-616 · 1963–present**
 
 A fan-made, completionist reading-order checklist for the X-Men and the wider mutant corner of Marvel Comics.
 
@@ -18,7 +14,7 @@ It includes:
 - Important guest appearances and non-X-Men issues that materially continue the X-Men story
 - Annuals, specials, anthology stories, and continuity-relevant material
 - Clearly marked optional/side reading
-- Current-era material through 2026
+- Current-era material through the August 13, 2026 publication checkpoint
 
 The project uses **checklist entries** as its progress units. A single entry can represent multiple individual issues when those issues are best read together as one sequence. Therefore, the entry count is not a claim about the total number of individual comics.
 
@@ -28,12 +24,12 @@ The current checklist contains **583 entries across 21 volumes**.
 
 The Silver Age/early-history portion has been expanded using the current public Ultimate X-Men Reading Order as an external comparison point, including additional guest appearances and Hidden Years-era material.
 
-This is an ongoing fan-maintained chronology. When a source is uncertain or a placement is genuinely debatable, the app marks or describes that uncertainty rather than pretending the sequence is absolute.
+The current data is a dated publication checkpoint and will be extended as new issues are published. When a source is uncertain or a placement is genuinely debatable, the app marks or describes that uncertainty rather than pretending the sequence is absolute.
 
 ## Features
 
 - 21 chronological volumes
-- 584 checklist entries
+- 583 checklist entries
 - Mainline and optional reading
 - Crossover sequences and interleaved reading orders
 - Tap an entry to mark it read
