@@ -111,6 +111,67 @@
     white-space:nowrap;
   }
 
+  /* Install / diagnostics */
+  .install-panel{
+    margin-top:14px;
+    padding:12px;
+    background:linear-gradient(180deg,#171a20,#111318);
+    border:1px solid #2a2e35;
+    border-radius:8px;
+  }
+  .install-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .install-btn,.diag-btn,.cache-btn{
+    appearance:none;
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    border-radius:5px;
+    padding:8px 10px;
+    cursor:pointer;
+  }
+  .install-btn{
+    color:var(--paper);
+    background:linear-gradient(180deg,var(--crimson),var(--crimson-dim));
+    border:1px solid #d4475a;
+  }
+  .diag-btn{
+    color:var(--gold);
+    background:#171a20;
+    border:1px solid #4b4533;
+  }
+  .cache-btn{
+    color:#f0a8b4;
+    background:#1b1518;
+    border:1px solid #6e2a38;
+  }
+  .install-btn:disabled{opacity:.55;cursor:not-allowed;}
+  .install-status{
+    margin-top:8px;
+    color:var(--paper-dim);
+    font-size:10px;
+    line-height:1.45;
+  }
+  .diagnostics{
+    display:none;
+    margin-top:10px;
+    border-top:1px solid #2a2e35;
+    padding-top:10px;
+  }
+  .diagnostics.open{display:block;}
+  .diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;}
+  .diag-row{
+    display:flex;justify-content:space-between;gap:8px;
+    padding:6px 7px;background:#0f1115;border:1px solid #252a31;border-radius:4px;
+    font-family:'Space Mono',monospace;font-size:9px;
+  }
+  .diag-row span:first-child{color:var(--paper-dim);}
+  .diag-ok{color:#79c991;}
+  .diag-warn{color:var(--gold);}
+  .diag-bad{color:#ef8799;}
+  .diag-note{margin-top:8px;color:#8e929b;font-size:9px;line-height:1.5;}
+  @media(max-width:520px){.diag-grid{grid-template-columns:1fr;}}
+
   /* Volume tabs */
   .tabs{
     display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px;
@@ -276,6 +337,18 @@
     <div class="progress-row">
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       <div class="progress-label" id="progressLabel">0 / 0 checklist entries</div>
+    </div>
+    <div class="install-panel" aria-label="App installation and diagnostics">
+      <div class="install-actions">
+        <button class="install-btn" id="installBtn" type="button">Install App</button>
+        <button class="diag-btn" id="diagBtn" type="button">Diagnostics</button>
+        <button class="cache-btn" id="cacheBtn" type="button">Clear App Cache</button>
+      </div>
+      <div class="install-status" id="installStatus">Checking installation support…</div>
+      <div class="diagnostics" id="diagnostics">
+        <div class="diag-grid" id="diagGrid"></div>
+        <div class="diag-note" id="diagNote"></div>
+      </div>
     </div>
     <div class="scope-note">COMPLETIONIST SCOPE · Earth-616 X-Men history · core stories, major crossovers, important appearances, and clearly marked optional material.</div>
   </header>
@@ -1929,6 +2002,197 @@ function render(){
 }
 
 loadState();
+
+// ---------- PWA INSTALL / DIAGNOSTICS ----------
+let deferredInstallPrompt = null;
+
+const installBtn = document.getElementById('installBtn');
+const diagBtn = document.getElementById('diagBtn');
+const cacheBtn = document.getElementById('cacheBtn');
+const installStatus = document.getElementById('installStatus');
+const diagnostics = document.getElementById('diagnostics');
+const diagGrid = document.getElementById('diagGrid');
+const diagNote = document.getElementById('diagNote');
+
+function isStandalone(){
+  return window.matchMedia && window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true;
+}
+
+function isIOS(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function isAndroid(){ return /android/i.test(navigator.userAgent); }
+
+function setInstallStatus(message){
+  installStatus.textContent = message;
+}
+
+window.addEventListener('beforeinstallprompt', event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installBtn.disabled = false;
+  setInstallStatus('Install is available in this browser.');
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  installBtn.disabled = true;
+  setInstallStatus('App installed successfully.');
+  refreshDiagnostics();
+});
+
+installBtn.addEventListener('click', async () => {
+  if(isStandalone()){
+    setInstallStatus('This app is already installed or running in standalone mode.');
+    refreshDiagnostics();
+    return;
+  }
+
+  if(deferredInstallPrompt){
+    try{
+      deferredInstallPrompt.prompt();
+      const choice = await deferredInstallPrompt.userChoice;
+      if(choice.outcome === 'accepted') setInstallStatus('Install accepted. Finishing installation…');
+      else setInstallStatus('Install dismissed. You can try again any time.');
+    }catch(err){
+      setInstallStatus('The browser could not open the install prompt. Run Diagnostics for details.');
+    }finally{
+      deferredInstallPrompt = null;
+      refreshDiagnostics();
+    }
+    return;
+  }
+
+  if(isIOS()){
+    setInstallStatus('On iPhone/iPad: use Share → Add to Home Screen in Safari.');
+  }else if(isAndroid()){
+    setInstallStatus('Your browser has not offered the install prompt yet. Open Diagnostics for the reason.');
+  }else{
+    setInstallStatus('Your browser has not offered an install prompt. Open Diagnostics for details.');
+  }
+  refreshDiagnostics();
+});
+
+async function getServiceWorkerInfo(){
+  if(!('serviceWorker' in navigator)) return {supported:false};
+  try{
+    const reg = await navigator.serviceWorker.getRegistration();
+    return {
+      supported:true,
+      registered:!!reg,
+      active:!!(reg && reg.active),
+      waiting:!!(reg && reg.waiting),
+      installing:!!(reg && reg.installing),
+      controller:!!navigator.serviceWorker.controller,
+      scope:reg ? reg.scope : '—'
+    };
+  }catch(e){ return {supported:true, error:e.message}; }
+}
+
+async function getCacheInfo(){
+  if(!('caches' in window)) return {supported:false};
+  try{
+    const names = await caches.keys();
+    return {supported:true, names};
+  }catch(e){ return {supported:true, error:e.message}; }
+}
+
+async function refreshDiagnostics(){
+  const sw = await getServiceWorkerInfo();
+  const cache = await getCacheInfo();
+  const standalone = isStandalone();
+  const manifest = !!document.querySelector('link[rel="manifest"]');
+  const localStorageOK = (()=>{
+    try{
+      const key='__xmen_diag__';
+      localStorage.setItem(key,'1');
+      localStorage.removeItem(key);
+      return true;
+    }catch(e){ return false; }
+  })();
+
+  const installPrompt = !!deferredInstallPrompt;
+  const secure = window.isSecureContext;
+  const rows = [
+    ['Installed / standalone', standalone ? 'YES' : 'NO', standalone ? 'ok' : 'warn'],
+    ['Install prompt available', installPrompt ? 'YES' : 'NO', installPrompt ? 'ok' : 'warn'],
+    ['HTTPS / secure context', secure ? 'YES' : 'NO', secure ? 'ok' : 'bad'],
+    ['Manifest linked', manifest ? 'YES' : 'NO', manifest ? 'ok' : 'bad'],
+    ['Service worker support', sw.supported ? 'YES' : 'NO', sw.supported ? 'ok' : 'bad'],
+    ['Service worker registered', sw.registered ? 'YES' : 'NO', sw.registered ? 'ok' : 'warn'],
+    ['Service worker active', sw.active ? 'YES' : 'NO', sw.active ? 'ok' : 'warn'],
+    ['App controlled by SW', sw.controller ? 'YES' : 'NO', sw.controller ? 'ok' : 'warn'],
+    ['Cache API available', cache.supported ? 'YES' : 'NO', cache.supported ? 'ok' : 'bad'],
+    ['App caches', cache.names ? String(cache.names.length) : '—', cache.names && cache.names.length ? 'ok' : 'warn'],
+    ['Local progress storage', localStorageOK ? 'AVAILABLE' : 'BLOCKED', localStorageOK ? 'ok' : 'bad'],
+    ['Browser', navigator.userAgent.includes('Chrome') ? 'Chrome-family' : (isIOS() ? 'iOS' : 'Other'), 'ok']
+  ];
+  diagGrid.innerHTML = rows.map(([label,value,state]) =>
+    `<div class="diag-row"><span>${label}</span><strong class="diag-${state}">${value}</strong></div>`
+  ).join('');
+
+  if(standalone){
+    diagNote.textContent = 'The app is installed/running standalone. Clear App Cache removes cached app resources and unregisters the service worker; it does not delete your reading progress.';
+  }else if(isIOS()){
+    diagNote.textContent = 'iOS Safari does not expose the standard beforeinstallprompt event. Install with Share → Add to Home Screen. The diagnostic still checks the PWA files and service worker.';
+  }else if(!secure){
+    diagNote.textContent = 'Installation normally requires HTTPS. GitHub Pages provides HTTPS automatically.';
+  }else if(!installPrompt){
+    diagNote.textContent = 'The browser has not exposed an install prompt yet. If you recently updated the app, use Clear App Cache, reload, and run Diagnostics again.';
+  }else{
+    diagNote.textContent = 'Everything needed for the standard install prompt is currently available.';
+  }
+}
+
+diagBtn.addEventListener('click', async () => {
+  diagnostics.classList.toggle('open');
+  if(diagnostics.classList.contains('open')) await refreshDiagnostics();
+});
+
+cacheBtn.addEventListener('click', async () => {
+  const confirmed = window.confirm('Clear the app cache and unregister the service worker? Your reading progress will NOT be deleted. The app will reload from the network.');
+  if(!confirmed) return;
+
+  cacheBtn.disabled = true;
+  setInstallStatus('Clearing cached app files…');
+  try{
+    if('serviceWorker' in navigator){
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registrations.map(reg => reg.unregister()));
+    }
+    if('caches' in window){
+      const names = await caches.keys();
+      await Promise.all(names.map(name => caches.delete(name)));
+    }
+    setInstallStatus('Cache cleared. Reloading the latest app…');
+    setTimeout(() => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('xmen-refresh', Date.now().toString());
+      window.location.replace(url.toString());
+    }, 500);
+  }catch(err){
+    console.error('Cache clear failed:', err);
+    cacheBtn.disabled = false;
+    setInstallStatus('Cache clear failed. Run Diagnostics for details.');
+  }
+});
+
+if(isStandalone()){
+  installBtn.disabled = true;
+  setInstallStatus('App is already installed / running standalone.');
+}else if(isIOS()){
+  setInstallStatus('Install with Share → Add to Home Screen in Safari.');
+}else{
+  installBtn.disabled = true;
+  setInstallStatus('Waiting for the browser to offer the install prompt…');
+}
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.ready.then(() => refreshDiagnostics()).catch(() => {});
+}
 </script>
 <script>
   if ("serviceWorker" in navigator) {

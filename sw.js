@@ -1,4 +1,4 @@
-const CACHE_NAME = "xmen-reading-order-v2";
+const CACHE_NAME = "xmen-reading-order-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
