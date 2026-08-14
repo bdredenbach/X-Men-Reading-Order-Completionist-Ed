@@ -1,4 +1,4 @@
-const CACHE_NAME = "xmen-reading-order-v5";
+const CACHE_NAME = "xmen-reading-order-v6";
 
 const APP_SHELL = [
   "./",
@@ -37,12 +37,13 @@ self.addEventListener("fetch", event => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Navigation requests (especially index.html) are network-first.
-  // This prevents GitHub Pages from being permanently stuck on an old
-  // cached HTML document while preserving an offline fallback.
-  if (request.mode === "navigate" ||
-      url.pathname.endsWith("/index.html") ||
-      url.pathname.endsWith("/manifest.webmanifest")) {
+  // Keep navigation, index.html, and the manifest current whenever online.
+  // Fall back to cache for offline use.
+  if (
+    request.mode === "navigate" ||
+    url.pathname.endsWith("/index.html") ||
+    url.pathname.endsWith("/manifest.webmanifest")
+  ) {
     event.respondWith(
       fetch(request)
         .then(response => {
@@ -52,15 +53,16 @@ self.addEventListener("fetch", event => {
           }
           return response;
         })
-        .catch(() => caches.match(request).then(cached => {
-          if (cached) return cached;
-          return caches.match("./index.html");
-        }))
+        .catch(() =>
+          caches.match(request).then(cached =>
+            cached || caches.match("./index.html")
+          )
+        )
     );
     return;
   }
 
-  // Static assets remain cache-first for fast/offline use.
+  // Static assets stay cache-first for fast/offline operation.
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
