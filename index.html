@@ -87,6 +87,49 @@ window.addEventListener('load', () => {
 
 .wrap{max-width:760px;margin:0 auto;padding:20px 16px 80px;}
 
+
+  .volume-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .volume-complete{
+    appearance:none;
+    border:1px solid #4b4533;
+    background:#171a20;
+    color:var(--gold);
+    border-radius:5px;
+    padding:7px 9px;
+    font-family:'Space Mono',monospace;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    cursor:pointer;
+  }
+  .volume-complete:disabled{
+    opacity:.55;
+    cursor:default;
+  }
+  .scope-details{
+    margin-top:10px;
+    border-top:1px solid #2a2e35;
+    padding-top:9px;
+    color:var(--paper-dim);
+    font-size:10px;
+    line-height:1.5;
+  }
+  .scope-details summary{
+    cursor:pointer;
+    color:var(--gold);
+    font-family:'Space Mono',monospace;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+  .scope-details p{margin:8px 0 0;}
+
   /* Header */
   header{
     position:relative;
@@ -246,6 +289,12 @@ window.addEventListener('load', () => {
     white-space:nowrap;
     transition:all .15s ease;
   }
+
+  .tab:focus-visible,.item:focus-visible,.install-btn:focus-visible,.diag-btn:focus-visible,.cache-btn:focus-visible,.volume-complete:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:2px;
+  }
+
   .tab.active{
     color:var(--paper);
     border-bottom:3px solid var(--crimson);
@@ -393,27 +442,31 @@ window.addEventListener('load', () => {
     <h1>The Ultimate X-Men Reading Order</h1>
     <p class="subtitle">Completionist Edition · Earth-616 · 1963–present. Tap any entry to mark it read.</p>
     <div class="progress-row">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-track" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
       <div class="progress-label" id="progressLabel">0 / 0 checklist entries</div>
     </div>
     <div class="install-panel" aria-label="App installation and readiness">
       <div class="install-actions">
         <button class="install-btn" id="installBtn" type="button">Install App</button>
         <button class="diag-btn" id="diagBtn" type="button">Install Readiness</button>
-        <button class="cache-btn" id="cacheBtn" type="button">Reset App Data</button>
+        <button class="cache-btn" id="cacheBtn" type="button">Reset App Cache</button>
       </div>
-      <div class="install-status" id="installStatus">Checking installation support…</div>
+      <div class="install-status" id="installStatus" role="status" aria-live="polite">Checking installation support…</div>
       <div class="diagnostics" id="diagnostics">
         <div class="diag-grid" id="diagGrid"></div>
-        <div class="diag-note" id="diagNote"></div>
+        <div class="diag-note" id="diagNote" role="status" aria-live="polite"></div>
       </div>
     </div>
     <div class="scope-note">COMPLETIONIST SCOPE · Earth-616 X-Men history · core stories, major crossovers, important appearances, and clearly marked optional material.</div>
+    <details class="scope-details">
+      <summary>What “Completionist” Means</summary>
+      <p>This is a continuity-focused Earth-616 checklist, not a list of every Marvel comic that has ever featured a mutant. Core stories, major crossovers, important guest appearances, annuals, specials, and continuity-relevant side material are included. Optional material is clearly marked. Some checklist entries combine multiple issues when they form one practical reading sequence.</p>
+    </details>
   </header>
 
-  <div class="tabs" id="tabs"></div>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Reading order volumes"></div>
   <div id="content"></div>
-  <footer>MUTANT FILES ARCHIVE — EARTH-616 · DATA PERSISTS ACROSS SESSIONS</footer>
+  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: AUGUST 13, 2026 · DATA PERSISTS ACROSS SESSIONS</footer>
 </div>
 
 <script>
@@ -1922,12 +1975,12 @@ const VOLUMES = [
         title: "Post-Revelation — 2026 Published Through August 13",
         note: "Current Earth-616 material verified against Marvel's official issue/series listings. This checkpoint includes issues published on or before August 13, 2026; future-dated issues are intentionally excluded.",
         items: [
-          {id:"v21-16", text:"X-Men (2024) #23–35; Uncanny X-Men (2024) #22–33; Wolverine (2024) #11–22; Uncanny X-Men Annual #1", optional:false, sub:true},
+          {id:"v21-16", text:"X-Men (2024) #23–35; X-Men Annual (2026) #1; Uncanny X-Men (2024) #22–33; Uncanny X-Men Annual #1; Wolverine (2024) #11–25", optional:false, sub:true},
           {id:"v21-17", text:"X-Men United (2026) #1–6; Generation X-23 (2026) #1–6; Inglorious X-Force (2026) #1–7", optional:false, sub:true},
           {id:"v21-18", text:"Cyclops (2026) #1–5; Storm: Earth's Mightiest Mutant (2026) #1–5", optional:false, sub:true},
           {id:"v21-19", text:"X-Men: The Hellfire Murder #1", optional:false, sub:true},
           {id:"v21-20", text:"X-Men: Outback (2026) #1–2 — retroactive story set during the classic Australian Outback era", optional:true, sub:true},
-          {id:"v21-21", text:"X-Men Infinity Comic (2026) #1–16 — Marvel Unlimited digital side reading", optional:true, sub:true},
+          {id:"v21-21", text:"X-Men Infinity Comic (2026) #1–20 — Marvel Unlimited digital side reading", optional:true, sub:true},
           {id:"v21-22", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true}
         ]
       },
@@ -1992,13 +2045,34 @@ function renderTabs(){
   VOLUMES.forEach(v=>{
     const items = v.sections.flatMap(s=>s.items);
     const done = items.filter(it=>checkedIds.has(it.id)).length;
-    const el = document.createElement('div');
+    const el = document.createElement('button');
+    el.type = 'button';
     el.className = 'tab' + (v.id===activeVol ? ' active' : '');
+    el.setAttribute('role','tab');
+    el.setAttribute('aria-selected', v.id===activeVol ? 'true' : 'false');
+    el.setAttribute('aria-controls','content');
     const label = v.title.includes('·') ? v.title.split('·')[1].trim() : v.title;
     el.innerHTML = `${label} <span class="count">${done}/${items.length}</span>`;
     el.onclick = ()=>{ activeVol = v.id; render(); };
     tabs.appendChild(el);
   });
+}
+
+function completeVolume(volumeId){
+  const vol = VOLUMES.find(v=>v.id===volumeId);
+  if(!vol) return;
+
+  const items = vol.sections.flatMap(s=>s.items);
+  if(!items.length || items.every(it=>checkedIds.has(it.id))) return;
+
+  const confirmed = window.confirm(
+    `Mark all ${items.length} entries in ${vol.title} as read?`
+  );
+  if(!confirmed) return;
+
+  items.forEach(it=>checkedIds.add(it.id));
+  saveState();
+  render();
 }
 
 function renderContent(){
@@ -2008,8 +2082,25 @@ function renderContent(){
   if(!vol){ content.innerHTML = '<p style="color:#888;text-align:center;padding:40px 0;font-family:Space Mono,monospace;">This volume hasn\'t been built yet.</p>'; return; }
 
   const volHeader = document.createElement('div');
-  volHeader.style.marginBottom = '14px';
-  volHeader.innerHTML = `<span style="font-family:'Space Mono',monospace;font-size:12px;color:var(--gold);">${vol.range}</span>`;
+  volHeader.className = 'volume-header';
+
+  const rangeLabel = document.createElement('span');
+  rangeLabel.style.fontFamily = "'Space Mono',monospace";
+  rangeLabel.style.fontSize = '12px';
+  rangeLabel.style.color = 'var(--gold)';
+  rangeLabel.textContent = vol.range;
+  volHeader.appendChild(rangeLabel);
+
+  const volumeItems = vol.sections.flatMap(s=>s.items);
+  const volumeComplete = document.createElement('button');
+  volumeComplete.type = 'button';
+  volumeComplete.className = 'volume-complete';
+  volumeComplete.textContent = volumeItems.every(it=>checkedIds.has(it.id)) ? '✓ Volume Complete' : 'Mark Volume Complete';
+  volumeComplete.disabled = volumeItems.length === 0 || volumeItems.every(it=>checkedIds.has(it.id));
+  volumeComplete.setAttribute('aria-label', `Mark all entries in ${vol.title} as read`);
+  volumeComplete.onclick = () => completeVolume(vol.id);
+  volHeader.appendChild(volumeComplete);
+
   content.appendChild(volHeader);
 
   vol.sections.forEach(section=>{
@@ -2031,10 +2122,21 @@ function renderContent(){
 
     section.items.forEach(it=>{
       const row = document.createElement('div');
-      row.className = 'item' + (it.optional?' optional':'') + (it.sub?' sub':'') + (it.verify?' verify':'') + (checkedIds.has(it.id)?' checked':'');
+      const isChecked = checkedIds.has(it.id);
+      row.className = 'item' + (it.optional?' optional':'') + (it.sub?' sub':'') + (it.verify?' verify':'') + (isChecked?' checked':'');
+      row.setAttribute('role','checkbox');
+      row.setAttribute('tabindex','0');
+      row.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      row.setAttribute('aria-label', it.text);
       row.onclick = ()=>toggleItem(it.id);
+      row.onkeydown = event => {
+        if(event.key === 'Enter' || event.key === ' '){
+          event.preventDefault();
+          toggleItem(it.id);
+        }
+      };
       row.innerHTML = `
-        <div class="box"><div class="stamp">X</div></div>
+        <div class="box" aria-hidden="true"><div class="stamp">X</div></div>
         <div class="item-text">${it.text}</div>
       `;
       secDiv.appendChild(row);
@@ -2051,6 +2153,8 @@ function renderProgress(){
   const pct = total ? Math.round((done/total)*100) : 0;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = `${done} / ${total} · ${pct}%`;
+  const progressTrack = document.querySelector('.progress-track');
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
 }
 
 function render(){
