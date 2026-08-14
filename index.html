@@ -134,6 +134,9 @@
     border:1px solid #2a2e35;
     border-radius:8px;
   }
+  .install-panel.installed{
+  display:none;
+}
   .install-actions{display:flex;gap:8px;flex-wrap:wrap;}
   .install-btn,.diag-btn,.cache-btn{
     appearance:none;
@@ -2292,8 +2295,7 @@ cacheBtn.addEventListener('click', async () => {
 });
 
 if(isStandalone()){
-  installBtn.disabled = true;
-  setInstallStatus('The app is already installed.');
+  document.querySelector('.install-panel').classList.add('installed');
 }else if(installPromptEventSeen || deferredInstallPrompt){
   installBtn.disabled = false;
   setInstallStatus('Ready to install in this browser.');
