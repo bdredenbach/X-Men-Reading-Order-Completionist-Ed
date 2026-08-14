@@ -2343,17 +2343,10 @@ function render(){
   renderProgress();
 }
 
-loadState();
-
-continueBtn.addEventListener('click', scrollToNextUnread);
-exportBtn.addEventListener('click', exportProgress);
-importBtn.addEventListener('click', () => importFile.click());
-importFile.addEventListener('change', event => importProgress(event.target.files[0]));
-
-// ---------- PWA INSTALL / READINESS ----------
-let deferredInstallPrompt = null;
-let installPromptEventSeen = false;
-
+// DOM controls used by the progress and PWA systems.
+// Keep these references above the event-listener wiring below so one
+// temporal-dead-zone error cannot prevent the rest of the app controls
+// from being initialized.
 const installBtn = document.getElementById('installBtn');
 const diagBtn = document.getElementById('diagBtn');
 const cacheBtn = document.getElementById('cacheBtn');
@@ -2367,6 +2360,17 @@ const installStatus = document.getElementById('installStatus');
 const diagnostics = document.getElementById('diagnostics');
 const diagGrid = document.getElementById('diagGrid');
 const diagNote = document.getElementById('diagNote');
+
+loadState();
+
+continueBtn.addEventListener('click', scrollToNextUnread);
+exportBtn.addEventListener('click', exportProgress);
+importBtn.addEventListener('click', () => importFile.click());
+importFile.addEventListener('change', event => importProgress(event.target.files[0]));
+
+// ---------- PWA INSTALL / READINESS ----------
+let deferredInstallPrompt = null;
+let installPromptEventSeen = false;
 
 function isStandalone(){
   return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
