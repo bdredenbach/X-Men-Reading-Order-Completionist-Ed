@@ -539,7 +539,7 @@ window.addEventListener('load', () => {
 
   <div class="tabs" id="tabs" role="tablist" aria-label="Reading order volumes"></div>
   <div id="content"></div>
-  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: AUGUST 13, 2026 · DATA PERSISTS ACROSS SESSIONS</footer>
+  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: AUGUST 13, 2026 · DATA PERSISTS ACROSS SESSIONS<br><span style="font-size:9px;opacity:.85;">BUILT BY BRAD REDENBACH · AI-ASSISTED DEVELOPMENT WITH CHATGPT</span></footer>
 </div>
 
 <script>
@@ -2131,21 +2131,28 @@ function renderTabs(){
   });
 }
 
-function completeVolume(volumeId, includeOptional){
+function toggleVolumeComplete(volumeId, includeOptional){
   const vol = VOLUMES.find(v=>v.id===volumeId);
   if(!vol) return;
 
   const items = vol.sections.flatMap(s=>s.items);
   const targets = includeOptional ? items : items.filter(it=>!it.optional);
-  if(!targets.length || targets.every(it=>checkedIds.has(it.id))) return;
+  if(!targets.length) return;
 
-  const scopeLabel = includeOptional ? 'all' : 'core';
+  const allChecked = targets.every(it=>checkedIds.has(it.id));
+  const scopeLabel = includeOptional ? 'everything' : 'core reading';
+
   const confirmed = window.confirm(
-    `Mark ${scopeLabel} reading (${targets.length} entries) in ${vol.title} as read?`
+    allChecked
+      ? `Uncheck ${scopeLabel} (${targets.length} entries) in ${vol.title}?`
+      : `Mark ${scopeLabel} (${targets.length} entries) in ${vol.title} as read?`
   );
   if(!confirmed) return;
 
-  targets.forEach(it=>checkedIds.add(it.id));
+  targets.forEach(it=>{
+    if(allChecked) checkedIds.delete(it.id);
+    else checkedIds.add(it.id);
+  });
   saveState();
   render();
 }
@@ -2177,10 +2184,11 @@ function renderContent(){
   coreComplete.type = 'button';
   coreComplete.className = 'volume-complete';
   const coreDone = coreItems.length > 0 && coreItems.every(it=>checkedIds.has(it.id));
-  coreComplete.textContent = coreDone ? '✓ Core Reading Complete' : 'Mark Core Reading Complete';
-  coreComplete.disabled = coreItems.length === 0 || coreDone;
-  coreComplete.setAttribute('aria-label', `Mark the core reading in ${vol.title} as read`);
-  coreComplete.onclick = () => completeVolume(vol.id, false);
+  coreComplete.textContent = coreDone ? 'Uncheck Core Reading' : 'Mark Core Reading Complete';
+  coreComplete.setAttribute('aria-label', coreDone
+    ? `Uncheck the core reading in ${vol.title}`
+    : `Mark the core reading in ${vol.title} as read`);
+  coreComplete.onclick = () => toggleVolumeComplete(vol.id, false);
   actions.appendChild(coreComplete);
 
   if(optionalItems.length){
@@ -2188,10 +2196,11 @@ function renderContent(){
     allComplete.type = 'button';
     allComplete.className = 'volume-complete secondary';
     const allDone = volumeItems.every(it=>checkedIds.has(it.id));
-    allComplete.textContent = allDone ? '✓ Everything Complete' : 'Mark Everything Complete';
-    allComplete.disabled = allDone;
-    allComplete.setAttribute('aria-label', `Mark every entry in ${vol.title}, including optional material, as read`);
-    allComplete.onclick = () => completeVolume(vol.id, true);
+    allComplete.textContent = allDone ? 'Uncheck Everything' : 'Mark Everything Complete';
+    allComplete.setAttribute('aria-label', allDone
+      ? `Uncheck every entry in ${vol.title}, including optional material`
+      : `Mark every entry in ${vol.title}, including optional material, as read`);
+    allComplete.onclick = () => toggleVolumeComplete(vol.id, true);
     actions.appendChild(allComplete);
   }
 

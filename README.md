@@ -66,7 +66,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | 💾 | **Local Progress Tracking** | Mark entries as read and keep your progress automatically in your browser. |
 | ▶️ | **Continue Reading** | Jump straight to the next unread core entry, with optional material as a fallback. |
 | 📦 | **Progress Backup & Restore** | Export your reading progress to a small JSON file and restore it on another browser or device. |
-| 🏁 | **Volume Completion** | Mark core reading complete, or mark an entire volume—including optional material—complete. |
+| 🏁 | **Volume Controls** | Mark core reading or an entire volume complete, and undo either choice when curiosity strikes. |
 | 📱 | **Installable PWA** | Install the app on desktop or mobile like a native application. |
 | 📴 | **Offline Capable** | Once cached, the reading tracker can continue working without an internet connection. |
 | 🔒 | **Privacy First** | No account, registration, analytics tracking, or backend required. |
@@ -92,6 +92,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 - **Restore Progress** replaces the current local progress with a validated backup and ignores entries that no longer exist in the current edition.
 - **Continue Reading** jumps to the first unread core entry, or the first unread optional entry when all core reading is complete.
 - **Volume completion** distinguishes the core reading path from optional material.
+- Volume completion controls are reversible: completed core/all-reading buttons can be used to uncheck that scope again.
 
 ### What's Included
 
@@ -141,3 +142,9 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/bdredenbach/X-Men-Reading-Order-Completionist-Ed.git
+
+## 🤝 Acknowledgments
+
+**The Ultimate X-Men Reading Order** was built by **Brad Redenbach**, with AI-assisted development and troubleshooting support from **ChatGPT**.
+
+The project remains fan-made and independent.
