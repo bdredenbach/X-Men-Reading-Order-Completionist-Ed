@@ -90,6 +90,7 @@ window.addEventListener('load', () => {
 
   .volume-header{
     display:flex;
+    flex-wrap:wrap;
     align-items:center;
     justify-content:space-between;
     gap:10px;
@@ -203,6 +204,70 @@ window.addEventListener('load', () => {
     color:var(--gold);
     white-space:nowrap;
   }
+
+  /* Progress tools */
+  .progress-tools{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  .progress-tools button,
+  .progress-tool-btn{
+    appearance:none;
+    border:1px solid #3a3f48;
+    background:#171a20;
+    color:var(--paper-dim);
+    font-family:'Space Mono',monospace;
+    font-size:9px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    border-radius:5px;
+    padding:7px 9px;
+    cursor:pointer;
+  }
+  .progress-tools .continue-btn{
+    color:var(--paper);
+    border-color:#6e2a38;
+    background:linear-gradient(180deg,#3b1720,#241217);
+  }
+  .progress-tools button:hover,
+  .progress-tool-btn:hover{border-color:#6a707a;color:var(--paper);}
+  .progress-tools button:focus-visible,
+  .progress-tool-btn:focus-visible,
+  .volume-complete:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:2px;
+  }
+  .progress-tools input[type="file"]{display:none;}
+  .progress-meta{
+    margin-top:7px;
+    font-family:'Space Mono',monospace;
+    font-size:9px;
+    color:var(--paper-dim);
+    letter-spacing:.04em;
+  }
+  .backup-status{
+    margin-top:6px;
+    min-height:1.2em;
+    color:var(--paper-dim);
+    font-size:9px;
+    line-height:1.4;
+  }
+  .volume-actions{
+    display:flex;
+    gap:7px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-left:auto;
+  }
+  .volume-complete.secondary{
+    color:var(--paper-dim);
+    background:#171a20;
+    border-color:#3a3f48;
+  }
+  .volume-complete:disabled{opacity:.55;cursor:not-allowed;}
 
   /* Install / diagnostics */
   .install-panel{
@@ -445,6 +510,14 @@ window.addEventListener('load', () => {
       <div class="progress-track" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
       <div class="progress-label" id="progressLabel">0 / 0 checklist entries</div>
     </div>
+    <div class="progress-meta" id="progressMeta">0 / 21 volumes complete</div>
+    <div class="progress-tools" aria-label="Reading progress tools">
+      <button class="continue-btn" id="continueBtn" type="button">Continue Reading</button>
+      <button id="exportBtn" type="button">Back Up Progress</button>
+      <button id="importBtn" type="button">Restore Progress</button>
+      <input id="importFile" type="file" accept="application/json,.json" aria-label="Choose a progress backup file">
+    </div>
+    <div class="backup-status" id="backupStatus" role="status" aria-live="polite"></div>
     <div class="install-panel" aria-label="App installation and readiness">
       <div class="install-actions">
         <button class="install-btn" id="installBtn" type="button">Install App</button>
@@ -2058,22 +2131,25 @@ function renderTabs(){
   });
 }
 
-function completeVolume(volumeId){
+function completeVolume(volumeId, includeOptional){
   const vol = VOLUMES.find(v=>v.id===volumeId);
   if(!vol) return;
 
   const items = vol.sections.flatMap(s=>s.items);
-  if(!items.length || items.every(it=>checkedIds.has(it.id))) return;
+  const targets = includeOptional ? items : items.filter(it=>!it.optional);
+  if(!targets.length || targets.every(it=>checkedIds.has(it.id))) return;
 
+  const scopeLabel = includeOptional ? 'all' : 'core';
   const confirmed = window.confirm(
-    `Mark all ${items.length} entries in ${vol.title} as read?`
+    `Mark ${scopeLabel} reading (${targets.length} entries) in ${vol.title} as read?`
   );
   if(!confirmed) return;
 
-  items.forEach(it=>checkedIds.add(it.id));
+  targets.forEach(it=>checkedIds.add(it.id));
   saveState();
   render();
 }
+
 
 function renderContent(){
   const content = document.getElementById('content');
@@ -2092,14 +2168,34 @@ function renderContent(){
   volHeader.appendChild(rangeLabel);
 
   const volumeItems = vol.sections.flatMap(s=>s.items);
-  const volumeComplete = document.createElement('button');
-  volumeComplete.type = 'button';
-  volumeComplete.className = 'volume-complete';
-  volumeComplete.textContent = volumeItems.every(it=>checkedIds.has(it.id)) ? '✓ Volume Complete' : 'Mark Volume Complete';
-  volumeComplete.disabled = volumeItems.length === 0 || volumeItems.every(it=>checkedIds.has(it.id));
-  volumeComplete.setAttribute('aria-label', `Mark all entries in ${vol.title} as read`);
-  volumeComplete.onclick = () => completeVolume(vol.id);
-  volHeader.appendChild(volumeComplete);
+  const coreItems = volumeItems.filter(it=>!it.optional);
+  const optionalItems = volumeItems.filter(it=>it.optional);
+  const actions = document.createElement('div');
+  actions.className = 'volume-actions';
+
+  const coreComplete = document.createElement('button');
+  coreComplete.type = 'button';
+  coreComplete.className = 'volume-complete';
+  const coreDone = coreItems.length > 0 && coreItems.every(it=>checkedIds.has(it.id));
+  coreComplete.textContent = coreDone ? '✓ Core Reading Complete' : 'Mark Core Reading Complete';
+  coreComplete.disabled = coreItems.length === 0 || coreDone;
+  coreComplete.setAttribute('aria-label', `Mark the core reading in ${vol.title} as read`);
+  coreComplete.onclick = () => completeVolume(vol.id, false);
+  actions.appendChild(coreComplete);
+
+  if(optionalItems.length){
+    const allComplete = document.createElement('button');
+    allComplete.type = 'button';
+    allComplete.className = 'volume-complete secondary';
+    const allDone = volumeItems.every(it=>checkedIds.has(it.id));
+    allComplete.textContent = allDone ? '✓ Everything Complete' : 'Mark Everything Complete';
+    allComplete.disabled = allDone;
+    allComplete.setAttribute('aria-label', `Mark every entry in ${vol.title}, including optional material, as read`);
+    allComplete.onclick = () => completeVolume(vol.id, true);
+    actions.appendChild(allComplete);
+  }
+
+  volHeader.appendChild(actions);
 
   content.appendChild(volHeader);
 
@@ -2128,6 +2224,7 @@ function renderContent(){
       row.setAttribute('tabindex','0');
       row.setAttribute('aria-checked', isChecked ? 'true' : 'false');
       row.setAttribute('aria-label', it.text);
+      row.setAttribute('data-item-id', it.id);
       row.onclick = ()=>toggleItem(it.id);
       row.onkeydown = event => {
         if(event.key === 'Enter' || event.key === ' '){
@@ -2146,6 +2243,83 @@ function renderContent(){
   });
 }
 
+function scrollToNextUnread(){
+  const items = allItems();
+  const next = items.find(it=>!it.optional && !checkedIds.has(it.id)) || items.find(it=>!checkedIds.has(it.id));
+  if(!next){
+    backupStatus.textContent = 'Everything is complete. Nice work!';
+    return;
+  }
+
+  const owner = VOLUMES.find(v=>v.sections.some(s=>s.items.some(it=>it.id===next.id)));
+  if(owner && owner.id !== activeVol){
+    activeVol = owner.id;
+    render();
+  }
+
+  requestAnimationFrame(() => {
+    const row = Array.from(document.querySelectorAll('[data-item-id]')).find(el => el.getAttribute('data-item-id') === next.id);
+    if(row){
+      row.scrollIntoView({behavior:'smooth', block:'center'});
+      row.focus({preventScroll:true});
+    }
+  });
+}
+
+function exportProgress(){
+  const payload = {
+    format: 'xmen-reading-order-progress',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    checkedIds: Array.from(checkedIds),
+    activeVolume: activeVol
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const date = new Date().toISOString().slice(0,10);
+  a.download = `x-men-reading-progress-${date}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  backupStatus.textContent = 'Progress backup created. Keep that file somewhere safe.';
+}
+
+async function importProgress(file){
+  if(!file) return;
+  try{
+    const text = await file.text();
+    const data = JSON.parse(text);
+    if(!data || data.format !== 'xmen-reading-order-progress' || !Array.isArray(data.checkedIds)){
+      throw new Error('This is not a valid X-Men Reading Order progress backup.');
+    }
+
+    const validIds = new Set(allItems().map(it=>it.id));
+    const imported = new Set(data.checkedIds.filter(id=>typeof id==='string' && validIds.has(id)));
+    const ignored = data.checkedIds.length - imported.size;
+
+    const confirmed = window.confirm(
+      `Restore ${imported.size} completed entries from this backup? Your current reading progress will be replaced.`
+    );
+    if(!confirmed) return;
+
+    checkedIds = imported;
+    if(typeof data.activeVolume === 'string' && VOLUMES.some(v=>v.id === data.activeVolume)) activeVol = data.activeVolume;
+    await saveState();
+    render();
+    backupStatus.textContent = ignored
+      ? `Progress restored. ${ignored} older/unknown entries were ignored.`
+      : 'Progress restored successfully.';
+  }catch(err){
+    console.error('Progress import failed:', err);
+    backupStatus.textContent = 'That backup could not be restored. Nothing was changed.';
+  }finally{
+    importFile.value = '';
+  }
+}
+
 function renderProgress(){
   const items = allItems();
   const done = items.filter(it=>checkedIds.has(it.id)).length;
@@ -2155,6 +2329,12 @@ function renderProgress(){
   document.getElementById('progressLabel').textContent = `${done} / ${total} · ${pct}%`;
   const progressTrack = document.querySelector('.progress-track');
   if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+
+  const completedVolumes = VOLUMES.filter(v=>{
+    const volumeItems = v.sections.flatMap(s=>s.items);
+    return volumeItems.length > 0 && volumeItems.every(it=>checkedIds.has(it.id));
+  }).length;
+  if(progressMeta) progressMeta.textContent = `${completedVolumes} / ${VOLUMES.length} volumes complete`;
 }
 
 function render(){
@@ -2165,6 +2345,11 @@ function render(){
 
 loadState();
 
+continueBtn.addEventListener('click', scrollToNextUnread);
+exportBtn.addEventListener('click', exportProgress);
+importBtn.addEventListener('click', () => importFile.click());
+importFile.addEventListener('change', event => importProgress(event.target.files[0]));
+
 // ---------- PWA INSTALL / READINESS ----------
 let deferredInstallPrompt = null;
 let installPromptEventSeen = false;
@@ -2172,6 +2357,12 @@ let installPromptEventSeen = false;
 const installBtn = document.getElementById('installBtn');
 const diagBtn = document.getElementById('diagBtn');
 const cacheBtn = document.getElementById('cacheBtn');
+const continueBtn = document.getElementById('continueBtn');
+const exportBtn = document.getElementById('exportBtn');
+const importBtn = document.getElementById('importBtn');
+const importFile = document.getElementById('importFile');
+const backupStatus = document.getElementById('backupStatus');
+const progressMeta = document.getElementById('progressMeta');
 const installStatus = document.getElementById('installStatus');
 const diagnostics = document.getElementById('diagnostics');
 const diagGrid = document.getElementById('diagGrid');
@@ -2393,7 +2584,7 @@ async function refreshDiagnostics(){
   }else if(!secure){
     diagNote.textContent = 'This page needs a secure HTTPS connection for app installation.';
   }else{
-    diagNote.textContent = 'The app is checking its install setup. If you recently updated it, use Reset App Data and reload.';
+    diagNote.textContent = 'The app is checking its install setup. If you recently updated it, use Reset App Cache and reload.';
   }
 }
 

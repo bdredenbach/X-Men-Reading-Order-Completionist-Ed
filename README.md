@@ -64,6 +64,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | 🔀 | **Interleaved Crossovers** | Follow complicated events in a practical reading sequence. |
 | 🏷️ | **Context-Aware Labels** | Quickly identify main reading, optional material, guest appearances, specials, and other categories. |
 | 💾 | **Local Progress Tracking** | Mark entries as read and keep your progress automatically in your browser. |
+| ▶️ | **Continue Reading** | Jump straight to the next unread core entry, with optional material as a fallback. |
+| 📦 | **Progress Backup & Restore** | Export your reading progress to a small JSON file and restore it on another browser or device. |
+| 🏁 | **Volume Completion** | Mark core reading complete, or mark an entire volume—including optional material—complete. |
 | 📱 | **Installable PWA** | Install the app on desktop or mobile like a native application. |
 | 📴 | **Offline Capable** | Once cached, the reading tracker can continue working without an internet connection. |
 | 🔒 | **Privacy First** | No account, registration, analytics tracking, or backend required. |
@@ -79,6 +82,16 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 587 sequence units |
 | **Publication Checkpoint** | August 13, 2026 |
+
+**Audit checkpoint:** August 13, 2026. Future-dated issues are intentionally excluded until their publication date.
+
+### Progress & Data Safety
+
+- Reading progress stays local to the browser/device; there is no account or server sync.
+- **Back Up Progress** exports a JSON file containing completed checklist IDs.
+- **Restore Progress** replaces the current local progress with a validated backup and ignores entries that no longer exist in the current edition.
+- **Continue Reading** jumps to the first unread core entry, or the first unread optional entry when all core reading is complete.
+- **Volume completion** distinguishes the core reading path from optional material.
 
 ### What's Included
 
