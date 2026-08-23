@@ -80,7 +80,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Universe** | Earth-616 |
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
-| **Checklist Entries** | 587 sequence units |
+| **Checklist Entries** | 589 sequence units |
 | **Publication Checkpoint** | August 23, 2026 |
 
 **Audit checkpoint:** August 23, 2026. The checklist includes material published through August 19, 2026; future-dated issues are intentionally excluded until their publication date.
