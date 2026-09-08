@@ -60,7 +60,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | | Feature | Description |
 |---|---|---|
 | 📚 | **21 Chronological Volumes** | Follow the mutant timeline through major publishing eras. |
-| 🎯 | **592 Checklist Entries** | A broad completionist reading order covering mainline, side, and crossover material. |
+| 🎯 | **591 Checklist Entries** | A broad completionist reading order covering mainline, side, and crossover material. |
 | 🔀 | **Interleaved Crossovers** | Follow complicated events in a practical reading sequence. |
 | 🏷️ | **Context-Aware Labels** | Quickly identify main reading, optional material, guest appearances, specials, and other categories. |
 | 💾 | **Local Progress Tracking** | Mark entries as read and keep your progress automatically in your browser. |
@@ -80,10 +80,10 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Universe** | Earth-616 |
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
-| **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | September 3, 2026 |
+| **Checklist Entries** | 591 sequence units |
+| **Publication Checkpoint** | August 27, 2026 |
 
-**Audit checkpoint:** September 3, 2026. The checklist includes material published through September 2, 2026; future-dated issues are intentionally excluded until their publication date.
+**Audit checkpoint:** August 27, 2026. The checklist includes material published through August 19, 2026; future-dated issues are intentionally excluded until their publication date.
 
 ### Progress & Data Safety
 
