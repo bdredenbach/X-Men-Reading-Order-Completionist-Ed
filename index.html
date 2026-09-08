@@ -539,7 +539,7 @@ window.addEventListener('load', () => {
 
   <div class="tabs" id="tabs" role="tablist" aria-label="Reading order volumes"></div>
   <div id="content"></div>
-  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: AUGUST 23, 2026 · DATA PERSISTS ACROSS SESSIONS<br><span style="font-size:9px;opacity:.85;">BUILT BY BRAD REDENBACH · AI-ASSISTED DEVELOPMENT WITH CHATGPT</span></footer>
+  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: SEPTEMBER 3, 2026 · DATA PERSISTS ACROSS SESSIONS<br><span style="font-size:9px;opacity:.85;">BUILT BY BRAD REDENBACH · AI-ASSISTED DEVELOPMENT WITH CHATGPT</span></footer>
 </div>
 
 <script>
@@ -942,7 +942,7 @@ const VOLUMES = [
           {id:"v5-23", text:"Uncanny X-Men (1963) #261–264 -> X-Factor #56–58"},
           {id:"v5-24", text:"New Mutants (1983) #87–92"},
           {id:"v5-25", text:"Uncanny X-Men (1963) #265–267 — Gambit's debut"},
-          {id:"v5-25b", text:"Gambit: Wanted #1 — retroactive story set around Gambit's return to Storm and his decision to join the X-Men", optional:true, sub:true},
+          {id:"v5-25b", text:"Gambit: Wanted #1–2 — retroactive story set around Gambit's return to Storm and his decision to join the X-Men", optional:true, sub:true},
           {id:"v5-26", text:"Days of Future Present: Fantastic Four Annual 23, New Mutants Annual 6, X-Factor Annual 5, Uncanny X-Men Annual 14"},
           {id:"v5-27", text:"Excalibur (1988) #26–34; X-Men Spotlight on Starjammers #1–2 (batched side reading)", optional:true, sub:true},
           {id:"v5-28", text:"Uncanny X-Men (1963) #268 — Jim Lee's Wolverine/Cap/Black Widow flashback"},
@@ -2021,6 +2021,7 @@ const VOLUMES = [
           {id:"v21-09", text:"Weapon X-Men #1–5; Storm (2024) #7–12; Exceptional X-Men #8–13; Psylocke #6–10; Laura Kinney: Wolverine #6–10; Hellverine #6–10; Phoenix #11–15; Magik (2025) #6–10; X-Men (2024) #19–22; Uncanny X-Men (2024) #17–21 (batched optional side reading)", optional:true, sub:true},
           {id:"v21-10", text:"Giant-Size X-Men: Second Genesis — FREE COMIC BOOK DAY 2025: Fantastic Four/Giant-Size X-Men #1; Giant-Size X-Men (2025) #1–2; Giant-Size Dark Phoenix Saga #1; Giant-Size Age of Apocalypse #1; Giant-Size House of M #1", optional:true, sub:true},
           {id:"v21-10b", text:"X-Men: Hellfire Vigil #1 — bridge into the next X-era", optional:true, sub:true}
+          {id:"v21-10c", text:"X-Men of Apocalypse Alpha #1 -> X-Men of Apocalypse (2025) #1–4 -> X-Men of Apocalypse Omega #1 — Earth-295/Earth-616 crossover continuation of the Age of Apocalypse, included as optional completionist side reading", optional:true, sub:true}
         ]
       },
       {
@@ -2046,24 +2047,26 @@ const VOLUMES = [
         ]
       },
       {
-        title: "Post-Revelation — 2026 Published Through August 19",
-        note: "Current Earth-616 material verified against Marvel's official issue/series listings. This checkpoint includes issues published on or before August 19, 2026; future-dated issues are intentionally excluded.",
+        title: "Post-Revelation — 2026 Published Through September 2",
+        note: "Current Earth-616 material verified against Marvel's official issue/series listings. This checkpoint includes issues published on or before September 2, 2026; future-dated issues are intentionally excluded.",
         items: [
-          {id:"v21-16", text:"X-Men (2024) #23–35; X-Men Annual (2026) #1; Uncanny X-Men (2024) #22–34; Uncanny X-Men Annual #1; Wolverine (2024) #11–25", optional:false, sub:true},
-          {id:"v21-17", text:"X-Men United (2026) #1–6; Generation X-23 (2026) #1–6; Inglorious X-Force (2026) #1–8", optional:false, sub:true},
+          {id:"v21-16", text:"X-Men (2024) #23–36; X-Men Annual (2026) #1; Uncanny X-Men (2024) #22–34; Uncanny X-Men Annual #1; Wolverine (2024) #11–26", optional:false, sub:true},
+          {id:"v21-17", text:"X-Men United (2026) #1–6; Generation X-23 (2026) #1–7; Inglorious X-Force (2026) #1–8", optional:false, sub:true},
           {id:"v21-18", text:"Cyclops (2026) #1–5; Storm: Earth's Mightiest Mutant (2026) #1–5", optional:false, sub:true},
           {id:"v21-18b", text:"Bishop (2026) #1–3 — Shard returns to the present and the Final Brotherhood hunts the time-lost X-Man", optional:false, sub:true},
           {id:"v21-19", text:"X-Men: The Hellfire Murder #1", optional:false, sub:true},
-          {id:"v21-20", text:"X-Men: Outback (2026) #1–2 — retroactive story set during the classic Australian Outback era", optional:true, sub:true},
-          {id:"v21-21", text:"X-Men Infinity Comic (2026) #1–20 — Marvel Unlimited digital side reading", optional:true, sub:true},
-          {id:"v21-22", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true}
+          {id:"v21-20", text:"X-Men: Outback (2026) #1–3 — retroactive story set during the classic Australian Outback era", optional:true, sub:true},
+          {id:"v21-21", text:"X-Men Infinity Comic (2026) #1–20 — Marvel Unlimited digital side reading; #1–10 collected in print as X-Men: Omega Red Dawn #1 (September 2, 2026)", optional:true, sub:true},
+          {id:"v21-22", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true},
+          {id:"v21-24", text:"Tomb of Apocalypse #1 — new Earth-616 Apocalypse/Jubilee/Wolverine miniseries; published August 26, 2026", optional:false, sub:true},
+          {id:"v21-25", text:"DNX #1 — opening chapter of the Earth-616 DNX event, following the X-Men #35–36 prologue; published September 2, 2026", optional:false, sub:true}
         ]
       },
       {
         title: "Checkpoint",
         note: "This is a dated publication checkpoint, not a claim that the X-Men line has stopped. Future issues should be appended as they are published.",
         items: [
-          {id:"v21-23", text:"Current checkpoint: August 23, 2026. The latest included publications are through August 19, 2026; future-dated issues are not included until their publication date."}
+          {id:"v21-23", text:"Current checkpoint: September 3, 2026. The latest included publications are through September 2, 2026; future-dated issues are not included until their publication date."}
         ]
       }
     ]
