@@ -539,11 +539,13 @@ window.addEventListener('load', () => {
 
   <div class="tabs" id="tabs" role="tablist" aria-label="Reading order volumes"></div>
   <div id="content"></div>
-  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: SEPTEMBER 3, 2026 · DATA PERSISTS ACROSS SESSIONS<br><span style="font-size:9px;opacity:.85;">BUILT BY BRAD REDENBACH · AI-ASSISTED DEVELOPMENT WITH CHATGPT</span></footer>
+  <footer>MUTANT FILES ARCHIVE — EARTH-616 · AUDIT CHECKPOINT: SEPTEMBER 8, 2026 · DATA PERSISTS ACROSS SESSIONS<br><span style="font-size:9px;opacity:.85;">BUILT BY BRAD REDENBACH · AI-ASSISTED DEVELOPMENT WITH CHATGPT</span></footer>
 </div>
 
 <script>
 // ---------- DATA ----------
+// READING-ORDER RULE: For cross-title events, preserve narrative chapter order by jumping in and out of titles as required; do not regroup event chapters by series.
+
 // Each volume: { id, title, sections:[{title, note, items:[{id, text, optional, verify, sub, note}]}] }
 const VOLUMES = [
   {
@@ -2020,7 +2022,7 @@ const VOLUMES = [
         items: [
           {id:"v21-09", text:"Weapon X-Men #1–5; Storm (2024) #7–12; Exceptional X-Men #8–13; Psylocke #6–10; Laura Kinney: Wolverine #6–10; Hellverine #6–10; Phoenix #11–15; Magik (2025) #6–10; X-Men (2024) #19–22; Uncanny X-Men (2024) #17–21 (batched optional side reading)", optional:true, sub:true},
           {id:"v21-10", text:"Giant-Size X-Men: Second Genesis — FREE COMIC BOOK DAY 2025: Fantastic Four/Giant-Size X-Men #1; Giant-Size X-Men (2025) #1–2; Giant-Size Dark Phoenix Saga #1; Giant-Size Age of Apocalypse #1; Giant-Size House of M #1", optional:true, sub:true},
-          {id:"v21-10b", text:"X-Men: Hellfire Vigil #1 — bridge into the next X-era", optional:true, sub:true}
+          {id:"v21-10b", text:"X-Men: Hellfire Vigil #1 — bridge into the next X-era", optional:true, sub:true},
           {id:"v21-10c", text:"X-Men of Apocalypse Alpha #1 -> X-Men of Apocalypse (2025) #1–4 -> X-Men of Apocalypse Omega #1 — Earth-295/Earth-616 crossover continuation of the Age of Apocalypse, included as optional completionist side reading", optional:true, sub:true}
         ]
       },
@@ -2059,14 +2061,13 @@ const VOLUMES = [
           {id:"v21-21", text:"X-Men Infinity Comic (2026) #1–20 — Marvel Unlimited digital side reading; #1–10 collected in print as X-Men: Omega Red Dawn #1 (September 2, 2026)", optional:true, sub:true},
           {id:"v21-22", text:"What If…? Uncanny X-Men (2026) #1 — alternate-reality side reading", optional:true, sub:true},
           {id:"v21-24", text:"Tomb of Apocalypse #1 — new Earth-616 Apocalypse/Jubilee/Wolverine miniseries; published August 26, 2026", optional:false, sub:true},
-          {id:"v21-25", text:"DNX #1 — opening chapter of the Earth-616 DNX event, following the X-Men #35–36 prologue; published September 2, 2026", optional:false, sub:true}
         ]
       },
       {
         title: "Checkpoint",
         note: "This is a dated publication checkpoint, not a claim that the X-Men line has stopped. Future issues should be appended as they are published.",
         items: [
-          {id:"v21-23", text:"Current checkpoint: September 3, 2026. The latest included publications are through September 2, 2026; future-dated issues are not included until their publication date."}
+          {id:"v21-23", text:"Current checkpoint: September 8, 2026. The latest included publications are through September 2, 2026; future-dated issues are not included until their publication date."}
         ]
       }
     ]
