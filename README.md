@@ -10,7 +10,7 @@
   <a href="#license"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
   <a href="#features"><img src="https://img.shields.io/badge/PWA-Ready-brightgreen.svg" alt="PWA Ready"></a>
   <a href="#continuity-scope--audit"><img src="https://img.shields.io/badge/Continuity-Earth--616-red.svg" alt="Earth 616"></a>
-  <a href="#continuity-scope--audit"><img src="https://img.shields.io/badge/Checkpoint-August%202026-purple.svg" alt="Current Checkpoint"></a>
+  <a href="#continuity-scope--audit"><img src="https://img.shields.io/badge/Checkpoint-September%202026-purple.svg" alt="Current Checkpoint"></a>
 </p>
 
 <p align="center">
@@ -60,7 +60,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | | Feature | Description |
 |---|---|---|
 | 📚 | **21 Chronological Volumes** | Follow the mutant timeline through major publishing eras. |
-| 🎯 | **591 Checklist Entries** | A broad completionist reading order covering mainline, side, and crossover material. |
+| 🎯 | **592 Checklist Entries** | A broad completionist reading order covering mainline, side, and crossover material. |
 | 🔀 | **Interleaved Crossovers** | Follow complicated events in a practical reading sequence. |
 | 🏷️ | **Context-Aware Labels** | Quickly identify main reading, optional material, guest appearances, specials, and other categories. |
 | 💾 | **Local Progress Tracking** | Mark entries as read and keep your progress automatically in your browser. |
@@ -80,10 +80,10 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Universe** | Earth-616 |
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
-| **Checklist Entries** | 591 sequence units |
-| **Publication Checkpoint** | September 8, 2026 |
+| **Checklist Entries** | 592 sequence units |
+| **Publication Checkpoint** | September 10, 2026 |
 
-**Audit checkpoint:** September 8, 2026. The checklist includes material published through September 2, 2026; future-dated issues are intentionally excluded until their publication date.
+**Audit checkpoint:** September 10, 2026. The checklist includes material published through September 9, 2026; future-dated issues are intentionally excluded until their publication date. The delayed *DNX* #1 and *X-Men* (2024) #37 remain excluded until their revised September 16 publication date.
 
 ### Progress & Data Safety
 
@@ -114,7 +114,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 - Expanded Silver Age material
 - *Hidden Years* era material
 - Modern-era mutant titles
-- Current-era material through the August 2026 publication checkpoint
+- Current-era material through the September 2026 publication checkpoint
 
 > [!IMPORTANT]
 > **Completionist does not mean "every comic Marvel has ever published featuring a mutant."**
