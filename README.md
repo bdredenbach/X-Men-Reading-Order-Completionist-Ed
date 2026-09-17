@@ -81,9 +81,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | September 10, 2026 |
+| **Publication Checkpoint** | September 17, 2026 |
 
-**Audit checkpoint:** September 10, 2026. The checklist includes material published through September 9, 2026; future-dated issues are intentionally excluded until their publication date. The delayed *DNX* #1 and *X-Men* (2024) #37 remain excluded until their revised September 16 publication date.
+**Audit checkpoint:** September 17, 2026. The checklist includes material published through September 16, 2026. This update adds *DNX* #1, *X-Men* (2024) #37, *Uncanny X-Men* (2024) #35, and *X-Men: Outback* #4. The DNX opening chapters remain interleaved in narrative order: *X-Men* #35 -> *X-Men* #36 -> *DNX* #1 -> *X-Men* #37. Future-dated issues are excluded until publication; *Infernal Hulk vs. Wolverine* #1 is currently dated September 23, while *DNX* #2, *Uncanny X-Men* #36, and *Alien vs. X-Men* #1 are dated September 30.
 
 ### Progress & Data Safety
 
