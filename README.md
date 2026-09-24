@@ -81,9 +81,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | September 17, 2026 |
+| **Publication Checkpoint** | September 24, 2026 |
 
-**Audit checkpoint:** September 17, 2026. The checklist includes material published through September 16, 2026. This update adds *DNX* #1, *X-Men* (2024) #37, *Uncanny X-Men* (2024) #35, and *X-Men: Outback* #4. The DNX opening chapters remain interleaved in narrative order: *X-Men* #35 -> *X-Men* #36 -> *DNX* #1 -> *X-Men* #37. Future-dated issues are excluded until publication; *Infernal Hulk vs. Wolverine* #1 is currently dated September 23, while *DNX* #2, *Uncanny X-Men* #36, and *Alien vs. X-Men* #1 are dated September 30.
+**Audit checkpoint:** September 24, 2026. The checklist includes material published through September 23, 2026. This update extends *Bishop* through #4, *Generation X-23* through #8, and *Wolverine* (2024) through #28; adds the published *Infernal Hulk vs. Wolverine* #1 one-shot to the Earth-616 shelf; and follows the established Earth-295/Earth-616 crossover companion sequence into *Gambit Gone* #1. The DNX opening chapters remain interleaved in narrative order: *X-Men* #35 -> *X-Men* #36 -> *DNX* #1 -> *X-Men* #37. Future-dated issues remain excluded until publication; the next September 30 group includes *DNX* #2, *Uncanny X-Men* #36, *Alien vs. X-Men* #1, *Gambit: Wanted* #3, *Tomb of Apocalypse* #2, and *X-Men United* #7.
 
 ### Progress & Data Safety
 
