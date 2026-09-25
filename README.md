@@ -51,7 +51,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 >
 > The tracker uses **checklist entries** as its progress units. Some entries represent multiple individual issues when those issues form a single reading sequence or crossover block.
 >
-> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented.
+> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,395+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
 
 ---
 
