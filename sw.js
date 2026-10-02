@@ -1,4 +1,4 @@
-const CACHE_NAME = "xmen-reading-order-v19";
+const CACHE_NAME = "xmen-reading-order-v20";
 
 const APP_SHELL = [
   "./",
