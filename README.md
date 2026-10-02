@@ -51,7 +51,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 >
 > The tracker uses **checklist entries** as its progress units. Some entries represent multiple individual issues when those issues form a single reading sequence or crossover block.
 >
-> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,395+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
+> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,405+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
 
 ---
 
@@ -81,9 +81,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | September 24, 2026 |
+| **Publication Checkpoint** | October 2, 2026 |
 
-**Audit checkpoint:** September 24, 2026. The checklist includes material published through September 23, 2026. This update extends *Bishop* through #4, *Generation X-23* through #8, and *Wolverine* (2024) through #28; adds the published *Infernal Hulk vs. Wolverine* #1 one-shot to the Earth-616 shelf; and follows the established Earth-295/Earth-616 crossover companion sequence into *Gambit Gone* #1. The DNX opening chapters remain interleaved in narrative order: *X-Men* #35 -> *X-Men* #36 -> *DNX* #1 -> *X-Men* #37. Future-dated issues remain excluded until publication; the next September 30 group includes *DNX* #2, *Uncanny X-Men* #36, *Alien vs. X-Men* #1, *Gambit: Wanted* #3, *Tomb of Apocalypse* #2, and *X-Men United* #7.
+**Audit checkpoint:** October 2, 2026. The checklist includes material published through September 30, 2026. This update extends *Uncanny X-Men* through #36, *X-Men United* through #7, *Tomb of Apocalypse* through #2, and *Gambit: Wanted* through #3; adds *Alien vs. X-Men* #1 as separated crossover companion reading; and continues DNX in jump-in / jump-out order through *DNX* #2 -> *X-Men* #38 -> *Fantastic Four* #17. Future-dated issues remain excluded until publication.
 
 ### Progress & Data Safety
 
