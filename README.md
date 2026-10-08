@@ -10,7 +10,7 @@
   <a href="#license"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
   <a href="#features"><img src="https://img.shields.io/badge/PWA-Ready-brightgreen.svg" alt="PWA Ready"></a>
   <a href="#continuity-scope--audit"><img src="https://img.shields.io/badge/Continuity-Earth--616-red.svg" alt="Earth 616"></a>
-  <a href="#continuity-scope--audit"><img src="https://img.shields.io/badge/Checkpoint-September%202026-purple.svg" alt="Current Checkpoint"></a>
+  <a href="#continuity-scope--audit"><img src="https://img.shields.io/badge/Checkpoint-October%202026-purple.svg" alt="Current Checkpoint"></a>
 </p>
 
 <p align="center">
@@ -51,7 +51,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 >
 > The tracker uses **checklist entries** as its progress units. Some entries represent multiple individual issues when those issues form a single reading sequence or crossover block.
 >
-> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,406+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
+> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,407+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
 
 ---
 
@@ -81,9 +81,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | October 2, 2026 |
+| **Publication Checkpoint** | October 8, 2026 |
 
-**Audit checkpoint:** October 2, 2026. The checklist includes material published through September 30, 2026. This update extends *Uncanny X-Men* through #36, *X-Men United* through #7, *Tomb of Apocalypse* through #2, and *Gambit: Wanted* through #3; adds *Alien vs. X-Men* #1 as separated crossover companion reading; and continues DNX in jump-in / jump-out order through *DNX* #2 -> *X-Men* #38 -> *Fantastic Four* #17. Future-dated issues remain excluded until publication.
+**Audit checkpoint:** October 8, 2026. The checklist includes material published through October 7, 2026. This update adds *Midnight X-Men* #1 as optional alternate-universe companion reading, kept separate from the Earth-616 core count. No Earth-616 sequence changed this week, and future-dated issues remain excluded until publication.
 
 ### Progress & Data Safety
 
@@ -114,7 +114,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 - Expanded Silver Age material
 - *Hidden Years* era material
 - Modern-era mutant titles
-- Current-era material through the September 2026 publication checkpoint
+- Current-era material through the October 2026 publication checkpoint
 
 > [!IMPORTANT]
 > **Completionist does not mean "every comic Marvel has ever published featuring a mutant."**
