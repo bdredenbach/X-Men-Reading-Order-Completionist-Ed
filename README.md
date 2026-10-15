@@ -51,7 +51,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 >
 > The tracker uses **checklist entries** as its progress units. Some entries represent multiple individual issues when those issues form a single reading sequence or crossover block.
 >
-> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,407+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
+> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,427+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
 
 ---
 
@@ -81,9 +81,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | October 8, 2026 |
+| **Publication Checkpoint** | October 15, 2026 |
 
-**Audit checkpoint:** October 8, 2026. The checklist includes material published through October 7, 2026. This update adds *Midnight X-Men* #1 as optional alternate-universe companion reading, kept separate from the Earth-616 core count. No Earth-616 sequence changed this week, and future-dated issues remain excluded until publication.
+**Audit checkpoint:** October 15, 2026. Includes October 14 releases: *DNX* #3, *X-Men* #39, *Generation X-23* #9, *Wolverine: Paradise* #1, *Wade Wilson: Deadpool* #9, *Captain Britain 50th Anniversary Special* #1, *Infernal Hulk vs. Fantastic Four* #1, and *X-Men '97: Season Two* #5. Backfilled *Wade Wilson: Deadpool* #1–8, *Punisher* #8, and *X-Men '97: Season Two* #1–4. DNX and Big Guns are interleaved across titles. X-Men '97 is alternate-continuity optional reading. Facsimile reprints and future issues are excluded. **592 checklist entries; 5,427+ explicitly numbered issue references.**
 
 ### Progress & Data Safety
 
