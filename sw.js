@@ -1,4 +1,4 @@
-const CACHE_NAME = "xmen-reading-order-v24";
+const CACHE_NAME = "xmen-reading-order-v25";
 
 const APP_SHELL = [
   "./",
@@ -79,3 +79,4 @@ self.addEventListener("fetch", event => {
     })
   );
 });
+

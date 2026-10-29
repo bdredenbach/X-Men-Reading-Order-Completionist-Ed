@@ -51,7 +51,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 >
 > The tracker uses **checklist entries** as its progress units. Some entries represent multiple individual issues when those issues form a single reading sequence or crossover block.
 >
-> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,431+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
+> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,438+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
 
 ---
 
@@ -81,9 +81,9 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
 | **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | October 23, 2026 |
+| **Publication Checkpoint** | October 29, 2026 |
 
-**Audit checkpoint:** October 23, 2026. Publications covered through October 21, 2026. Verified additions: *Uncanny X-Men* (2024) #37, *X-Men United* (2026) #8, *Inglorious X-Force* (2026) #10, and *X-Men: Outback* (2026) #5 (miniseries finale). All extend existing ranges; *X-Men: Outback* stays in retroactive companion reading. No future-dated issues or reprints added. **592 checklist entries; 5,431+ explicitly numbered issue references.**
+**Audit checkpoint:** October 29, 2026. Publications covered through October 28, 2026. Verified additions: *X-Men* (2024) #40 and *Fantastic Four* (2025) #18 in DNX reading order; *Bishop* (2026) #5 (miniseries finale); *Tomb of Apocalypse* #3; *Alien vs. X-Men* #2; *Gambit Gone* #2; and *Punisher* (2026) #9, completing the optional Big Guns crossover. Alternate-universe/crossover companions remain clearly separated, and no future-dated issues, facsimiles, or duplicate printings were added. **592 checklist entries; 5,438+ explicitly numbered issue references.** Splash artwork is unchanged because the checklist-entry count did not change.
 
 ### Progress & Data Safety
 
@@ -150,3 +150,4 @@ git clone https://github.com/bdredenbach/X-Men-Reading-Order-Completionist-Ed.gi
 **The Ultimate X-Men Reading Order** was built by **Brad Redenbach**, with AI-assisted development and troubleshooting support from **ChatGPT**.
 
 The project remains fan-made and independent.
+
