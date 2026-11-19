@@ -51,7 +51,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 >
 > The tracker uses **checklist entries** as its progress units. Some entries represent multiple individual issues when those issues form a single reading sequence or crossover block.
 >
-> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,448+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
+> Therefore, the checklist-entry count should **not** be interpreted as the total number of individual comic issues represented. The current data contains **5,455+ explicitly numbered issue references**, plus collected-edition/OGN rows whose underlying issues are not individually enumerated; this is intentionally shown as an issue-reference floor rather than a false exact unique-issue total.
 
 ---
 
@@ -60,7 +60,7 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | | Feature | Description |
 |---|---|---|
 | 📚 | **21 Chronological Volumes** | Follow the mutant timeline through major publishing eras. |
-| 🎯 | **592 Checklist Entries** | A broad completionist reading order covering mainline, side, and crossover material. |
+| 🎯 | **593 Checklist Entries** | A broad completionist reading order covering mainline, side, and crossover material. |
 | 🔀 | **Interleaved Crossovers** | Follow complicated events in a practical reading sequence. |
 | 🏷️ | **Context-Aware Labels** | Quickly identify main reading, optional material, guest appearances, specials, and other categories. |
 | 💾 | **Local Progress Tracking** | Mark entries as read and keep your progress automatically in your browser. |
@@ -80,10 +80,10 @@ From the original **1963 X-Men** through the modern era, the goal is simple:
 | **Universe** | Earth-616 |
 | **Time Period** | 1963 – Present |
 | **Volumes** | 21 chronological volumes |
-| **Checklist Entries** | 592 sequence units |
-| **Publication Checkpoint** | November 12, 2026 |
+| **Checklist Entries** | 593 sequence units |
+| **Publication Checkpoint** | November 19, 2026 |
 
-**Audit checkpoint:** November 12, 2026. Publications covered through November 11, 2026. Verified additions: *X-Men* (2024) #41 after *DNX* #4 in event order; *X-Men United* (2026) #9; *Generation X-23* (2026) #10, concluding the series; and *Wade Wilson: Deadpool* (2026) #10 after the completed Big Guns crossover. *Emperor Doom* #1 was excluded because it reprints the 1987 graphic novel. Alternate-universe/crossover companions remain clearly separated, and no future-dated issues, facsimiles, or duplicate printings were added. **592 checklist entries; 5,448+ explicitly numbered issue references.** Splash artwork is unchanged because the checklist-entry count did not change.
+**Audit checkpoint:** November 19, 2026. Includes verified November 18 publications: *DNX* #5 (event finale, following *X-Men* #41), *Tomb of Apocalypse* #4, *X-Orcists* #1, *Gambit: Wanted* #4, *Midnight X-Men* #2, *X-Men: Incursions* #1, and *Punisher* #10 (optional post-Big Guns companion). *X-Men: Incursions* and *Midnight X-Men* are alternate-continuity companion material, not Earth-616 core. The event jump-in/jump-out order remains intact. Distributor records show *Gambit: Wanted* #4, not #5, on November 18; future issues, facsimiles and reprints are excluded. **593 checklist entries; 5,455+ explicitly numbered issue references.**
 
 ### Progress & Data Safety
 
