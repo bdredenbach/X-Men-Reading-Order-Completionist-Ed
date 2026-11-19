@@ -1,4 +1,4 @@
-const CACHE_NAME = "xmen-reading-order-v28";
+const CACHE_NAME = "xmen-reading-order-v29";
 
 const APP_SHELL = [
   "./",
@@ -8,7 +8,7 @@ const APP_SHELL = [
   "./icons/icon-512.png",
   "./icons/icon-1024.png",
   "./icons/apple-touch-icon.png",
-  "./assets/splash.png"
+  "./assets/splash.svg"
 ];
 
 self.addEventListener("install", event => {
